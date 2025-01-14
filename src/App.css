@@ -1,0 +1,73 @@
+.game-container {
+  display: flex;
+  width: 100vw;
+  margin: 0 auto;
+  overflow: hidden;
+  min-width: 100vw;
+  max-height: 100vh;
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  height: calc(100vw * 9 / 16);
+  background-image: url("./assets/gran.svg");
+}
+
+.portrait-blocker__container {
+  height: 100vh;
+  background-color: rgb(152, 152, 152);
+}
+
+.portrait-blocker {
+  top: 50%;
+  left: 50%;
+  width: 15rem;
+  height: 15rem;
+  display: none;
+  position: absolute;
+  transform: translate(50%, 50%);
+  animation: rotate 1.8s infinite cubic-bezier(0.44, -0.48, 0.19, 1.61);
+}
+
+.welcome-text {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  text-align: center;
+  color: rgb(76, 101, 26);
+  font-size: 2rem;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, -50%) rotateZ(0deg) scale(0.7);
+  }
+  70% {
+    transform: translate(-50%, -50%) rotateZ(-90deg) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotateZ(-90deg) scale(1);
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .game-container {
+    display: none;
+  }
+
+  .portrait-blocker {
+    display: block;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .portrait-blocker__container {
+    display: none;
+  }
+
+  .portrait-blocker {
+    display: none;
+  }
+  .game-container {
+    display: flex;
+  }
+}

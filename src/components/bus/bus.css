@@ -1,0 +1,11 @@
+.bus-container {
+  /* width: 100%;
+  height: 34%; */
+}
+
+.bus {
+  left: 10%;
+  width: 85%;
+  bottom: 0%;
+  position: absolute;
+}

@@ -1,0 +1,11 @@
+.character {
+  width: max(5vw, 50px); /* Minsta bredd är 50px, annars skalar med skärmen */
+  height: auto; /* Behåll proportionerna */
+}
+
+.good-character {
+  width: 7%;
+  height: auto;
+  position: absolute;
+  transform-origin: center bottom; /* Använder botten som referenspunkt för pop-up */
+}
