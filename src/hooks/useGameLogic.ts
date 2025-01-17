@@ -3,12 +3,17 @@ import { CharacterType, PositionType } from "../types/characterType";
 import { CharacterData } from "../utils/getCharacterData";
 
 const positions: PositionType[] = [
-  { id: "back-left", x: 10, y: 40, angle: 45 },
-  { id: "back-right", x: 80, y: 40, angle: -45 },
-  { id: "window-1", x: 30, y: 20, angle: 0 },
-  { id: "window-2", x: 50, y: 20, angle: 0 },
-  { id: "bush-left", x: 15, y: 70, angle: 0 },
-  { id: "bush-right", x: 75, y: 70, angle: 0 },
+  { id: "window-1", x: 16, y: 58, angle: 0 },
+  { id: "window-2", x: 26, y: 58, angle: 0 },
+  { id: "window-3", x: 37, y: 58, angle: 0 },
+  { id: "window-4", x: 48, y: 58, angle: 0 },
+  { id: "window-5", x: 59, y: 58, angle: 0 },
+  { id: "window-6", x: 70, y: 58, angle: 0 },
+  { id: "window-7", x: 81, y: 58, angle: 0 },
+  { id: "bus-left", x: 6, y: 62, angle: -45 },
+  { id: "bus-right", x: 93, y: 58, angle: 45 },
+  { id: "bush-left", x: 15, y: 90, angle: 0 },
+  { id: "bush-right", x: 76, y: 75, angle: 0 },
 ];
 
 export function useGameLogic(maxCharacters: number, spawnInterval: number) {

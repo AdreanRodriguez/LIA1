@@ -14,11 +14,11 @@ import GoodBushRight from "../assets/goodCharacters/GoodBushRight.svg";
 
 // Alla data för karaktärer
 export const CharacterData = {
-  "back-left": {
+  "bus-left": {
     good: { characterImage: GoodBackLeft, size: { width: "50px", height: "50px" } },
-    evil: { characterImage: EvilBackLeft, size: { width: "60px", height: "60px" } },
+    evil: { characterImage: EvilBackLeft, size: { width: "70px", height: "60px" } },
   },
-  "back-right": {
+  "bus-right": {
     good: { characterImage: GoodBackRight, size: { width: "50px", height: "50px" } },
     evil: { characterImage: EvilBackRight, size: { width: "60px", height: "60px" } },
   },
@@ -27,6 +27,26 @@ export const CharacterData = {
     evil: { characterImage: EvilWindow1, size: { width: "50px", height: "50px" } },
   },
   "window-2": {
+    good: { characterImage: GoodWindow2, size: { width: "40px", height: "40px" } },
+    evil: { characterImage: EvilWindow2, size: { width: "50px", height: "50px" } },
+  },
+  "window-3": {
+    good: { characterImage: GoodWindow2, size: { width: "40px", height: "40px" } },
+    evil: { characterImage: EvilWindow2, size: { width: "50px", height: "50px" } },
+  },
+  "window-4": {
+    good: { characterImage: GoodWindow2, size: { width: "40px", height: "40px" } },
+    evil: { characterImage: EvilWindow2, size: { width: "50px", height: "50px" } },
+  },
+  "window-5": {
+    good: { characterImage: GoodWindow2, size: { width: "40px", height: "40px" } },
+    evil: { characterImage: EvilWindow2, size: { width: "50px", height: "50px" } },
+  },
+  "window-6": {
+    good: { characterImage: GoodWindow2, size: { width: "40px", height: "40px" } },
+    evil: { characterImage: EvilWindow2, size: { width: "50px", height: "50px" } },
+  },
+  "window-7": {
     good: { characterImage: GoodWindow2, size: { width: "40px", height: "40px" } },
     evil: { characterImage: EvilWindow2, size: { width: "50px", height: "50px" } },
   },

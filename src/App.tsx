@@ -9,7 +9,7 @@ import GameOverModal from "./components/gameOverModal/GameOverModal";
 function App() {
   const { characters, score, gameOver, handleCharacterClick, resetGame } = useGameLogic(
     5, // Max antal karaktärer
-    1000 // 1000 millisekunder, 1 sekund
+    2000 // Spawnar varje sekund, Hur ofta man vill att det ska komma nya karaktärer
   );
 
   return (
