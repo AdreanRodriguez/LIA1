@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { CharacterType, PositionType } from "../types/characterType";
+import { CharacterData } from "../utils/getCharacterData";
 
 const positions: PositionType[] = [
   { id: "back-left", x: 10, y: 40, angle: 45 },
@@ -26,8 +27,9 @@ export function useGameLogic(maxCharacters: number, spawnInterval: number) {
   function spawnRandomCharacter() {
     if (characters.length >= maxCharacters || gameOver) return;
 
+    const validIds = Object.keys(CharacterData) as Array<keyof typeof CharacterData>; // Giltiga id
     const availablePositions = positions.filter(
-      (pos) => !characters.some((char) => char.id === pos.id)
+      (pos) => validIds.includes(pos.id) && !characters.some((char) => char.id === pos.id)
     );
 
     if (availablePositions.length === 0) return;
@@ -37,15 +39,15 @@ export function useGameLogic(maxCharacters: number, spawnInterval: number) {
     const randomType = Math.random() > 0.5 ? "good" : "evil";
 
     const newCharacter: CharacterType = {
-      id: randomPosition.id,
+      type: randomType,
       x: randomPosition.x,
       y: randomPosition.y,
+      id: randomPosition.id,
+      clickedCharacter: false,
       angle: randomPosition.angle,
-      type: randomType,
-      points: randomType === "evil" ? 10 : 0,
+      score: randomType === "evil" ? 10 : 0,
       animation: randomPosition.id.includes("window") ? "slide-in" : "fade-in",
     };
-
     setCharacters((prev) => [...prev, newCharacter]);
 
     // Ta bort karaktären efter 2 sekunder
@@ -54,13 +56,29 @@ export function useGameLogic(maxCharacters: number, spawnInterval: number) {
     }, 2000);
   }
 
-  function handleCharacterClick(type: "good" | "evil") {
-    if (type === "good") {
-      setGameOver(true);
-    } else if (type === "evil") {
-      setScore((prev) => prev + 10);
+  function handleCharacterClick(character: CharacterType) {
+    // Så att man inte ska kunna klicka flera gånger på samma karaktär.
+    if (character.clickedCharacter) {
+      return;
     }
+
+    if (character.type === "good") {
+      setGameOver(true);
+    } else if (character.type === "evil") {
+      setScore((prev) => prev + character.score);
+    }
+
+    setCharacters((prev) =>
+      prev.map((char) => (char.id === character.id ? { ...char, clickedCharacter: true } : char))
+    );
   }
 
-  return { characters, score, gameOver, handleCharacterClick };
+  // Återställer spelplanen
+  function resetGame() {
+    setScore(0);
+    setGameOver(false);
+    setCharacters([]); // Rensa alla karaktärer
+  }
+
+  return { characters, score, gameOver, handleCharacterClick, resetGame };
 }

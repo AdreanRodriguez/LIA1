@@ -37,6 +37,20 @@
   font-size: 2rem;
 }
 
+.score__text {
+  color: #f9b001;
+  margin-left: 0.5rem;
+  font-size: 1rem;
+  font-family: "Short Stack";
+}
+
+.score__number {
+  color: #f9b001;
+  margin-left: 0.5rem;
+  font-size: 1.5rem;
+  font-family: "Short Stack";
+}
+
 @keyframes rotate {
   0% {
     transform: translate(-50%, -50%) rotateZ(0deg) scale(0.7);

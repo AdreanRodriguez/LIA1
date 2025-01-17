@@ -1,27 +1,45 @@
 import "./character.css";
+import cartoonCloudImange from "../../assets/poff.svg";
 import { CharacterType } from "../../types/characterType";
-import { getCharacterImage } from "../../utils/getCharacterImage";
+import { getCharacterData } from "../../utils/getCharacterData";
 
 interface CharacterProps extends CharacterType {
-  onClick: (type: "good" | "evil") => void;
+  onClick: (character: CharacterType) => void;
 }
 
-export default function Character({ id, x, y, angle, type, animation, onClick }: CharacterProps) {
-  const image = getCharacterImage(id, type);
+export default function Character({
+  x,
+  y,
+  id,
+  type,
+  score,
+  angle,
+  animation,
+  clickedCharacter,
+  onClick,
+}: CharacterProps) {
+  const { characterImage, size } = getCharacterData(id, type);
+
+  // Välj rätt bild
+  const image = clickedCharacter && type === "evil" ? cartoonCloudImange : characterImage;
 
   return (
     <div
-      className={`${type}-character`}
+      className={`${type}-character ${clickedCharacter ? "clickedCharacter" : ""}`}
       style={{
-        left: `${x}%`,
         top: `${y}%`,
-        transform: `rotate(${angle}deg)`,
+        left: `${x}%`,
         position: "absolute",
         animationName: animation,
+        transform: `rotate(${angle}deg)`,
+        ...size,
       }}
-      onClick={() => onClick(type)}
+      onClick={() => onClick({ id, type, x, y, angle, clickedCharacter, animation, score })}
     >
-      <img src={image} alt={`${type} character at ${id}`} />
+      <img
+        src={image}
+        alt={`${type} character ${clickedCharacter ? "with cartoon cloud" : ""} at ${id}`}
+      />
     </div>
   );
 }

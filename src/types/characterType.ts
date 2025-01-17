@@ -1,12 +1,21 @@
+export type CharacterId =
+  | "back-left"
+  | "back-right"
+  | "window-1"
+  | "window-2"
+  | "bush-left"
+  | "bush-right";
+
 export interface PositionType {
-  id: "back-left" | "back-right" | "window-1" | "window-2" | "bush-left" | "bush-right";
   x: number;
   y: number;
   angle: number;
+  id: CharacterId;
 }
 
 export interface CharacterType extends PositionType {
-  type: "good" | "evil";
-  points: number;
+  score: number;
   animation: string;
+  type: "good" | "evil";
+  clickedCharacter?: boolean;
 }

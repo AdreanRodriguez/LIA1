@@ -1,0 +1,9 @@
+.restart-button {
+  border: none;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-family: "Short Stack";
+  background-color: rgb(0, 182, 0);
+}
