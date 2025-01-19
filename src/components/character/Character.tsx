@@ -11,7 +11,13 @@ interface CharacterProps {
 export default function Character({ character, onClick }: CharacterProps) {
   const { x, y, id, type, angle, score, animation, clickedCharacter } = character;
 
-  const { characterImage, size } = getCharacterData(id, type);
+  const characterData = getCharacterData(id, type);
+
+  if (!characterData) {
+    return null;
+  }
+
+  const { characterImage, size } = characterData;
 
   const image = clickedCharacter && type === "evil" ? cartoonCloudImange : characterImage;
 

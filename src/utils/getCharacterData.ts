@@ -64,23 +64,17 @@ export const CharacterData = {
 export function getCharacterData(
   id: keyof typeof CharacterData,
   type: "good" | "evil"
-): { characterImage: string; size: { width: string; height: string } } {
+): { characterImage: string; size: { width: string; height: string } } | null {
   const data = CharacterData[id];
 
   if (!data) {
     console.error(`Invalid id in getCharacterData: ${id}`);
-    return {
-      characterImage: "../assets/poff.svg", // En placeholder-bild
-      size: { width: "50px", height: "50px" },
-    };
+    return null;
   }
 
   if (!data[type]) {
     console.error(`Invalid type in getCharacterData: ${type}`);
-    return {
-      characterImage: "../assets/poff.svg",
-      size: { width: "50px", height: "50px" },
-    };
+    return null;
   }
 
   return data[type];
