@@ -1,5 +1,5 @@
 import "./bus.css";
-import bus from "../../assets/bus.svg";
+import bus from "../../assets/bussVt.svg";
 
 export default function Bus() {
   return (

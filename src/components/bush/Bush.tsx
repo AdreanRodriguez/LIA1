@@ -2,13 +2,12 @@ import "./bush.css";
 import bush from "../../assets/bush.svg";
 
 interface PositionProps {
-  left: string;
-  bottom: string;
+  position: "left" | "right";
 }
 
-export default function Bush({ left, bottom }: PositionProps) {
+export default function Bush({ position }: PositionProps) {
   return (
-    <figure className="bush-container" style={{ left: `${left}%`, bottom: `${bottom}%` }}>
+    <figure className={`bush-container bush-${position}`}>
       <img className="bush" src={bush} alt="bush image" />
     </figure>
   );

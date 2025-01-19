@@ -9,7 +9,7 @@ import GameOverModal from "./components/gameOverModal/GameOverModal";
 function App() {
   const { characters, score, gameOver, handleCharacterClick, resetGame } = useGameLogic(
     5, // Max antal karaktärer
-    2000 // Spawnar varje sekund, Hur ofta man vill att det ska komma nya karaktärer
+    1000 // Spawnar varje sekund, Hur ofta man vill att det ska komma nya karaktärer
   );
 
   return (
@@ -19,25 +19,18 @@ function App() {
       </figure>
       <main className="game-container">
         {/* Glöm inte ta bort välkomsttexten när spelet startar */}
-        {/* <h1 className="welcome-text">Welcome to SmackAttack</h1> */}
+        {score === 0 && <h1 className="welcome-text">SmackAttack</h1>}
         <h2 className="score__text">
           Score: <span className="score__number">{score}</span>
         </h2>
         {gameOver && <GameOverModal score={score} resetGame={resetGame} />}
         <Bus />
-        <Bush left="10" bottom="0" />
-        <Bush left="70" bottom="0" />
+        <Bush position="left" />
+        <Bush position="right" />
         {characters.map((character) => (
           <Character
-            x={character.x}
-            y={character.y}
-            id={character.id}
             key={character.id}
-            type={character.type}
-            angle={character.angle}
-            score={character.score}
-            animation={character.animation}
-            clickedCharacter={character.clickedCharacter}
+            character={character}
             onClick={() => handleCharacterClick(character)}
           />
         ))}

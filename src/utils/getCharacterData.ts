@@ -15,48 +15,48 @@ import GoodBushRight from "../assets/goodCharacters/GoodBushRight.svg";
 // Alla data för karaktärer
 export const CharacterData = {
   "bus-left": {
-    good: { characterImage: GoodBackLeft, size: { width: "50px", height: "50px" } },
-    evil: { characterImage: EvilBackLeft, size: { width: "70px", height: "60px" } },
+    good: { characterImage: GoodBackLeft, size: { width: "12%", height: "12%" } },
+    evil: { characterImage: EvilBackLeft, size: { width: "12%", height: "12%" } },
   },
   "bus-right": {
-    good: { characterImage: GoodBackRight, size: { width: "50px", height: "50px" } },
-    evil: { characterImage: EvilBackRight, size: { width: "60px", height: "60px" } },
+    good: { characterImage: GoodBackRight, size: { width: "12%", height: "12%" } },
+    evil: { characterImage: EvilBackRight, size: { width: "12%", height: "12%" } },
   },
   "window-1": {
-    good: { characterImage: GoodWindow1, size: { width: "40px", height: "40px" } },
-    evil: { characterImage: EvilWindow1, size: { width: "50px", height: "50px" } },
+    good: { characterImage: GoodWindow1, size: { width: "12%", height: "12%" } },
+    evil: { characterImage: EvilWindow1, size: { width: "12%", height: "12%" } },
   },
   "window-2": {
-    good: { characterImage: GoodWindow2, size: { width: "40px", height: "40px" } },
-    evil: { characterImage: EvilWindow2, size: { width: "50px", height: "50px" } },
+    good: { characterImage: GoodWindow2, size: { width: "12%", height: "12%" } },
+    evil: { characterImage: EvilWindow2, size: { width: "12%", height: "12%" } },
   },
   "window-3": {
-    good: { characterImage: GoodWindow2, size: { width: "40px", height: "40px" } },
-    evil: { characterImage: EvilWindow2, size: { width: "50px", height: "50px" } },
+    good: { characterImage: GoodWindow2, size: { width: "12%", height: "12%" } },
+    evil: { characterImage: EvilWindow2, size: { width: "12%", height: "12%" } },
   },
   "window-4": {
-    good: { characterImage: GoodWindow2, size: { width: "40px", height: "40px" } },
-    evil: { characterImage: EvilWindow2, size: { width: "50px", height: "50px" } },
+    good: { characterImage: GoodWindow2, size: { width: "12%", height: "12%" } },
+    evil: { characterImage: EvilWindow2, size: { width: "12%", height: "12%" } },
   },
   "window-5": {
-    good: { characterImage: GoodWindow2, size: { width: "40px", height: "40px" } },
-    evil: { characterImage: EvilWindow2, size: { width: "50px", height: "50px" } },
+    good: { characterImage: GoodWindow2, size: { width: "12%", height: "12%" } },
+    evil: { characterImage: EvilWindow2, size: { width: "12%", height: "12%" } },
   },
   "window-6": {
-    good: { characterImage: GoodWindow2, size: { width: "40px", height: "40px" } },
-    evil: { characterImage: EvilWindow2, size: { width: "50px", height: "50px" } },
+    good: { characterImage: GoodWindow2, size: { width: "12%", height: "12%" } },
+    evil: { characterImage: EvilWindow2, size: { width: "12%", height: "12%" } },
   },
   "window-7": {
-    good: { characterImage: GoodWindow2, size: { width: "40px", height: "40px" } },
-    evil: { characterImage: EvilWindow2, size: { width: "50px", height: "50px" } },
+    good: { characterImage: GoodWindow2, size: { width: "12%", height: "12%" } },
+    evil: { characterImage: EvilWindow2, size: { width: "12%", height: "12%" } },
   },
   "bush-left": {
-    good: { characterImage: GoodBushLeft, size: { width: "30px", height: "30px" } },
-    evil: { characterImage: EvilBushLeft, size: { width: "40px", height: "40px" } },
+    good: { characterImage: GoodBushLeft, size: { width: "12%", height: "12%" } },
+    evil: { characterImage: EvilBushLeft, size: { width: "12%", height: "12%" } },
   },
   "bush-right": {
-    good: { characterImage: GoodBushRight, size: { width: "30px", height: "30px" } },
-    evil: { characterImage: EvilBushRight, size: { width: "40px", height: "40px" } },
+    good: { characterImage: GoodBushRight, size: { width: "12%", height: "12%" } },
+    evil: { characterImage: EvilBushRight, size: { width: "12%", height: "12%" } },
   },
 };
 

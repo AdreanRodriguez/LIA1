@@ -6,7 +6,7 @@ const positions: PositionType[] = [
   { id: "window-1", x: 16, y: 58, angle: 0 },
   { id: "window-2", x: 26, y: 58, angle: 0 },
   { id: "window-3", x: 37, y: 58, angle: 0 },
-  { id: "window-4", x: 48, y: 58, angle: 0 },
+  { id: "window-4", x: 60, y: 58, angle: 0 },
   { id: "window-5", x: 59, y: 58, angle: 0 },
   { id: "window-6", x: 70, y: 58, angle: 0 },
   { id: "window-7", x: 81, y: 58, angle: 0 },
@@ -58,7 +58,7 @@ export function useGameLogic(maxCharacters: number, spawnInterval: number) {
     // Ta bort karaktären efter 2 sekunder
     setTimeout(() => {
       setCharacters((prev) => prev.filter((char) => char.id !== newCharacter.id));
-    }, 2000);
+    }, 20000);
   }
 
   function handleCharacterClick(character: CharacterType) {
