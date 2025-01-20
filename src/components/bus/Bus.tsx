@@ -1,10 +1,15 @@
 import "./bus.css";
-import bus from "../../assets/bussVt.svg";
+import bus from "../../assets/bus/bussVt.svg";
 
-export default function Bus() {
+interface busProps {
+  children?: React.ReactNode;
+}
+
+export default function Bus({ children }: busProps) {
   return (
-    // <figure className="bus-container">
-    // </figure>
-    <img className="bus" src={bus} alt="" />
+    <div className="bus-container">
+      <img className="bus" src={bus} alt="" />
+      {children}
+    </div>
   );
 }

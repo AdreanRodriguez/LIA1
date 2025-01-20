@@ -1,33 +1,38 @@
 import { useState, useEffect } from "react";
-import { CharacterType, PositionType } from "../types/characterType";
 import { CharacterData } from "../utils/getCharacterData";
+import { CharacterType, PositionType } from "../types/characterType";
 
 const positions: PositionType[] = [
-  { id: "window-1", x: 16, y: 58, angle: 0 },
-  { id: "window-2", x: 26, y: 58, angle: 0 },
-  { id: "window-3", x: 37, y: 58, angle: 0 },
-  { id: "window-4", x: 60, y: 58, angle: 0 },
-  { id: "window-5", x: 59, y: 58, angle: 0 },
-  { id: "window-6", x: 70, y: 58, angle: 0 },
-  { id: "window-7", x: 81, y: 58, angle: 0 },
-  { id: "bus-left", x: 6, y: 62, angle: -45 },
+  { id: "window-1", x: 16, y: 49, angle: 0 },
+  { id: "window-2", x: 33, y: 49, angle: 0 },
+  { id: "window-3", x: 44, y: 49, angle: 0 },
+  { id: "window-4", x: 55, y: 49, angle: 0 },
+  { id: "window-5", x: 67, y: 49, angle: 0 },
+  { id: "bus-left", x: -2, y: 55, angle: -45 },
   { id: "bus-right", x: 93, y: 58, angle: 45 },
-  { id: "bush-left", x: 15, y: 90, angle: 0 },
-  { id: "bush-right", x: 76, y: 75, angle: 0 },
+  { id: "bush-left", x: 13, y: 67, angle: 0 },
+  { id: "bush-right", x: 76, y: 70, angle: 0 },
 ];
 
-export function useGameLogic(maxCharacters: number, spawnInterval: number) {
+export function useGameLogic(
+  maxCharacters: number,
+  spawnInterval: number,
+  startGame: boolean,
+  goodCharacterProbability: number
+) {
   const [score, setScore] = useState<number>(0);
   const [gameOver, setGameOver] = useState<boolean>(false);
   const [characters, setCharacters] = useState<CharacterType[]>([]);
 
   useEffect(() => {
+    if (startGame || gameOver) return;
+
     const interval = setInterval(() => {
       spawnRandomCharacter();
     }, spawnInterval);
 
-    return () => clearInterval(interval); // Rensa intervallet vid avmontering
-  }, [characters, gameOver]);
+    return () => clearInterval(interval);
+  }, [characters, gameOver, startGame]);
 
   function spawnRandomCharacter() {
     if (characters.length >= maxCharacters || gameOver) return;
@@ -41,7 +46,7 @@ export function useGameLogic(maxCharacters: number, spawnInterval: number) {
 
     const randomPosition =
       availablePositions[Math.floor(Math.random() * availablePositions.length)];
-    const randomType = Math.random() > 0.5 ? "good" : "evil";
+    const randomType = Math.random() < goodCharacterProbability ? "good" : "evil";
 
     const newCharacter: CharacterType = {
       type: randomType,
@@ -58,7 +63,7 @@ export function useGameLogic(maxCharacters: number, spawnInterval: number) {
     // Ta bort karaktären efter 2 sekunder
     setTimeout(() => {
       setCharacters((prev) => prev.filter((char) => char.id !== newCharacter.id));
-    }, 20000);
+    }, 22000);
   }
 
   function handleCharacterClick(character: CharacterType) {

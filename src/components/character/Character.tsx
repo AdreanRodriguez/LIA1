@@ -21,6 +21,15 @@ export default function Character({ character, onClick }: CharacterProps) {
 
   const image = clickedCharacter && type === "evil" ? cartoonCloudImange : characterImage;
 
+  // const characterStyle = {
+  //   top: `${y}%`,
+  //   left: `${x}%`,
+  //   position: "absolute",
+  //   animationName: animation,
+  //   transform: `rotate(${angle}deg)`,
+  //   ...size, // Bredd och höjd från `getCharacterData`
+  // };
+
   return (
     <div
       className={`${type}-character ${clickedCharacter ? "clickedCharacter" : ""}`}
@@ -30,7 +39,7 @@ export default function Character({ character, onClick }: CharacterProps) {
         position: "absolute",
         animationName: animation,
         transform: `rotate(${angle}deg)`,
-        ...size,
+        ...size, // Bredd och höjd från `getCharacterData`
       }}
       onClick={() => onClick({ id, type, x, y, angle, clickedCharacter, animation, score })}
     >

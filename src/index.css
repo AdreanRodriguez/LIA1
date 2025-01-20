@@ -5,3 +5,13 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+:root {
+  --modal-background: #323232;
+  --highlight-orange: #f9b001;
+  --shortStack: "Short Stack";
+}
+
+.hide {
+  display: none;
+}

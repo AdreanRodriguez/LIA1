@@ -15,48 +15,40 @@ import GoodBushRight from "../assets/goodCharacters/GoodBushRight.svg";
 // Alla data för karaktärer
 export const CharacterData = {
   "bus-left": {
-    good: { characterImage: GoodBackLeft, size: { width: "12%", height: "12%" } },
-    evil: { characterImage: EvilBackLeft, size: { width: "12%", height: "12%" } },
+    good: { characterImage: GoodBackLeft, size: { width: "auto", height: "14%" } },
+    evil: { characterImage: EvilBackLeft, size: { width: "auto", height: "14%" } },
   },
   "bus-right": {
-    good: { characterImage: GoodBackRight, size: { width: "12%", height: "12%" } },
-    evil: { characterImage: EvilBackRight, size: { width: "12%", height: "12%" } },
+    good: { characterImage: GoodBackRight, size: { width: "auto", height: "14%" } },
+    evil: { characterImage: EvilBackRight, size: { width: "auto", height: "14%" } },
   },
   "window-1": {
-    good: { characterImage: GoodWindow1, size: { width: "12%", height: "12%" } },
-    evil: { characterImage: EvilWindow1, size: { width: "12%", height: "12%" } },
+    good: { characterImage: GoodWindow1, size: { width: "auto", height: "14%" } },
+    evil: { characterImage: EvilWindow1, size: { width: "auto", height: "14%" } },
   },
   "window-2": {
-    good: { characterImage: GoodWindow2, size: { width: "12%", height: "12%" } },
-    evil: { characterImage: EvilWindow2, size: { width: "12%", height: "12%" } },
+    good: { characterImage: GoodWindow2, size: { width: "auto", height: "14%" } },
+    evil: { characterImage: EvilWindow2, size: { width: "auto", height: "14%" } },
   },
   "window-3": {
-    good: { characterImage: GoodWindow2, size: { width: "12%", height: "12%" } },
-    evil: { characterImage: EvilWindow2, size: { width: "12%", height: "12%" } },
+    good: { characterImage: GoodWindow2, size: { width: "auto", height: "14%" } },
+    evil: { characterImage: EvilWindow2, size: { width: "auto", height: "14%" } },
   },
   "window-4": {
-    good: { characterImage: GoodWindow2, size: { width: "12%", height: "12%" } },
-    evil: { characterImage: EvilWindow2, size: { width: "12%", height: "12%" } },
+    good: { characterImage: GoodWindow2, size: { width: "auto", height: "14%" } },
+    evil: { characterImage: EvilWindow2, size: { width: "auto", height: "14%" } },
   },
   "window-5": {
-    good: { characterImage: GoodWindow2, size: { width: "12%", height: "12%" } },
-    evil: { characterImage: EvilWindow2, size: { width: "12%", height: "12%" } },
-  },
-  "window-6": {
-    good: { characterImage: GoodWindow2, size: { width: "12%", height: "12%" } },
-    evil: { characterImage: EvilWindow2, size: { width: "12%", height: "12%" } },
-  },
-  "window-7": {
-    good: { characterImage: GoodWindow2, size: { width: "12%", height: "12%" } },
-    evil: { characterImage: EvilWindow2, size: { width: "12%", height: "12%" } },
+    good: { characterImage: GoodWindow2, size: { width: "auto", height: "14%" } },
+    evil: { characterImage: EvilWindow2, size: { width: "auto", height: "14%" } },
   },
   "bush-left": {
-    good: { characterImage: GoodBushLeft, size: { width: "12%", height: "12%" } },
-    evil: { characterImage: EvilBushLeft, size: { width: "12%", height: "12%" } },
+    good: { characterImage: GoodBushLeft, size: { width: "auto", height: "20%" } },
+    evil: { characterImage: EvilBushLeft, size: { width: "auto", height: "20%" } },
   },
   "bush-right": {
-    good: { characterImage: GoodBushRight, size: { width: "12%", height: "12%" } },
-    evil: { characterImage: EvilBushRight, size: { width: "12%", height: "12%" } },
+    good: { characterImage: GoodBushRight, size: { width: "auto", height: "20%" } },
+    evil: { characterImage: EvilBushRight, size: { width: "auto", height: "20%" } },
   },
 };
 

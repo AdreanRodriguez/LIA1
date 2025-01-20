@@ -5,14 +5,15 @@
   width: 40vw;
   height: 50vh;
   position: absolute;
-  border-radius: 10px;
+  border-radius: 5px;
+  border: 10px ridge var(--highlight-orange);
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   transform: translate(-50%, -50%);
-  background-color: rgba(255, 0, 0, 0.714);
+  background-color: var(--modal-background);
 }
 
 .gameOverModal__content {
@@ -22,21 +23,35 @@
 
 .gameOverModal__text {
   color: white;
-  font-family: "Short Stack";
+  font-family: var(--shortStack);
 }
 
 .gameOverModal__score__text {
   color: white;
   font-size: 1rem;
-  font-family: "Short Stack";
+
   display: flex;
   align-items: center;
   justify-content: center;
+
+  font-family: var(--shortStack);
 }
 
 .gameOverModal__score__number {
-  color: coral;
-  margin-left: 0.5rem;
   font-size: 1.5rem;
-  font-family: "Short Stack";
+  margin-left: 0.5rem;
+  color: var(--highlight-orange);
+  font-family: var(--shortStack);
+}
+
+@media screen and (orientation: portrait) {
+  .gameOverModal {
+    display: none;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .gameOverModal {
+    display: flex;
+  }
 }

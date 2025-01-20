@@ -8,7 +8,7 @@ interface GameOverModalProps {
 
 export default function GameOverModal({ score, resetGame }: GameOverModalProps) {
   return (
-    <article className="gameOverModal">
+    <section className="gameOverModal">
       <div className="gameOverModal__content">
         <h2 className="gameOverModal__text">Game Over</h2>
         <p className="gameOverModal__score__text">
@@ -16,6 +16,6 @@ export default function GameOverModal({ score, resetGame }: GameOverModalProps) 
         </p>
         <RestartButton resetGame={resetGame} />
       </div>
-    </article>
+    </section>
   );
 }

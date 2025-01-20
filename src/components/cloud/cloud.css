@@ -1,0 +1,49 @@
+.cloud {
+  width: 20%;
+  height: 35%;
+  position: absolute;
+  left: -20px;
+  filter: invert(10%);
+  z-index: 1;
+  animation: moveToTheRight 120s infinite;
+}
+
+.small-cloud {
+  z-index: 1;
+  width: 10%;
+  left: -20px;
+  height: 15%;
+  filter: invert(10%);
+  position: absolute;
+  animation: moveToTheLeft 10s infinite;
+}
+
+@keyframes moveToTheLeft {
+  0% {
+    left: -20%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes moveToTheRight {
+  0% {
+    left: -20%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .cloud {
+    display: none;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .cloud {
+    display: flex;
+  }
+}
