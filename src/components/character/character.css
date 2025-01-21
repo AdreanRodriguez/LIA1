@@ -1,19 +1,18 @@
 .good-character img,
 .evil-character img {
-  /* z-index: 3; */
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
 .good-character {
-  z-index: 2;
+  z-index: 1;
   animation-duration: 2s;
   animation-timing-function: ease-in-out;
 }
 
 .evil-character {
-  z-index: 2;
+  z-index: 1;
   animation-duration: 1.5s;
   animation-timing-function: ease-in-out;
 }

@@ -1,15 +1,12 @@
 .game-container {
   width: 100vw;
+  height: 100vh;
   margin: 0 auto;
   overflow: hidden;
-  min-width: 100vw;
-  max-height: 100vh;
   position: relative;
   background-size: cover;
   background-position: center;
-  height: calc(100vw * 9 / 16);
   background-image: url("./assets/gran.svg");
-  overflow: hidden;
 }
 
 .blur-background {
@@ -23,7 +20,8 @@
   background-repeat: no-repeat;
   background-color: rgb(216, 216, 216);
   background-image: url(./assets/goodAndEvil.svg);
-  background-position-y: 27rem;
+  background-position-y: 85%;
+  /* background-position-y: 50vh; */
 }
 
 .portrait-blocker {
@@ -38,20 +36,21 @@
 }
 
 .score__text {
+  top: 10px;
+  left: 10px;
+  z-index: 2;
   font-size: 1rem;
+  position: absolute;
   margin-left: 0.5rem;
   font-family: "Short Stack";
-  color: var(--highlight-orange);
-  position: relative;
-  left: 10px;
-  top: 10px;
+  color: var(--highlight-darkBlue);
 }
 
 .score__number {
   font-size: 1.5rem;
   margin-left: 0.5rem;
   font-family: "Short Stack";
-  color: var(--highlight-orange);
+  color: var(--highlight-darkBlue);
 }
 
 @keyframes rotate {

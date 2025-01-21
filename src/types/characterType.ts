@@ -4,6 +4,7 @@ export type CharacterId =
   | "window-3"
   | "window-4"
   | "window-5"
+  | "window-6"
   | "bus-left"
   | "bus-right"
   | "bush-left"

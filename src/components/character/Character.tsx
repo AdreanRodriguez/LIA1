@@ -21,26 +21,20 @@ export default function Character({ character, onClick }: CharacterProps) {
 
   const image = clickedCharacter && type === "evil" ? cartoonCloudImange : characterImage;
 
-  // const characterStyle = {
-  //   top: `${y}%`,
-  //   left: `${x}%`,
-  //   position: "absolute",
-  //   animationName: animation,
-  //   transform: `rotate(${angle}deg)`,
-  //   ...size, // Bredd och höjd från `getCharacterData`
-  // };
+  const characterStyle: React.CSSProperties = {
+    top: `${y}%`,
+    left: `${x}%`,
+    position: "absolute",
+    animationName: animation,
+    transform: `rotate(${angle}deg)`,
+    ...size, // Bredd och höjd från `getCharacterData`
+    zIndex: id === "bush-left" || id === "bush-right" ? 2 : 1,
+  };
 
   return (
     <div
       className={`${type}-character ${clickedCharacter ? "clickedCharacter" : ""}`}
-      style={{
-        top: `${y}%`,
-        left: `${x}%`,
-        position: "absolute",
-        animationName: animation,
-        transform: `rotate(${angle}deg)`,
-        ...size, // Bredd och höjd från `getCharacterData`
-      }}
+      style={characterStyle}
       onClick={() => onClick({ id, type, x, y, angle, clickedCharacter, animation, score })}
     >
       <img

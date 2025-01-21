@@ -1,26 +1,15 @@
 .bus-container {
-  bottom: 0;
+  /* bottom: calc(0px - 4px); */
   left: 50%;
   width: 90%;
+  z-index: 1;
+  bottom: -4px;
   position: absolute;
-  aspect-ratio: 16 / 9;
   transform: translateX(-50%);
 }
 
 .bus {
-  overflow: visible;
-  bottom: 0;
-  z-index: 2;
   width: 100%;
   height: auto;
-  position: absolute;
   pointer-events: none;
 }
-
-/* .character {
-  position: relative;
-  width: 10%;
-  height: auto;
-  z-index: 3;
-  cursor: pointer;
-} */

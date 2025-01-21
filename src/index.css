@@ -7,9 +7,11 @@
 }
 
 :root {
+  --shortStack: "Short Stack";
   --modal-background: #323232;
   --highlight-orange: #f9b001;
-  --shortStack: "Short Stack";
+  --highlight-darkBlue: #003c68;
+  --highlight-lightBlue: #0069b3;
 }
 
 .hide {

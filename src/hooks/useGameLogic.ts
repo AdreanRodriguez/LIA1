@@ -1,18 +1,7 @@
 import { useState, useEffect } from "react";
 import { CharacterData } from "../utils/getCharacterData";
-import { CharacterType, PositionType } from "../types/characterType";
-
-const positions: PositionType[] = [
-  { id: "window-1", x: 16, y: 49, angle: 0 },
-  { id: "window-2", x: 33, y: 49, angle: 0 },
-  { id: "window-3", x: 44, y: 49, angle: 0 },
-  { id: "window-4", x: 55, y: 49, angle: 0 },
-  { id: "window-5", x: 67, y: 49, angle: 0 },
-  { id: "bus-left", x: -2, y: 55, angle: -45 },
-  { id: "bus-right", x: 93, y: 58, angle: 45 },
-  { id: "bush-left", x: 13, y: 67, angle: 0 },
-  { id: "bush-right", x: 76, y: 70, angle: 0 },
-];
+import { CharacterType } from "../types/characterType";
+import { positions } from "../utils/positions";
 
 export function useGameLogic(
   maxCharacters: number,
@@ -63,7 +52,7 @@ export function useGameLogic(
     // Ta bort karaktären efter 2 sekunder
     setTimeout(() => {
       setCharacters((prev) => prev.filter((char) => char.id !== newCharacter.id));
-    }, 22000);
+    }, 2000);
   }
 
   function handleCharacterClick(character: CharacterType) {
