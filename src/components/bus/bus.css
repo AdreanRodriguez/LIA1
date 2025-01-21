@@ -1,9 +1,9 @@
 .bus-container {
   /* bottom: calc(0px - 4px); */
   left: 50%;
-  width: 90%;
-  z-index: 1;
+  width: 90vw;
   bottom: -4px;
+  max-width: 90%;
   position: absolute;
   transform: translateX(-50%);
 }
@@ -11,5 +11,9 @@
 .bus {
   width: 100%;
   height: auto;
+  z-index: 2;
+  position: relative;
   pointer-events: none;
 }
+
+/* Göra en animation så att det ser ut som att bussen kör in första gången. */

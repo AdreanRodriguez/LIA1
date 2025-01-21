@@ -58,18 +58,18 @@ export function useGameLogic(
   function handleCharacterClick(character: CharacterType) {
     // Så att man inte ska kunna klicka flera gånger på samma karaktär.
     if (character.clickedCharacter) {
-      return;
+      return; // Hindra dubbelklick på karaktärerna.
     }
+
+    setCharacters((prev) =>
+      prev.map((char) => (char.id === character.id ? { ...char, clickedCharacter: true } : char))
+    );
 
     if (character.type === "good") {
       setGameOver(true);
     } else if (character.type === "evil") {
       setScore((prev) => prev + character.score);
     }
-
-    setCharacters((prev) =>
-      prev.map((char) => (char.id === character.id ? { ...char, clickedCharacter: true } : char))
-    );
   }
 
   // Återställer spelplanen
