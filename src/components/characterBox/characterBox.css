@@ -1,0 +1,9 @@
+.character-box {
+  position: relative; /* Viktigt för absolut positionering av barnen */
+  display: flex; /* För centrering om flex fortfarande behövs */
+  overflow: hidden; /* Förhindrar att karaktären sticker ut */
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  /* border: 1px solid red; */
+}

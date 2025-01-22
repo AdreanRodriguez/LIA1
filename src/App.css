@@ -1,5 +1,30 @@
+/* body,
+html {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center;
+}
+
+/*
 .game-container {
   width: 100vw;
+  height: 100vh;
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-size: cover;
+  background-position: center;
+  background-image: url("./assets/gran.svg");
+} */
+
+.game-container {
+  /* width: 100vw; */
   height: 100vh;
   margin: 0 auto;
   overflow: hidden;
@@ -64,6 +89,14 @@
     transform: translate(-50%, -50%) rotateZ(-90deg) scale(1);
   }
 }
+
+/* @media screen and (max-aspect-ratio: 1/1) {
+  body {
+    transform: rotate(-90deg);
+    width: 100vh;
+    height: 100vw;
+  }
+} */
 
 @media screen and (orientation: portrait) {
   .game-container {

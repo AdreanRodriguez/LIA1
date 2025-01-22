@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
-import { CharacterData } from "../utils/getCharacterData";
-import { CharacterType } from "../types/characterType";
 import { positions } from "../utils/positions";
+import { CharacterType } from "../types/characterType";
 
 export function useGameLogic(
   maxCharacters: number,
@@ -26,9 +25,9 @@ export function useGameLogic(
   function spawnRandomCharacter() {
     if (characters.length >= maxCharacters || gameOver) return;
 
-    const validIds = Object.keys(CharacterData) as Array<keyof typeof CharacterData>; // Giltiga id
+    // Filtrera positioner där karaktärer redan finns
     const availablePositions = positions.filter(
-      (pos) => validIds.includes(pos.id) && !characters.some((char) => char.id === pos.id)
+      (pos) => !characters.some((char) => char.id === pos.id)
     );
 
     if (availablePositions.length === 0) return;
@@ -47,6 +46,7 @@ export function useGameLogic(
       score: randomType === "evil" ? 10 : 0,
       animation: randomPosition.id.includes("window") ? "slide-in" : "fade-in",
     };
+
     setCharacters((prev) => [...prev, newCharacter]);
 
     // Ta bort karaktären efter 2 sekunder

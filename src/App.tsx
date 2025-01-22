@@ -30,8 +30,19 @@ function App() {
         </h2>
         <Bus characters={characters} onCharacterClick={handleCharacterClick} />
 
-        <Bush position="left" />
-        <Bush position="right" />
+        {/* <Bush position="left" />
+        <Bush position="right" /> */}
+
+        <Bush
+          position="left"
+          characters={characters.filter((char) => char.id === "bush-left")}
+          onCharacterClick={handleCharacterClick}
+        />
+        <Bush
+          position="right"
+          characters={characters.filter((char) => char.id === "bush-right")}
+          onCharacterClick={handleCharacterClick}
+        />
 
         <Cloud top="-10vh" left="30vw" width="20vw" height="25vh" animationDuration="82s" />
         <Cloud top="0" left="20vw" width="5vw" height="14vh" animationDuration="10s" />

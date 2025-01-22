@@ -6,9 +6,10 @@ import { getCharacterData } from "../../utils/getCharacterData";
 interface CharacterProps {
   character: CharacterType;
   onClick: (character: CharacterType) => void;
+  style?: React.CSSProperties;
 }
 
-export default function Character({ character, onClick }: CharacterProps) {
+export default function Character({ character, onClick, style }: CharacterProps) {
   const { x, y, id, type, angle, score, animation, clickedCharacter } = character;
 
   const characterData = getCharacterData(id, type);
@@ -22,13 +23,15 @@ export default function Character({ character, onClick }: CharacterProps) {
   const image = clickedCharacter && type === "evil" ? cartoonCloudImange : characterImage;
 
   const characterStyle: React.CSSProperties = {
-    top: `${y}%`,
-    left: `${x}%`,
-    position: "absolute",
-    animationName: animation,
-    transform: `rotate(${angle}deg)`,
-    ...size, // Bredd och höjd från `getCharacterData`
-    zIndex: id === "bush-left" || id === "bush-right" ? 2 : 1,
+    ...style, // Möjlighet att skicka in ytterligare dynamiska stilar
+    ...size, // Bredd och höjd från `getCharacterData`, dynamisk storlek
+    top: "0%",
+    left: "0%",
+    objectFit: "cover",
+    position: "absolute", // Placera karaktären relativt till CharacterBox
+    animationName: animation, // Dynamisk animation för karaktären
+    transform: `rotate(${angle}deg)`, // Gör rotation och centrering
+    zIndex: id.includes("bush") ? 0 : 1, // Ser till att busk-karaktärer ligger bakom
   };
 
   return (
