@@ -1,7 +1,7 @@
 .character-box {
-  position: relative; /* Viktigt för absolut positionering av barnen */
-  display: flex; /* För centrering om flex fortfarande behövs */
-  overflow: hidden; /* Förhindrar att karaktären sticker ut */
+  position: relative;
+  display: flex;
+  overflow: hidden; /* Gör så att karaktärerna åker bakom bussen */
   align-items: center;
   justify-content: center;
   background: transparent;

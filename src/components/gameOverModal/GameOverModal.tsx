@@ -3,10 +3,10 @@ import RestartButton from "../restartButton/RestartButton";
 
 interface GameOverModalProps {
   score: number;
-  resetGame: () => void;
+  restartGame: () => void;
 }
 
-export default function GameOverModal({ score, resetGame }: GameOverModalProps) {
+export default function GameOverModal({ score, restartGame }: GameOverModalProps) {
   return (
     <section className="gameOverModal">
       <div className="gameOverModal__content">
@@ -14,7 +14,7 @@ export default function GameOverModal({ score, resetGame }: GameOverModalProps) 
         <p className="gameOverModal__score__text">
           Poäng: <span className="gameOverModal__score__number">{score}</span>
         </p>
-        <RestartButton resetGame={resetGame} />
+        <RestartButton restartGame={restartGame} />
       </div>
     </section>
   );

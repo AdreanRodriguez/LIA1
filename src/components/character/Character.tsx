@@ -24,14 +24,14 @@ export default function Character({ character, onClick, style }: CharacterProps)
 
   const characterStyle: React.CSSProperties = {
     ...style, // Möjlighet att skicka in ytterligare dynamiska stilar
-    ...size, // Bredd och höjd från `getCharacterData`, dynamisk storlek
+    ...size, // Bredd och höjd från `getCharacterData`
     top: "0%",
     left: "0%",
     objectFit: "cover",
-    position: "absolute", // Placera karaktären relativt till CharacterBox
+    // position: "absolute",
     animationName: animation, // Dynamisk animation för karaktären
     transform: `rotate(${angle}deg)`, // Gör rotation och centrering
-    zIndex: id.includes("bush") ? 0 : 1, // Ser till att busk-karaktärer ligger bakom
+    zIndex: id.includes("bush") || id === "bus-left" || id === "bus-right" ? 0 : 1, // Ser till att busk-karaktärer ligger bakom
   };
 
   return (

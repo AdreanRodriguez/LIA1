@@ -8,6 +8,9 @@ interface GameOverModalProps {
 }
 
 export default function GameStartModal({ startGame, setStartGame }: GameOverModalProps) {
+  // Starta spelet
+  // window.ClubHouseGame.registerRestart(() => {});
+
   function handleStartGame() {
     setStartGame(false);
   }
@@ -18,17 +21,21 @@ export default function GameStartModal({ startGame, setStartGame }: GameOverModa
 
   return (
     <>
-      <section className="gameStartModal">
-        <div className="gameStartModal__wrapper">
+      <section className="gameStartModal__wrapper">
+        <div className="gameStartModal">
           <h2 className="gameStartModal__title">Spelregler SmackAttack</h2>
-          <div className="gameStartModal__rule">
-            <img className="gameStartModal__image" src={good} alt="Den gode" />
+          <figcaption className="gameStartModal__rule">
+            <figure className="gameStartModal__image__container">
+              <img className="gameStartModal__image" src={good} alt="Den gode" />
+            </figure>
             <p className="gameStartModal__text">Vid tryck på den gode är det Game Over</p>
-          </div>
-          <div className="gameStartModal__rule">
-            <img className="gameStartModal__image" src={evil} alt="Den onde" />
+          </figcaption>
+          <figcaption className="gameStartModal__rule">
+            <figure className="gameStartModal__image__container">
+              <img className="gameStartModal__image" src={evil} alt="Den onde" />
+            </figure>
             <p className="gameStartModal__text">Vid tryck på den onde får du 10 poäng</p>
-          </div>
+          </figcaption>
           <p className="gameStartModal__good-luck">Lycka till!</p>
           <button className="gameStartModal__play-button" onClick={handleStartGame}>
             SPELA

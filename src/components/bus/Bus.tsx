@@ -14,38 +14,28 @@ const Bus: React.FC<BusProps> = ({ characters, onCharacterClick }) => {
     {
       id: "window-1",
       position: { top: "32%", left: "11%" },
-      size: { width: "6%", height: "17%" },
+      size: { width: "6%", height: "18%" },
     },
     {
       id: "window-2",
       position: { top: "32%", left: "30%" },
-      size: { width: "6%", height: "17%" },
+      size: { width: "6%", height: "18%" },
     },
     {
       id: "window-3",
       position: { top: "32%", left: "43%" },
-      size: { width: "6%", height: "17%" },
+      size: { width: "6%", height: "18%" },
     },
     {
       id: "window-4",
       position: { top: "32%", left: "55%" },
-      size: { width: "6%", height: "17%" },
+      size: { width: "6%", height: "18%" },
     },
     {
       id: "window-5",
       position: { top: "32%", left: "70%" },
-      size: { width: "6%", height: "17%" },
+      size: { width: "6%", height: "18%" },
     },
-    // {
-    //   id: "bush-left",
-    //   position: { top: "64%", left: "10%" },
-    //   size: { width: "60%", height: "70%" },
-    // },
-    // {
-    //   id: "bush-right",
-    //   position: { top: "64%", left: "77%" },
-    //   size: { width: "65%", height: "75%" },
-    // },
     {
       id: "bus-left",
       position: { top: "40%", left: "-6%" },
@@ -59,24 +49,26 @@ const Bus: React.FC<BusProps> = ({ characters, onCharacterClick }) => {
   ];
 
   return (
-    <div className="bus-container">
-      {/* Bussbild */}
-      <img className="bus" src={bus} alt="Yellow school bus" />
+    <section className="bus-wrapper">
+      <div className="bus-container">
+        {/* Bussbild */}
+        <img className="bus" src={bus} alt="Yellow school bus" />
 
-      {/* Rendera CharacterBox för varje position */}
-      {boxes.map((box) => {
-        const matchingCharacter = characters.find((char) => char.id === box.id);
-        return (
-          <CharacterBox
-            key={box.id}
-            size={box.size}
-            position={box.position}
-            character={matchingCharacter} // Koppla rätt karaktär
-            onCharacterClick={onCharacterClick}
-          />
-        );
-      })}
-    </div>
+        {/* Rendera CharacterBox för varje position */}
+        {boxes.map((box) => {
+          const matchingCharacter = characters.find((char) => char.id === box.id);
+          return (
+            <CharacterBox
+              key={box.id}
+              size={box.size}
+              position={box.position}
+              character={matchingCharacter} // Koppla rätt karaktär
+              onCharacterClick={onCharacterClick}
+            />
+          );
+        })}
+      </div>
+    </section>
   );
 };
 

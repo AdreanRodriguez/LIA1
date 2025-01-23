@@ -21,13 +21,13 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
     <div
       className="character-box"
       style={{
-        position: "absolute",
-        top: position.top,
-        left: position.left,
-        width: size.width, // Bredd från prop
-        height: size.height, // Höjd från prop
-        pointerEvents: "none", // Förhindrar klick på lådan
         ...style,
+        width: size.width, // Bredd från prop
+        top: position.top,
+        height: size.height, // Höjd från prop
+        left: position.left,
+        position: "absolute",
+        pointerEvents: "none", // Förhindrar klick på lådan
       }}
     >
       {character && (

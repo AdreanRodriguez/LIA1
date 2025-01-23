@@ -8,7 +8,7 @@
   border-radius: 5px;
   border: 10px ridge var(--highlight-orange);
 
-  display: flex;
+  /* display: flex; Sätter display flex i media screen längst ner */
   align-items: center;
   justify-content: center;
 

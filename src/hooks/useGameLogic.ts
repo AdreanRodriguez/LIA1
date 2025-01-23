@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { gameOver } from "../utils/gameOver";
 import { positions } from "../utils/positions";
 import { CharacterType } from "../types/characterType";
 
@@ -9,21 +10,21 @@ export function useGameLogic(
   goodCharacterProbability: number
 ) {
   const [score, setScore] = useState<number>(0);
-  const [gameOver, setGameOver] = useState<boolean>(false);
+  const [isGameOver, setIsGameOver] = useState<boolean>(false);
   const [characters, setCharacters] = useState<CharacterType[]>([]);
 
   useEffect(() => {
-    if (startGame || gameOver) return;
+    if (startGame || isGameOver) return;
 
     const interval = setInterval(() => {
       spawnRandomCharacter();
     }, spawnInterval);
 
     return () => clearInterval(interval);
-  }, [characters, gameOver, startGame]);
+  }, [characters, isGameOver, startGame]);
 
   function spawnRandomCharacter() {
-    if (characters.length >= maxCharacters || gameOver) return;
+    if (characters.length >= maxCharacters || isGameOver) return;
 
     // Filtrera positioner där karaktärer redan finns
     const availablePositions = positions.filter(
@@ -57,8 +58,9 @@ export function useGameLogic(
 
   function handleCharacterClick(character: CharacterType) {
     // Så att man inte ska kunna klicka flera gånger på samma karaktär.
+    // Hindra dubbelklick på karaktärerna.
     if (character.clickedCharacter) {
-      return; // Hindra dubbelklick på karaktärerna.
+      return;
     }
 
     setCharacters((prev) =>
@@ -66,18 +68,19 @@ export function useGameLogic(
     );
 
     if (character.type === "good") {
-      setGameOver(true);
+      gameOver(score);
+      setIsGameOver(true);
     } else if (character.type === "evil") {
       setScore((prev) => prev + character.score);
     }
   }
 
   // Återställer spelplanen
-  function resetGame() {
+  function restartGame() {
     setScore(0);
-    setGameOver(false);
+    setIsGameOver(false);
     setCharacters([]); // Rensa alla karaktärer
   }
 
-  return { characters, score, gameOver, handleCharacterClick, resetGame };
+  return { characters, score, isGameOver, handleCharacterClick, restartGame };
 }

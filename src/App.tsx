@@ -10,8 +10,8 @@ import GameStartModal from "./components/gameStartModal/GameStartModal";
 
 function App() {
   const [startGame, setStartGame] = useState<boolean>(true);
-  const { characters, score, gameOver, handleCharacterClick, resetGame } = useGameLogic(
-    15, // Max antal karaktärer
+  const { characters, score, isGameOver, handleCharacterClick, restartGame } = useGameLogic(
+    5, // Max antal karaktärer
     1000, // Spawnar varje sekund, Hur ofta man vill att det ska komma nya karaktärer
     startGame,
     0.2 // Sannolikhet för att en god karaktär visas 20% / 1 av 5
@@ -22,16 +22,13 @@ function App() {
       <figure className="portrait-blocker__container">
         <img src={rotateDevice} alt="Rotate device image" className="portrait-blocker" />
       </figure>
-      {gameOver && <GameOverModal score={score} resetGame={resetGame} />}
+      {isGameOver && <GameOverModal score={score} restartGame={restartGame} />}
       {startGame && <GameStartModal startGame={startGame} setStartGame={setStartGame} />}
-      <main className={`game-container ${gameOver || startGame ? "blur-background" : null}`}>
+      <main className={`game-container ${isGameOver || startGame ? "blur-background" : null}`}>
         <h2 className="score__text">
           Score: <span className="score__number">{score}</span>
         </h2>
         <Bus characters={characters} onCharacterClick={handleCharacterClick} />
-
-        {/* <Bush position="left" />
-        <Bush position="right" /> */}
 
         <Bush
           position="left"

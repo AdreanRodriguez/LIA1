@@ -1,12 +1,12 @@
 import "./restartButton.css";
 
 interface RestartButtonProps {
-  resetGame: () => void;
+  restartGame: () => void;
 }
 
-export default function RestartButton({ resetGame }: RestartButtonProps) {
+export default function RestartButton({ restartGame }: RestartButtonProps) {
   return (
-    <button className="restart-button" onClick={resetGame}>
+    <button className="restart-button" onClick={restartGame}>
       Restart
     </button>
   );
