@@ -1,13 +1,7 @@
-// import { useState } from "react";
+export const startGame = () => {
+  console.log("Game started!");
 
-// interface StartGameProps {
-//   startGame: () => void;
-//   boolean: boolean
-// }
-// const [isGameStarted, setisGameStarted] = useState<boolean>(true);
-
-// export function startGame(boolean): StartGameProps {
-//   if(isGameStarted) {
-//     return startGame(true)
-// }
-// }
+  // Exempel på annan spelinitiering
+  // window.ClubHouseGame.gameStart();
+  // window.ClubHouseGame.registerRestart(() => {});
+};

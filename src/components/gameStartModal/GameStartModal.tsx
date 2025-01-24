@@ -1,22 +1,16 @@
 import "./gameStartModal.css";
+import { startGame } from "../../utils/startGame";
 import good from "../../assets/goodCharacters/GoodBackLeft.svg";
 import evil from "../../assets/evilCharacters/EvilBackLeft.svg";
 
 interface GameOverModalProps {
-  startGame: boolean;
-  setStartGame: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function GameStartModal({ startGame, setStartGame }: GameOverModalProps) {
-  // Starta spelet
-  // window.ClubHouseGame.registerRestart(() => {});
-
+export default function GameStartModal({ setIsGameStarted }: GameOverModalProps) {
   function handleStartGame() {
-    setStartGame(false);
-  }
-
-  if (!startGame) {
-    return null;
+    setIsGameStarted(true);
+    startGame();
   }
 
   return (

@@ -9,13 +9,15 @@ import GameOverModal from "./components/gameOverModal/GameOverModal";
 import GameStartModal from "./components/gameStartModal/GameStartModal";
 
 function App() {
-  const [startGame, setStartGame] = useState<boolean>(true);
+  const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
   const { characters, score, isGameOver, handleCharacterClick, restartGame } = useGameLogic(
-    5, // Max antal karaktärer
+    15, // Max antal karaktärer
     1000, // Spawnar varje sekund, Hur ofta man vill att det ska komma nya karaktärer
-    startGame,
+    isGameStarted,
     0.2 // Sannolikhet för att en god karaktär visas 20% / 1 av 5
   );
+
+  const uniqueCharacters = Array.from(new Map(characters.map((char) => [char.id, char])).values());
 
   return (
     <>
@@ -23,8 +25,8 @@ function App() {
         <img src={rotateDevice} alt="Rotate device image" className="portrait-blocker" />
       </figure>
       {isGameOver && <GameOverModal score={score} restartGame={restartGame} />}
-      {startGame && <GameStartModal startGame={startGame} setStartGame={setStartGame} />}
-      <main className={`game-container ${isGameOver || startGame ? "blur-background" : null}`}>
+      {!isGameStarted && <GameStartModal setIsGameStarted={setIsGameStarted} />}
+      <main className={`game-container ${isGameOver || !isGameStarted ? "blur-background" : null}`}>
         <h2 className="score__text">
           Score: <span className="score__number">{score}</span>
         </h2>
@@ -32,12 +34,12 @@ function App() {
 
         <Bush
           position="left"
-          characters={characters.filter((char) => char.id === "bush-left")}
+          characters={uniqueCharacters.filter((char) => char.id === "bush-left")}
           onCharacterClick={handleCharacterClick}
         />
         <Bush
           position="right"
-          characters={characters.filter((char) => char.id === "bush-right")}
+          characters={uniqueCharacters.filter((char) => char.id === "bush-right")}
           onCharacterClick={handleCharacterClick}
         />
 

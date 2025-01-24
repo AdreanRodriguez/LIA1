@@ -14,42 +14,6 @@ import GoodBushRight from "../assets/goodCharacters/GoodBushRight.svg";
 
 // Alla data för karaktärer
 export const CharacterData = {
-  // "bus-left": {
-  //   good: { characterImage: GoodBackLeft, size: { width: "10vh", height: "15vh" } },
-  //   evil: { characterImage: EvilBackLeft, size: { width: "10vh", height: "15vh" } },
-  // },
-  // "bus-right": {
-  //   good: { characterImage: GoodBackRight, size: { width: "10vw", height: "20vh" } },
-  //   evil: { characterImage: EvilBackRight, size: { width: "10vw", height: "20vh" } },
-  // },
-  // "window-1": {
-  //   good: { characterImage: GoodWindow1, size: { width: "10vh", height: "15vh" } },
-  //   evil: { characterImage: EvilWindow1, size: { width: "10vh", height: "15vh" } },
-  // },
-  // "window-2": {
-  //   good: { characterImage: GoodWindow2, size: { width: "10vh", height: "15vh" } },
-  //   evil: { characterImage: EvilWindow2, size: { width: "10vh", height: "15vh" } },
-  // },
-  // "window-3": {
-  //   good: { characterImage: GoodWindow2, size: { width: "10vh", height: "15vh" } },
-  //   evil: { characterImage: EvilWindow2, size: { width: "10vh", height: "15vh" } },
-  // },
-  // "window-4": {
-  //   good: { characterImage: GoodWindow2, size: { width: "10vh", height: "15vh" } },
-  //   evil: { characterImage: EvilWindow2, size: { width: "10vh", height: "15vh" } },
-  // },
-  // "window-5": {
-  //   good: { characterImage: GoodWindow2, size: { width: "10vh", height: "15vh" } },
-  //   evil: { characterImage: EvilWindow2, size: { width: "10vh", height: "15vh" } },
-  // },
-  // "bush-left": {
-  //   good: { characterImage: GoodBushLeft, size: { width: "20vh", height: "20vh" } },
-  //   evil: { characterImage: EvilBushLeft, size: { width: "20vh", height: "20vh" } },
-  // },
-  // "bush-right": {
-  //   good: { characterImage: GoodBushRight, size: { width: "20vh", height: "20vh" } },
-  //   evil: { characterImage: EvilBushRight, size: { width: "20vh", height: "20vh" } },
-  // },
   "bus-left": {
     good: { characterImage: GoodBackLeft, size: { width: "100%", height: "100%" } },
     evil: { characterImage: EvilBackLeft, size: { width: "100%", height: "100%" } },

@@ -10,7 +10,7 @@ interface CharacterProps {
 }
 
 export default function Character({ character, onClick, style }: CharacterProps) {
-  const { x, y, id, type, angle, score, animation, clickedCharacter } = character;
+  const { id, type, angle, score, animation, clickedCharacter } = character;
 
   const characterData = getCharacterData(id, type);
 
@@ -25,20 +25,21 @@ export default function Character({ character, onClick, style }: CharacterProps)
   const characterStyle: React.CSSProperties = {
     ...style, // Möjlighet att skicka in ytterligare dynamiska stilar
     ...size, // Bredd och höjd från `getCharacterData`
-    top: "0%",
-    left: "0%",
-    objectFit: "cover",
+    // top: "0%",
+    // left: "0%",
+    // objectFit: "cover",
     // position: "absolute",
     animationName: animation, // Dynamisk animation för karaktären
     transform: `rotate(${angle}deg)`, // Gör rotation och centrering
-    zIndex: id.includes("bush") || id === "bus-left" || id === "bus-right" ? 0 : 1, // Ser till att busk-karaktärer ligger bakom
+    zIndex: (id.includes("bush") && id === "bus-left") || id === "bus-right" ? 0 : 0, // Ser till att busk-karaktärer ligger bakom
   };
+  // Ändra z-index till 0 : 1 när den riktiga karaktären kommit om händerna ska vara utanför.
 
   return (
     <div
       className={`${type}-character ${clickedCharacter ? "clickedCharacter" : ""}`}
       style={characterStyle}
-      onClick={() => onClick({ id, type, x, y, angle, clickedCharacter, animation, score })}
+      onClick={() => onClick({ id, type, angle, clickedCharacter, animation, score })}
     >
       <img
         src={image}

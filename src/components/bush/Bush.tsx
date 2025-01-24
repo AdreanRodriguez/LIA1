@@ -10,8 +10,7 @@ interface BushProps {
 }
 
 const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick }) => {
-  // Definiera position och storlek för karaktärslådorna i busken
-  const bushConfig = {
+  const boxes = {
     left: {
       position: { top: "12%", left: "10%" },
       size: { width: "40%", height: "60%" },
@@ -22,7 +21,16 @@ const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick }) =
     },
   };
 
-  const config = bushConfig[position];
+  // Välj rätt konfiguration baserat på `position`
+  const selectedBox = boxes[position];
+
+  if (!selectedBox) {
+    console.error(`No box configuration found for bush-${position}`);
+    return null;
+  }
+
+  // Filtrera ut ogiltiga karaktärer
+  const validCharacters = characters.filter((character) => character && character.id);
 
   return (
     <div className={`bush-wrapper bush-wrapper-${position}`}>
@@ -30,17 +38,19 @@ const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick }) =
         {/* Här renderar vi buskbilden */}
         <img className="bush" src={bush} alt={`${position} bush`} />
       </div>
-
-      {/* Rendera karaktärer med CharacterBox */}
-      {characters.map((character) => (
-        <CharacterBox
-          key={character.id}
-          position={config.position}
-          size={config.size}
-          character={character}
-          onCharacterClick={onCharacterClick}
-        />
-      ))}
+      {/* Rendera karaktärer */}
+      {validCharacters.map((character) => {
+        // console.log(`${character.id}-${character.x}-${character.y}`);
+        return (
+          <CharacterBox
+            character={character}
+            size={selectedBox.size}
+            position={selectedBox.position}
+            onCharacterClick={onCharacterClick}
+            key={`${character.id}`}
+          />
+        );
+      })}
     </div>
   );
 };

@@ -10,8 +10,6 @@ export type CharacterId =
   | "bush-right";
 
 export interface PositionType {
-  x: number;
-  y: number;
   angle: number;
   id: CharacterId;
 }
