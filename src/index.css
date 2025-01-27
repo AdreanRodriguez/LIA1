@@ -1,5 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Audiowide&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Pacifico&family=Righteous&family=Short+Stack&family=Stalinist+One&display=swap");
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+:root {
+  --shortStack: "Short Stack";
+  --modal-background: #323232;
+  --highlight-orange: #f9b001;
+  --highlight-darkBlue: #003c68;
+  --highlight-lightBlue: #0069b3;
+}
+
+.hide {
+  display: none;
 }

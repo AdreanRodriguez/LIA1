@@ -1,20 +1,27 @@
 .game-container {
-  display: flex;
-  width: 100vw;
-  margin: 0 auto;
+  /* width: 100vw; */
+  /* margin: 0 auto; */
   overflow: hidden;
-  min-width: 100vw;
-  max-height: 100vh;
   position: relative;
+  height: 100vh;
   background-size: cover;
   background-position: center;
-  height: calc(100vw * 9 / 16);
   background-image: url("./assets/gran.svg");
+}
+
+.blur-background {
+  filter: blur(3px) grayscale(0.7);
 }
 
 .portrait-blocker__container {
   height: 100vh;
-  background-color: rgb(152, 152, 152);
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-color: rgb(216, 216, 216);
+  background-image: url(./assets/goodAndEvil.svg);
+  background-position-y: 85%;
+  /* background-position-y: 50vh; */
 }
 
 .portrait-blocker {
@@ -28,13 +35,22 @@
   animation: rotate 1.8s infinite cubic-bezier(0.44, -0.48, 0.19, 1.61);
 }
 
-.welcome-text {
+.score__text {
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  font-size: 1rem;
   position: absolute;
-  top: 10%;
-  width: 100%;
-  text-align: center;
-  color: rgb(76, 101, 26);
-  font-size: 2rem;
+  margin-left: 0.5rem;
+  font-family: "Short Stack";
+  color: var(--highlight-darkBlue);
+}
+
+.score__number {
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+  font-family: "Short Stack";
+  color: var(--highlight-darkBlue);
 }
 
 @keyframes rotate {
@@ -48,6 +64,14 @@
     transform: translate(-50%, -50%) rotateZ(-90deg) scale(1);
   }
 }
+
+/* @media screen and (max-aspect-ratio: 1/1) {
+  body {
+    transform: rotate(-90deg);
+    width: 100vh;
+    height: 100vw;
+  }
+} */
 
 @media screen and (orientation: portrait) {
   .game-container {
@@ -68,6 +92,6 @@
     display: none;
   }
   .game-container {
-    display: flex;
+    display: block;
   }
 }

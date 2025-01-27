@@ -1,0 +1,30 @@
+.cloud {
+  z-index: 1;
+  position: absolute;
+  filter: invert(10%);
+  animation: fadeInAndOut infinite;
+}
+
+@keyframes fadeInAndOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media screen and (orientation: portrait) {
+  .cloud {
+    display: none;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .cloud {
+    display: block;
+  }
+}
