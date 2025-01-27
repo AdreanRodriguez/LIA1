@@ -40,6 +40,7 @@
 
 .gameStartModal__image__container {
   width: 6%;
+  border: 1px solid white;
 }
 
 .gameStartModal__image {

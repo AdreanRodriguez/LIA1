@@ -1,8 +1,10 @@
 import "./characterBox.css";
 import Character from "../character/Character";
 import { CharacterType } from "../../types/characterType";
+import { getCharacterData } from "../../utils/getCharacterData";
 
 interface CharacterBoxProps {
+  isBusLeft?: boolean;
   character?: CharacterType; // Karaktär som visas i denna slot
   style?: React.CSSProperties; // Valfri stil
   position: { top: string; left: string }; // Position i förhållande till bussen
@@ -16,9 +18,10 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
   size,
   onCharacterClick,
   style,
+  isBusLeft,
 }) => {
-  // Kolla om `character` är null eller undefined
-  if (!character) {
+  // Rendera inte något om karaktären inte finns eller inte är synlig
+  if (!character || !character.visible) {
     return null;
   }
 
@@ -27,9 +30,18 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
     return null;
   }
 
+  const characterData = getCharacterData(character.id, character.type);
+  if (!characterData) {
+    return null; // Rendera inte något om karaktären är null
+  } // God är null i getCharacterData under bussen
+
+  // Karaktären god flippas vid id "bus-left" om den är god
+  const shouldFlip = isBusLeft && character.type === "good";
+  const randomFlip = !isBusLeft && character.type === "good" && Math.random() < 0.5;
+
   return (
     <div
-      className="character-box"
+      className={`character-box ${shouldFlip || randomFlip ? "flipped" : ""}`}
       style={{
         ...style,
         width: size.width,

@@ -9,12 +9,13 @@ export const positions: PositionType[] = [
   { id: "window-5", angle: 0 },
 
   // Bussposition (vänster och höger sida)
-  { id: "bus-left", angle: -45 },
+  { id: "bus-left", angle: -60 },
   { id: "bus-right", angle: 45 },
 
   // Buskposition
   { id: "bush-left", angle: 0 },
   { id: "bush-right", angle: 0 },
+  { id: "under-bus", angle: 0 },
 ];
 
 // Glöm inte att lägga till karaktär under bussen.

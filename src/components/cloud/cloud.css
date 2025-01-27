@@ -2,12 +2,11 @@
   z-index: 1;
   position: absolute;
   filter: invert(10%);
-  animation: moveToTheRight infinite;
+  animation: fadeInAndOut infinite;
 }
 
-@keyframes moveToTheRight {
+@keyframes fadeInAndOut {
   0% {
-    /* left: -20vw; */
     opacity: 0;
   }
   50% {
@@ -15,7 +14,6 @@
   }
   100% {
     opacity: 0;
-    /* left: 70vw; */
   }
 }
 

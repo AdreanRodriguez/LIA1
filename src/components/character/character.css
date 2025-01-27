@@ -5,38 +5,79 @@
   object-fit: contain;
 }
 
+.evil-character,
 .good-character {
-  animation-duration: 2s;
-  animation-timing-function: ease-in-out;
-}
-
-.evil-character {
-  animation-duration: 1.5s;
-  animation-timing-function: ease-in-out;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+  animation: slide-up 2s ease-in-out;
 }
 
 .clickedCharacter {
-  opacity: 0.7;
+  opacity: 0.5;
   transform: scale(1.2);
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
 }
 
-@keyframes slide-in {
+/* Från höger till vänster (under bussen) */
+@keyframes slide-under-bus {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  75% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* Nedifrån och upp (window-positionerna*) */
+@keyframes slide-up {
+  0% {
+    opacity: 0;
+    transform: translateY(100%); /* Startar längst ner */
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0); /* Stannar längst upp */
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(0); /* Väntar kvar längst upp i 0.5s */
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(100%); /* Åker ner igen */
+  }
+}
+
+/* Från höger till vänster (bus-left) */
+@keyframes slide-right-to-left {
   from {
     opacity: 0;
-    transform: translateY(100%);
+    transform: translateX(100%) rotate(-60deg);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0) rotate(-60deg);
   }
 }
 
-@keyframes fade-in {
+/* Från vänster till höger (bus-right) */
+@keyframes slide-left-to-right {
   from {
     opacity: 0;
+    transform: translateX(-100%) rotate(45deg);
   }
   to {
     opacity: 1;
+    transform: translateX(0) rotate(45deg);
   }
 }

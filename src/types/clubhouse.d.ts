@@ -8,6 +8,7 @@ interface ClubHouseGameInterface {
 }
 
 interface Options {
+  // "hideInGame" kan man sätta till true om man vill sköta visningen av poäng själv
   hideInGame: boolean;
 }
 

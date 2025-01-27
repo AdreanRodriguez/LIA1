@@ -5,16 +5,23 @@ import { getCharacterData } from "../../utils/getCharacterData";
 
 interface CharacterProps {
   character: CharacterType;
-  onClick: (character: CharacterType) => void;
   style?: React.CSSProperties;
+  onClick: (character: CharacterType) => void;
 }
 
 export default function Character({ character, onClick, style }: CharacterProps) {
-  const { id, type, angle, score, animation, clickedCharacter } = character;
+  const { id, type, angle, score, animation, clickedCharacter, visible } = character;
+
+  // Kontrollera om karaktären är synlig
+  if (!visible) {
+    console.error(`Skipping render for character with ID: ${id}`);
+    return null; // Rendera inte karaktären om `visible` är false
+  }
 
   const characterData = getCharacterData(id, type);
 
   if (!characterData) {
+    console.error("No characterData");
     return null;
   }
 
@@ -23,23 +30,19 @@ export default function Character({ character, onClick, style }: CharacterProps)
   const image = clickedCharacter && type === "evil" ? cartoonCloudImange : characterImage;
 
   const characterStyle: React.CSSProperties = {
-    ...style, // Möjlighet att skicka in ytterligare dynamiska stilar
+    // ...style, // Möjlighet att skicka in ytterligare dynamiska stilar
     ...size, // Bredd och höjd från `getCharacterData`
-    // top: "0%",
-    // left: "0%",
-    // objectFit: "cover",
-    // position: "absolute",
-    animationName: animation, // Dynamisk animation för karaktären
-    transform: `rotate(${angle}deg)`, // Gör rotation och centrering
-    zIndex: (id.includes("bush") && id === "bus-left") || id === "bus-right" ? 0 : 0, // Ser till att busk-karaktärer ligger bakom
+    // transform: `rotate(${angle}deg)`, // Gör rotation och centrering
+    animationName: character.animation,
+    // zIndex: (id.includes("bush") && id === "bus-left") || id === "bus-right" ? 0 : 0, // Ser till att busk-karaktärer ligger bakom
+    zIndex: 0,
   };
-  // Ändra z-index till 0 : 1 när den riktiga karaktären kommit om händerna ska vara utanför.
 
   return (
     <div
       className={`${type}-character ${clickedCharacter ? "clickedCharacter" : ""}`}
       style={characterStyle}
-      onClick={() => onClick({ id, type, angle, clickedCharacter, animation, score })}
+      onClick={() => onClick({ id, type, angle, clickedCharacter, animation, score, visible })}
     >
       <img
         src={image}

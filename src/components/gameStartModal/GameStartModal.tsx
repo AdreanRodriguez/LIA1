@@ -1,7 +1,7 @@
 import "./gameStartModal.css";
 import { startGame } from "../../utils/startGame";
-import good from "../../assets/goodCharacters/GoodBackLeft.svg";
-import evil from "../../assets/evilCharacters/EvilBackLeft.svg";
+import good from "../../assets/goodCharacters/good.svg";
+import evil from "../../assets/evilCharacters/evil.svg";
 
 interface GameOverModalProps {
   setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,8 +9,8 @@ interface GameOverModalProps {
 
 export default function GameStartModal({ setIsGameStarted }: GameOverModalProps) {
   function handleStartGame() {
-    setIsGameStarted(true);
     startGame();
+    setIsGameStarted(true);
   }
 
   return (

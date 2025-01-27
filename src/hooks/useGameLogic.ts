@@ -41,28 +41,34 @@ export function useGameLogic(
       availablePositions[Math.floor(Math.random() * availablePositions.length)];
     const randomType = Math.random() < goodCharacterProbability ? "good" : "evil";
 
+    // Tilldela rätt animation baserat på position
+    let animation = "";
+    if (randomPosition.id.startsWith("window")) {
+      animation = "slide-up";
+    } else if (randomPosition.id === "under-bus") {
+      animation = "slide-under-bus";
+    } else if (randomPosition.id === "bus-left") {
+      animation = "slide-right-to-left";
+    } else if (randomPosition.id === "bus-right") {
+      animation = "slide-left-to-right";
+    }
+
     const newCharacter: CharacterType = {
+      animation,
+      visible: true,
       type: randomType,
-      // x: randomPosition.x,
-      // y: randomPosition.y,
       id: randomPosition.id,
       clickedCharacter: false,
       angle: randomPosition.angle,
-      // uuid: uuid().substring(0, 4),
       score: randomType === "evil" ? 10 : 0,
-      animation: randomPosition.id.includes("window") ? "slide-in" : "fade-in",
     };
 
-    // setCharacters((prev) => [...prev, newCharacter]);
-    updateCharacters((prev) => {
-      const updatedCharacters = [...prev, newCharacter];
-      return updatedCharacters;
-    });
+    updateCharacters((prev) => [...prev, newCharacter]);
 
     // Ta bort karaktären efter 2 sekunder
     setTimeout(() => {
       updateCharacters((prev) => prev.filter((char) => char.id !== newCharacter.id));
-    }, 22000);
+    }, 2000);
   }
 
   function handleCharacterClick(character: CharacterType) {

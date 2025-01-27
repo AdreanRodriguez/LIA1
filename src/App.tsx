@@ -11,7 +11,7 @@ import GameStartModal from "./components/gameStartModal/GameStartModal";
 function App() {
   const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
   const { characters, score, isGameOver, handleCharacterClick, restartGame } = useGameLogic(
-    15, // Max antal karaktärer
+    5, // Max antal karaktärer
     1000, // Spawnar varje sekund, Hur ofta man vill att det ska komma nya karaktärer
     isGameStarted,
     0.2 // Sannolikhet för att en god karaktär visas 20% / 1 av 5
@@ -30,7 +30,11 @@ function App() {
         <h2 className="score__text">
           Score: <span className="score__number">{score}</span>
         </h2>
-        <Bus characters={characters} onCharacterClick={handleCharacterClick} />
+        <Bus
+          characters={characters}
+          onCharacterClick={handleCharacterClick}
+          animation={isGameStarted}
+        />
 
         <Bush
           position="left"

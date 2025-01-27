@@ -7,7 +7,8 @@ export type CharacterId =
   | "bus-left"
   | "bus-right"
   | "bush-left"
-  | "bush-right";
+  | "bush-right"
+  | "under-bus";
 
 export interface PositionType {
   angle: number;
@@ -16,6 +17,7 @@ export interface PositionType {
 
 export interface CharacterType extends PositionType {
   score: number;
+  visible: boolean;
   animation: string;
   type: "good" | "evil";
   clickedCharacter?: boolean;
