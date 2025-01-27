@@ -17,10 +17,10 @@
 
 .bus {
   /* z-index: 0; */
-  z-index: 1;
-  width: 100%;
   left: 0;
   bottom: 0;
+  z-index: 1;
+  width: 100%;
   height: auto;
   position: absolute;
   pointer-events: none;
@@ -32,6 +32,7 @@
   width: 102%;
   z-index: -1;
   position: relative;
+  pointer-events: none;
 }
 
 .bus-animation {

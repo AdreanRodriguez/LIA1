@@ -36,12 +36,13 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
   } // God är null i getCharacterData under bussen
 
   // Karaktären god flippas vid id "bus-left" om den är god
-  const shouldFlip = isBusLeft && character.type === "good";
-  const randomFlip = !isBusLeft && character.type === "good" && Math.random() < 0.5;
+  const shouldFlipGood = isBusLeft && character.type === "good";
+  // const shouldFlipEvil = isBusRight && character.type === "good";
+  const randomFlipGood = !isBusLeft && character.type === "good" && Math.random() < 0.5;
 
   return (
     <div
-      className={`character-box ${shouldFlip || randomFlip ? "flipped" : ""}`}
+      className={`character-box ${shouldFlipGood || randomFlipGood ? "flipped" : ""}`}
       style={{
         ...style,
         width: size.width,
@@ -49,14 +50,14 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
         height: size.height,
         left: position.left,
         position: "absolute",
-        pointerEvents: "none", // Förhindrar klick på lådan
       }}
     >
       {character && (
         <Character
           character={character}
           onClick={onCharacterClick}
-          style={{ pointerEvents: "auto" }}
+          characterImage={characterData.characterImage}
+          size={characterData.size}
         />
       )}
     </div>

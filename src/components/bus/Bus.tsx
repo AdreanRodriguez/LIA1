@@ -3,7 +3,6 @@ import busInside from "../../assets/bus/busInside.svg";
 import busOutside from "../../assets/bus/busOutside.svg";
 import CharacterBox from "../characterBox/CharacterBox";
 import { CharacterType } from "../../types/characterType";
-import underBusChar from "../../assets/evilCharacters/Liggande.djävul1.svg";
 
 interface BusProps {
   animation: boolean;

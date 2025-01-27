@@ -12,11 +12,18 @@
   animation: slide-up 2s ease-in-out;
 }
 
-.clickedCharacter {
-  opacity: 0.5;
-  transform: scale(1.2);
-  transition: all 0.1s ease;
+.evil-character.clickedCharacter img {
+  opacity: 0;
+  transform: scale(1.5);
+  transition: all 0.3s ease;
 }
+
+/* .good-character.clickedCharacter img {
+  opacity: 0.3;
+  transition: all 0.3s ease;
+
+  Om man vill göra något med den gode, exempel att den ska fada upp
+} */
 
 /* Från höger till vänster (under bussen) */
 @keyframes slide-under-bus {
@@ -42,42 +49,58 @@
 @keyframes slide-up {
   0% {
     opacity: 0;
-    transform: translateY(100%); /* Startar längst ner */
+    transform: translateY(100%);
   }
   50% {
     opacity: 1;
-    transform: translateY(0); /* Stannar längst upp */
+    transform: translateY(0);
   }
   75% {
     opacity: 1;
-    transform: translateY(0); /* Väntar kvar längst upp i 0.5s */
+    transform: translateY(0);
   }
   100% {
     opacity: 0;
-    transform: translateY(100%); /* Åker ner igen */
+    transform: translateY(100%);
   }
 }
 
 /* Från höger till vänster (bus-left) */
 @keyframes slide-right-to-left {
-  from {
+  0% {
     opacity: 0;
     transform: translateX(100%) rotate(-60deg);
   }
-  to {
+  50% {
     opacity: 1;
     transform: translateX(0) rotate(-60deg);
+  }
+  75% {
+    opacity: 1;
+    transform: translateX(0) rotate(-60deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(100%) rotate(-60deg);
   }
 }
 
 /* Från vänster till höger (bus-right) */
 @keyframes slide-left-to-right {
-  from {
+  0% {
     opacity: 0;
     transform: translateX(-100%) rotate(45deg);
   }
-  to {
+  50% {
     opacity: 1;
     transform: translateX(0) rotate(45deg);
+  }
+  75% {
+    opacity: 1;
+    transform: translateX(0) rotate(45deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-100%) rotate(45deg);
   }
 }
