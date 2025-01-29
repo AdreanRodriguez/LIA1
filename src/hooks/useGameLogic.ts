@@ -1,9 +1,9 @@
-// import { v4 as uuid } from "uuid";
 import { useState, useEffect } from "react";
 import { gameOver } from "../utils/gameOver";
 import { startGame } from "../utils/startGame";
 import { positions } from "../utils/positions";
 import { CharacterType } from "../types/characterType";
+import { preloadImages } from "../utils/preloadImages";
 
 export function useGameLogic(
   maxCharacters: number,
@@ -11,19 +11,36 @@ export function useGameLogic(
   isGameStarted: boolean,
   goodCharacterProbability: number
 ) {
+  const timeoutIds = new Set<number>();
   const [score, setScore] = useState<number>(0);
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
+  const [isGameReady, setIsGameReady] = useState<boolean>(false);
   const [characters, setCharacters] = useState<CharacterType[]>([]);
 
   useEffect(() => {
-    if (!isGameStarted || isGameOver) return;
+    preloadImages()
+      .then(() => setIsGameReady(true))
+      .catch((err) => console.error("Fel vid laddning av bilder:", err));
 
-    const interval = setInterval(() => {
-      spawnRandomCharacter();
-    }, spawnInterval);
+    return () => {
+      timeoutIds.forEach(clearTimeout); // Rensa alla timers
+    };
+  }, []);
 
-    return () => clearInterval(interval);
-  }, [isGameOver, isGameStarted]);
+  useEffect(() => {
+    if (!isGameStarted || isGameOver) {
+      setCharacters([]); // Rensar karaktärer när spelet slutar
+    }
+
+    if (!isGameStarted) return;
+
+    const interval = setInterval(spawnRandomCharacter, spawnInterval);
+
+    return () => {
+      clearInterval(interval);
+      timeoutIds.forEach(clearTimeout);
+    };
+  }, [isGameStarted, isGameOver]);
 
   function spawnRandomCharacter() {
     if (characters.length >= maxCharacters || isGameOver) return;
@@ -108,8 +125,8 @@ export function useGameLogic(
     startGame();
     setScore(0);
     setIsGameOver(false);
-    setCharacters([]); // Rensa alla karaktärer
+    setCharacters([]); // Rensar karaktärer när spelet slutar
   }
 
-  return { characters, score, isGameOver, handleCharacterClick, restartGame };
+  return { characters, score, isGameOver, handleCharacterClick, restartGame, isGameReady };
 }

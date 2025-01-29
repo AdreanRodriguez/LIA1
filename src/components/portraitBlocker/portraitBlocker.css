@@ -7,17 +7,38 @@
 
 .portrait-image__evil {
   top: -7px;
-  width: 50%;
+  left: 50%;
   position: absolute;
-  transform: translateX(50%) rotateX(180deg);
+  transform: translateX(-50%) rotateX(180deg);
 }
 
 .portrait-image__good {
   left: 50%;
-  width: 50%;
   bottom: -7px;
   position: absolute;
   transform: translateX(-50%);
+}
+
+/* Om man ska ha det upp och ner vänt */
+/* background: linear-gradient(0deg, rgba(193, 3, 3, 1) 0%, rgba(37, 137, 166, 1) 100%); */
+
+/* .portrait-image__good {
+  top: -7px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%) rotateX(180deg);
+}
+
+.portrait-image__evil {
+  left: 50%;
+  bottom: -7px;
+  position: absolute;
+  transform: translateX(-50%);
+} */
+
+.portrait-image__evil,
+.portrait-image__good {
+  max-width: 40vw;
 }
 
 .portrait-blocker {

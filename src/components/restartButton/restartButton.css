@@ -4,7 +4,7 @@
   font-size: 1.5rem;
   border-radius: 5px;
   padding: 0.5rem 1rem;
-  background-color: #008364;
   color: var(--highlight-orange);
   font-family: var(--shortStack);
+  background-color: var(--button-green);
 }

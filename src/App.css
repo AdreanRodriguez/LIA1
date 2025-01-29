@@ -9,6 +9,7 @@
   /* background-size: contain; */
   background-position: center;
   background-image: url("./assets/background.webp");
+  pointer-events: none;
 }
 
 .blur-background {
@@ -26,11 +27,58 @@
   color: var(--highlight-darkBlue);
 }
 
-.score__number {
-  font-size: 1.5rem;
-  margin-left: 0.5rem;
-  font-family: "Short Stack";
-  color: var(--highlight-darkBlue);
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.spinner-container.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.spinner {
+  display: flex;
+  justify-content: space-between;
+  width: 70px;
+}
+
+.bounce1,
+.bounce2,
+.bounce3 {
+  width: 18px;
+  height: 18px;
+  background-color: white;
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out;
+}
+
+.bounce2 {
+  animation-delay: -0.16s;
+}
+.bounce3 {
+  animation-delay: -0.32s;
+}
+
+@keyframes bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
 }
 
 @media screen and (orientation: landscape) {
