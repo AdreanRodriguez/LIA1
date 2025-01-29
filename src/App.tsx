@@ -4,26 +4,24 @@ import Bus from "./components/bus/Bus";
 import Bush from "./components/bush/Bush";
 import Cloud from "./components/cloud/Cloud";
 import { useGameLogic } from "./hooks/useGameLogic";
-import rotateDevice from "./assets/rotateDevice.svg";
 import GameOverModal from "./components/gameOverModal/GameOverModal";
 import GameStartModal from "./components/gameStartModal/GameStartModal";
+import PortraitBlocker from "./components/portraitBlocker/PortraitBlocker";
 
 function App() {
   const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
   const { characters, score, isGameOver, handleCharacterClick, restartGame } = useGameLogic(
-    8, // Max antal karaktärer
-    1000, // Spawnar varje sekund, Hur ofta man vill att det ska komma nya karaktärer
+    15, // Max antal karaktärer
+    500, // Spawnar varje sekund, Hur ofta man vill att det ska komma nya karaktärer
     isGameStarted,
-    0.2 // Sannolikhet för att en god karaktär visas 20% / 1 av 5
+    0.5 // Sannolikhet för att en god karaktär visas 20% / 1 av 5
   );
 
   const uniqueCharacters = Array.from(new Map(characters.map((char) => [char.id, char])).values());
 
   return (
     <>
-      <figure className="portrait-blocker__container">
-        <img src={rotateDevice} alt="Rotate device image" className="portrait-blocker" />
-      </figure>
+      <PortraitBlocker />
       {isGameOver && <GameOverModal score={score} restartGame={restartGame} />}
       {!isGameStarted && <GameStartModal setIsGameStarted={setIsGameStarted} />}
       <main className={`game-container ${isGameOver || !isGameStarted ? "blur-background" : null}`}>

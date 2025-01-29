@@ -1,7 +1,7 @@
 import "./bus.css";
-import busInside from "../../assets/bus/busInside.svg";
-import busOutside from "../../assets/bus/busOutside.svg";
+import busInside from "../../assets/bus/busInside.png";
 import CharacterBox from "../characterBox/CharacterBox";
+import busOutside from "../../assets/bus/busOutside.webp";
 import { CharacterType } from "../../types/characterType";
 
 interface BusProps {
@@ -15,28 +15,28 @@ const Bus: React.FC<BusProps> = ({ characters, onCharacterClick, animation }) =>
   const boxes = [
     {
       id: "window-1",
-      position: { top: "36%", left: "11%" },
-      size: { width: "7%", height: "20%" },
+      position: { top: "34%", left: "11%" },
+      size: { width: "6%", height: "20%" },
     },
     {
       id: "window-2",
-      position: { top: "36%", left: "32%" },
-      size: { width: "7%", height: "20%" },
+      position: { top: "34%", left: "32%" },
+      size: { width: "6%", height: "20%" },
     },
     {
       id: "window-3",
-      position: { top: "36%", left: "43%" },
-      size: { width: "7%", height: "20%" },
+      position: { top: "34%", left: "43%" },
+      size: { width: "6%", height: "20%" },
     },
     {
       id: "window-4",
-      position: { top: "36%", left: "55%" },
-      size: { width: "7%", height: "20%" },
+      position: { top: "34%", left: "55%" },
+      size: { width: "6%", height: "20%" },
     },
     {
       id: "window-5",
-      position: { top: "36%", left: "70%" },
-      size: { width: "7%", height: "20%" },
+      position: { top: "34%", left: "70%" },
+      size: { width: "6%", height: "20%" },
     },
     {
       id: "bus-left",
@@ -45,13 +45,13 @@ const Bus: React.FC<BusProps> = ({ characters, onCharacterClick, animation }) =>
     },
     {
       id: "bus-right",
-      position: { top: "45%", left: "95%" },
-      size: { width: "10%", height: "30%" },
+      position: { top: "45%", left: "96%" },
+      size: { width: "8%", height: "20%" },
     },
     {
       id: "under-bus",
-      position: { top: "82%", left: "55%" },
-      size: { width: "16%", height: "24%" },
+      position: { top: "78%", left: "57%" },
+      size: { width: "10%", height: "25%" },
     },
   ];
 

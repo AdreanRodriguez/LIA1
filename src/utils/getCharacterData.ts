@@ -1,7 +1,6 @@
-import EvilCharacter from "../assets/evilCharacters/evil.svg";
-import EvilCharacterUnderBus from "../assets/evilCharacters/Liggande.djävul1.svg";
-
-import GoodCharacter from "../assets/goodCharacters/good.svg";
+import GoodCharacter from "../assets/goodCharacters/good.png";
+import EvilCharacter from "../assets/evilCharacters/evil.png";
+import EvilCharacterUnderBus from "../assets/evilCharacters/horizontalEvil.svg";
 
 // Alla data för karaktärer
 export const CharacterData = {

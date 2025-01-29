@@ -11,6 +11,7 @@
 
 .bush-wrapper-right {
   left: 70%;
+  transform: rotateY(180deg);
 }
 
 .bush-container {

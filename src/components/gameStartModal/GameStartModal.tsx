@@ -1,7 +1,7 @@
 import "./gameStartModal.css";
 import { startGame } from "../../utils/startGame";
-import good from "../../assets/goodCharacters/good.svg";
-import evil from "../../assets/evilCharacters/evil.svg";
+import good from "../../assets/goodCharacters/good.png";
+import evil from "../../assets/evilCharacters/evil.png";
 
 interface GameOverModalProps {
   setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>;

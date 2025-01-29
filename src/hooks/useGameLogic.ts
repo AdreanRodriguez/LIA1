@@ -68,8 +68,10 @@ export function useGameLogic(
     // Ta bort karaktären efter 2 sekunder
     setTimeout(() => {
       updateCharacters((prev) => prev.filter((char) => char.id !== newCharacter.id));
-    }, 2000);
+    }, 1500);
   }
+
+  // Kanske göra så att den gode stannar lite längre ?
 
   function handleCharacterClick(character: CharacterType) {
     // Så att man inte ska kunna klicka flera gånger på samma karaktär.
