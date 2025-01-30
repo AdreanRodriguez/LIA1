@@ -1,5 +1,5 @@
 import "./bush.css";
-import bush from "../../assets/bush.svg";
+import bush from "../../../public/assets/bush.svg";
 import CharacterBox from "../characterBox/CharacterBox";
 import { CharacterType } from "../../types/characterType";
 

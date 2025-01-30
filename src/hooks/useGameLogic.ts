@@ -51,6 +51,13 @@ export function useGameLogic(
 
     if (!isGameStarted) return;
     // Startar spelet och spawnar karaktärer
+    // console.log("Manuellt anropar gameLoaded()...");
+    // window.ClubHouseGame?.gameLoaded({ hideInGame: true });
+    if (window.ClubHouseGame?.gameRunning) {
+      console.log("ClubHouseGame.gameRunning():", window.ClubHouseGame?.gameRunning());
+      window.ClubHouseGame?.gameRunning();
+    }
+
     const interval = setInterval(spawnRandomCharacter, spawnInterval);
 
     return () => {
@@ -152,6 +159,11 @@ export function useGameLogic(
     setScore(0);
     setIsGameOver(false);
     updateCharacters(() => []); // Rensar karaktärer vid omstart
+
+    // window.ClubHouseGame.registerRestart()
+
+    console.log("Spelet startas om! Kollar gameRunning...");
+    console.log("ClubHouseGame.gameRunning():", window.ClubHouseGame?.gameRunning());
   }
 
   return { characters, score, isGameOver, handleCharacterClick, restartGame, isGameReady };

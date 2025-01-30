@@ -1,8 +1,8 @@
 import "./bus.css";
-import busInside from "../../assets/bus/busInside.png";
 import CharacterBox from "../characterBox/CharacterBox";
-import busOutside from "../../assets/bus/busOutside.webp";
 import { CharacterType } from "../../types/characterType";
+import busInside from "../../../public/assets/bus/busInside.png";
+import busOutside from "../../../public/assets/bus/busOutside.webp";
 
 interface BusProps {
   animation: boolean;

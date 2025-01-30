@@ -21,16 +21,27 @@
 }
 
 .gameStartModal__title {
-  font-size: 1rem;
+  font-size: 1.5rem;
+  font-family: krita2;
+  margin-bottom: 1rem;
   color: var(--highlight-orange);
-  font-family: var(--shortStack);
+  /* font-family: var(--shortStack); */
 }
 
-.gameStartModal__rule {
-  gap: 1rem;
+.gameStartModal__rule__good {
+  gap: 0.5rem;
   width: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.gameStartModal__rule__evil {
+  gap: 0.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .gameStartModal__image__container {
@@ -55,20 +66,22 @@
 .gameStartModal__text {
   color: white;
   font-size: 1rem;
-  font-family: var(--shortStack);
+  /* font-family: var(--shortStack); */
+  font-family: krita2;
 }
 
 .gameStartModal__good-luck {
   color: white;
   font-size: 1.6rem;
-  font-weight: bold;
-  font-family: var(--shortStack);
+  /* font-weight: bold; */
+  /* font-family: var(--shortStack); */
+  font-family: krita2;
 }
 
 .gameStartModal__play-button {
   border: none;
   margin: 1rem auto;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   border-radius: 5px;
   padding: 0.5rem 1.2rem;
   color: var(--highlight-orange);
@@ -81,7 +94,8 @@
   color: white;
   margin-top: 1rem;
   text-align: center;
-  font-family: var(--shortStack);
+  /* font-family: var(--shortStack); */
+  font-family: krita2;
 }
 
 .gameStartModal__collaboration a {

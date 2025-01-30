@@ -1,7 +1,7 @@
 import "./portraitBlocker.css";
-import rotateDevice from "../../assets/rotateDevice.svg";
-import evilCharacter from "../../assets/evilCharacters/evil.png";
-import goodCharacter from "../../assets/goodCharacters/good.png";
+import rotateDevice from "../../../public/assets/rotateDevice.svg";
+import evilCharacter from "../../../public/assets/evilCharacters/evil.png";
+import goodCharacter from "../../../public/assets/goodCharacters/good.png";
 
 export default function PortraitBlocker() {
   return (

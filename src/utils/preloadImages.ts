@@ -1,9 +1,16 @@
 export const preloadImages = (): Promise<void> => {
   return new Promise((resolve, reject) => {
-    // 🔥 Dynamiskt importera alla bilder i assets-mappen (PNG, JPG, WEBP, SVG)
-    const imageModules = import.meta.glob("../assets/**/*.{png,webp,svg}", { eager: true });
-
-    const imageList = Object.values(imageModules).map((module: any) => module.default);
+    const imageList = [
+      "/assets/poff.svg",
+      "/assets/bush.svg",
+      "/assets/cloud1.svg",
+      "/assets/goodAndEvil.svg",
+      "/assets/background.webp",
+      "/assets/bus/busInside.png",
+      "/assets/bus/busOutside.webp",
+      "/assets/goodCharacters/good.png",
+      "/assets/evilCharacters/evil.png",
+    ];
 
     let loadedCount = 0;
     let totalImages = imageList.length;
@@ -23,7 +30,7 @@ export const preloadImages = (): Promise<void> => {
         }
       };
       img.onerror = (err) => {
-        console.error(`❌ Fel vid laddning av bild: ${url}`, err);
+        console.error(`Fel vid laddning av bild: ${url}`, err);
         reject(err);
       };
     });

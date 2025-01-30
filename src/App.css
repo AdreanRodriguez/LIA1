@@ -26,6 +26,10 @@
   color: var(--highlight-darkBlue);
 }
 
+.score__number {
+  font-family: krita2;
+}
+
 .spinner-container {
   display: flex;
   justify-content: center;

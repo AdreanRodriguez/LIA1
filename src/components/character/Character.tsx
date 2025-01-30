@@ -1,6 +1,6 @@
 import "./character.css";
-import cartoonCloudImange from "../../assets/poff.svg";
 import { CharacterType } from "../../types/characterType";
+import cartoonCloudImange from "../../../public/assets/poff.svg";
 // import { getCharacterData } from "../../utils/getCharacterData";
 
 interface CharacterProps {

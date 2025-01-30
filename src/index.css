@@ -1,4 +1,14 @@
-@import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&family=Audiowide&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Pacifico&family=Righteous&family=Short+Stack&family=Stalinist+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Short+Stack&display=swap");
+
+@font-face {
+  font-family: krita;
+  src: url("./assets/fonts/Pencilant Script.otf");
+}
+
+@font-face {
+  font-family: krita2;
+  src: url("./assets/fonts/chawp.otf");
+}
 
 * {
   margin: 0;

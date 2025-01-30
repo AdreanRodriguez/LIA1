@@ -1,5 +1,5 @@
 import "./cloud.css";
-import cloud from "../../assets/cloud1.svg";
+import cloud from "../../../public/assets/cloud1.svg";
 
 interface cloudProps {
   top?: string;
