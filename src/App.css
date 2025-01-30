@@ -9,7 +9,6 @@
   /* background-size: contain; */
   background-position: center;
   background-image: url("./assets/background.webp");
-  pointer-events: none;
 }
 
 .blur-background {
@@ -31,14 +30,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  top: 0;
+  left: 0;
+  opacity: 1;
   height: 100vh;
   width: 100vw;
   position: fixed;
-  top: 0;
-  left: 0;
   background: rgba(0, 0, 0, 0.8);
   z-index: 9999;
-  opacity: 1;
   transition: opacity 0.5s ease-out;
 }
 

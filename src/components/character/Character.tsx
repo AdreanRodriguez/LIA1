@@ -26,7 +26,6 @@ export default function Character({ character, onClick, characterImage, size }: 
     ...size, // Bredd och höjd från `getCharacterData`
     transform: `rotate(${angle}deg)`, // Gör rotation och centrering
     animationName: character.animation,
-    // zIndex: 0,
   };
 
   return (

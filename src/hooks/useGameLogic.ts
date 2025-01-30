@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
 import { gameOver } from "../utils/gameOver";
 import { startGame } from "../utils/startGame";
 import { positions } from "../utils/positions";
+import { useState, useEffect, useRef } from "react";
 import { CharacterType } from "../types/characterType";
 import { preloadImages } from "../utils/preloadImages";
 
@@ -11,34 +11,52 @@ export function useGameLogic(
   isGameStarted: boolean,
   goodCharacterProbability: number
 ) {
-  const timeoutIds = new Set<number>();
+  const activeTimeouts = useRef<number[]>([]); // Behåller värden över renders
   const [score, setScore] = useState<number>(0);
   const [isGameOver, setIsGameOver] = useState<boolean>(false);
   const [isGameReady, setIsGameReady] = useState<boolean>(false);
   const [characters, setCharacters] = useState<CharacterType[]>([]);
 
   useEffect(() => {
-    preloadImages()
-      .then(() => setIsGameReady(true))
-      .catch((err) => console.error("Fel vid laddning av bilder:", err));
+    const loadImages = async () => {
+      try {
+        await preloadImages();
+        setIsGameReady(true);
+        console.log("Bilderna har laddat färdigt!");
+
+        // Vänta tills "window.ClubHouseGame" är redo och kalla gameLoaded()
+        // if (window.ClubHouseGame?.gameLoaded) {
+        //   console.log("ClubHouseGame found, calling gameLoaded...");
+        //   window.ClubHouseGame.gameLoaded({ hideInGame: true });
+        // } else {
+        //   console.warn("ClubHouseGame not available.");
+        // }
+      } catch (err) {
+        console.error("Fel vid laddning av bilder:", err);
+      }
+    };
+
+    loadImages();
 
     return () => {
-      timeoutIds.forEach(clearTimeout); // Rensa alla timers
+      activeTimeouts.current.forEach(clearTimeout);
+      activeTimeouts.current = [];
     };
   }, []);
 
   useEffect(() => {
     if (!isGameStarted || isGameOver) {
-      setCharacters([]); // Rensar karaktärer när spelet slutar
+      updateCharacters(() => []); // Rensar karaktärer när spelet slutar
     }
 
     if (!isGameStarted) return;
-
+    // Startar spelet och spawnar karaktärer
     const interval = setInterval(spawnRandomCharacter, spawnInterval);
 
     return () => {
       clearInterval(interval);
-      timeoutIds.forEach(clearTimeout);
+      activeTimeouts.current.forEach(clearTimeout);
+      activeTimeouts.current = [];
     };
   }, [isGameStarted, isGameOver]);
 
@@ -82,20 +100,18 @@ export function useGameLogic(
 
     updateCharacters((prev) => [...prev, newCharacter]);
 
-    // Ta bort karaktären efter 2 sekunder
-    setTimeout(() => {
+    // Ta bort karaktären efter 1.5 sekunder
+    const timeoutId = setTimeout(() => {
       updateCharacters((prev) => prev.filter((char) => char.id !== newCharacter.id));
     }, 1500);
+    activeTimeouts.current.push(timeoutId);
   }
 
   // Kanske göra så att den gode stannar lite längre ?
 
   function handleCharacterClick(character: CharacterType) {
-    // Så att man inte ska kunna klicka flera gånger på samma karaktär.
-    // Hindra dubbelklick på karaktärerna.
-    if (character.clickedCharacter) {
-      return;
-    }
+    // Hindrar dubbelklick
+    if (character.clickedCharacter) return;
 
     updateCharacters((prev) =>
       prev.map((char) => (char.id === character.id ? { ...char, clickedCharacter: true } : char))
@@ -105,7 +121,17 @@ export function useGameLogic(
       gameOver(score);
       setIsGameOver(true);
     } else if (character.type === "evil") {
-      setScore((prev) => prev + character.score);
+      const finalScore = score + character.score;
+
+      console.log("Setting ClubHouseGame score:", finalScore);
+      window.ClubHouseGame?.setScore(finalScore);
+
+      // Testa att hämta poängen direkt efter
+      setTimeout(() => {
+        console.log("ClubHouseGame current score:", window.ClubHouseGame?.getScore());
+      }, 1000);
+
+      setScore(finalScore);
     }
   }
 
@@ -125,7 +151,7 @@ export function useGameLogic(
     startGame();
     setScore(0);
     setIsGameOver(false);
-    setCharacters([]); // Rensar karaktärer när spelet slutar
+    updateCharacters(() => []); // Rensar karaktärer vid omstart
   }
 
   return { characters, score, isGameOver, handleCharacterClick, restartGame, isGameReady };

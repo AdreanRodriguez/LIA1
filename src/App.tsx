@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Bus from "./components/bus/Bus";
 import Bush from "./components/bush/Bush";
 import Cloud from "./components/cloud/Cloud";
@@ -15,7 +15,7 @@ function App() {
       15, // Max antal karaktärer
       500, // Spawnar varje sekund, Hur ofta man vill att det ska komma nya karaktärer
       isGameStarted,
-      0.5 // Sannolikhet för att en god karaktär visas 20% / 1 av 5
+      0.3 // Sannolikhet för att en god karaktär visas 20% / 1 av 5
     );
 
   if (!isGameReady) {
@@ -41,6 +41,7 @@ function App() {
         <h2 className="score__text">
           Score: <span className="score__number">{score}</span>
         </h2>
+
         <Bus
           characters={characters}
           onCharacterClick={handleCharacterClick}
