@@ -119,7 +119,7 @@ export function getCharacterData(
     return null;
   }
 
-  // Filtrera bort den gode under bussen
+  // Ta bort den gode under bussen
   // Har ingen liggande bild på den gode
   if (id === "under-bus" && type === "good") {
     return null;

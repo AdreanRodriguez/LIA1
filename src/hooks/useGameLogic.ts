@@ -1,19 +1,21 @@
-import { gameOver } from "../utils/gameOver";
-import { startGame } from "../utils/startGame";
-import { positions } from "../utils/positions";
 import { useState, useEffect, useRef } from "react";
+import { positions } from "../utils/positions";
 import { CharacterType } from "../types/characterType";
 import { preloadImages } from "../utils/preloadImages";
+import { updateGameState, GameState } from "../utils/gameLogic";
 
-export function useGameLogic(
-  maxCharacters: number,
-  spawnInterval: number,
-  isGameStarted: boolean,
-  goodCharacterProbability: number
-) {
-  const activeTimeouts = useRef<number[]>([]); // Behåller värden över renders
-  const [score, setScore] = useState<number>(0);
-  const [isGameOver, setIsGameOver] = useState<boolean>(false);
+export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
+  const activeTimeouts = useRef<number[]>([]);
+
+  // Spelets tillstånd
+  const [gameState, setGameState] = useState<GameState>({
+    score: 0,
+    timeLeft: 15, // Startar med 15 sekunder
+    isGameOver: false,
+    spawnInterval: 700,
+    goodCharacterProbability: 0.2,
+  });
+
   const [isGameReady, setIsGameReady] = useState<boolean>(false);
   const [characters, setCharacters] = useState<CharacterType[]>([]);
 
@@ -22,67 +24,49 @@ export function useGameLogic(
       try {
         await preloadImages();
         setIsGameReady(true);
-        console.log("Bilderna har laddat färdigt!");
-
-        // Vänta tills "window.ClubHouseGame" är redo och kalla gameLoaded()
-        // if (window.ClubHouseGame?.gameLoaded) {
-        //   console.log("ClubHouseGame found, calling gameLoaded...");
-        //   window.ClubHouseGame.gameLoaded({ hideInGame: true });
-        // } else {
-        //   console.warn("ClubHouseGame not available.");
-        // }
       } catch (err) {
         console.error("Fel vid laddning av bilder:", err);
       }
     };
 
     loadImages();
-
-    return () => {
-      activeTimeouts.current.forEach(clearTimeout);
-      activeTimeouts.current = [];
-    };
   }, []);
 
   useEffect(() => {
-    if (!isGameStarted || isGameOver) {
-      updateCharacters(() => []); // Rensar karaktärer när spelet slutar
+    if (!isGameStarted || gameState.isGameOver) {
+      setCharacters([]);
+      return;
     }
 
-    if (!isGameStarted) return;
-    // Startar spelet och spawnar karaktärer
-    // console.log("Anropar gameLoaded()...");
-    // window.ClubHouseGame?.gameLoaded({ hideInGame: true });
-    if (window.ClubHouseGame?.gameRunning) {
-      // gameRunning är false ClubHouseGame.gameRunning(): false
-      console.log("ClubHouseGame.gameRunning():", window.ClubHouseGame?.gameRunning());
-      window.ClubHouseGame?.gameRunning();
-    }
-
-    const interval = setInterval(spawnRandomCharacter, spawnInterval);
+    const spawnInterval = setInterval(spawnRandomCharacter, gameState.spawnInterval);
+    const timerInterval = setInterval(() => {
+      setGameState((prev) => {
+        const newTime = prev.timeLeft - 1;
+        if (newTime <= 0) return { ...prev, timeLeft: 0, isGameOver: true };
+        return { ...prev, timeLeft: newTime };
+      });
+    }, 1000);
 
     return () => {
-      clearInterval(interval);
+      clearInterval(spawnInterval);
+      clearInterval(timerInterval);
       activeTimeouts.current.forEach(clearTimeout);
       activeTimeouts.current = [];
     };
-  }, [isGameStarted, isGameOver]);
+  }, [isGameStarted, gameState.isGameOver, gameState.spawnInterval]);
 
   function spawnRandomCharacter() {
-    if (characters.length >= maxCharacters || isGameOver) return;
+    if (characters.length >= maxCharacters || gameState.isGameOver) return;
 
     const availablePositions = positions.filter(
       (pos) => !characters.some((char) => char.id && char.id === pos.id)
     );
 
-    if (availablePositions.length === 0) {
-      console.warn("No available positions to spawn a character.");
-      return;
-    }
+    if (availablePositions.length === 0) return;
 
     const randomPosition =
       availablePositions[Math.floor(Math.random() * availablePositions.length)];
-    const randomType = Math.random() < goodCharacterProbability ? "good" : "evil";
+    const randomType = Math.random() < gameState.goodCharacterProbability ? "good" : "evil";
 
     // Tilldela rätt animation baserat på position
     let animation = "";
@@ -106,66 +90,36 @@ export function useGameLogic(
       score: randomType === "evil" ? 10 : 0,
     };
 
-    updateCharacters((prev) => [...prev, newCharacter]);
+    setCharacters((prev) => [...prev, newCharacter]);
 
-    // Ta bort karaktären efter 1.5 sekunder
     const timeoutId = setTimeout(() => {
-      updateCharacters((prev) => prev.filter((char) => char.id !== newCharacter.id));
+      setCharacters((prev) => prev.filter((char) => char.id !== newCharacter.id));
     }, 1500);
     activeTimeouts.current.push(timeoutId);
   }
 
-  // Kanske göra så att den gode stannar lite längre ?
-
   function handleCharacterClick(character: CharacterType) {
-    // Hindrar dubbelklick
-    if (character.clickedCharacter) return;
+    // För att ej kunna klicka flera gånger på samma karaktär.
+    // if (character.clickedCharacter) return;
 
-    updateCharacters((prev) =>
+    setCharacters((prev) =>
       prev.map((char) => (char.id === character.id ? { ...char, clickedCharacter: true } : char))
     );
 
-    if (character.type === "good") {
-      gameOver(score);
-      setIsGameOver(true);
-    } else if (character.type === "evil") {
-      const finalScore = score + character.score;
-
-      console.log("Setting ClubHouseGame score:", finalScore);
-      window.ClubHouseGame?.setScore(finalScore);
-
-      // Testa att hämta poängen direkt efter
-      setTimeout(() => {
-        console.log("ClubHouseGame current score:", window.ClubHouseGame?.getScore());
-      }, 1000);
-
-      setScore(finalScore);
-    }
+    const updatedState = updateGameState(gameState, character.type);
+    setGameState(updatedState);
   }
 
-  function updateCharacters(characterUpdater: (prev: CharacterType[]) => CharacterType[]) {
-    setCharacters((prev) => {
-      const updated = characterUpdater(prev);
-      // Säkerställ att alla karaktärer har unika ID:n
-      const uniqueCharacters = updated.filter(
-        (character, index, self) => index === self.findIndex((char) => char.id === character.id)
-      );
-      return uniqueCharacters;
-    });
-  }
-
-  // Återställer spelplanen
   function restartGame() {
-    startGame();
-    setScore(0);
-    setIsGameOver(false);
-    updateCharacters(() => []); // Rensar karaktärer vid omstart
-
-    // window.ClubHouseGame.registerRestart()
-
-    console.log("Spelet startas om! Kollar gameRunning...");
-    console.log("ClubHouseGame.gameRunning():", window.ClubHouseGame?.gameRunning());
+    setGameState({
+      timeLeft: 15,
+      score: 0,
+      spawnInterval: 500,
+      goodCharacterProbability: 0.3,
+      isGameOver: false,
+    });
+    setCharacters([]);
   }
 
-  return { characters, score, isGameOver, handleCharacterClick, restartGame, isGameReady };
+  return { characters, gameState, handleCharacterClick, restartGame, isGameReady };
 }

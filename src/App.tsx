@@ -10,13 +10,10 @@ import PortraitBlocker from "./components/portraitBlocker/PortraitBlocker";
 
 function App() {
   const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
-  const { characters, score, isGameOver, handleCharacterClick, restartGame, isGameReady } =
-    useGameLogic(
-      15, // Max antal karaktärer
-      500, // Spawnar varje sekund, Hur ofta man vill att det ska komma nya karaktärer
-      isGameStarted,
-      0.3 // Sannolikhet för att en god karaktär visas 20% / 1 av 5
-    );
+  const { characters, gameState, handleCharacterClick, restartGame, isGameReady } = useGameLogic(
+    15,
+    isGameStarted
+  );
 
   if (!isGameReady) {
     return (
@@ -35,12 +32,20 @@ function App() {
   return (
     <>
       <PortraitBlocker />
-      {isGameOver && <GameOverModal score={score} restartGame={restartGame} />}
+      {gameState.isGameOver && <GameOverModal score={gameState.score} restartGame={restartGame} />}
       {!isGameStarted && <GameStartModal setIsGameStarted={setIsGameStarted} />}
-      <main className={`game-container ${isGameOver || !isGameStarted ? "blur-background" : null}`}>
+      <main
+        className={`game-container ${
+          gameState.isGameOver || !isGameStarted ? "blur-background" : null
+        }`}
+      >
+        <h2 className="timer__text">
+          Tid:
+          <span className="timer__number">{gameState.timeLeft}</span>
+        </h2>
         <h2 className="score__text">
           Poäng:
-          <span className="score__number">{score}</span>
+          <span className="score__number">{gameState.score}</span>
         </h2>
 
         <Bus

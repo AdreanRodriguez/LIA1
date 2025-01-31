@@ -1,5 +1,6 @@
 import "./character.css";
 import { CharacterType } from "../../types/characterType";
+// import cartoonCloudImange from "/assets/poff.svg";
 
 interface CharacterProps {
   characterImage: string;
@@ -18,12 +19,18 @@ export default function Character({ character, onClick, characterImage, size }: 
     return null; // Rendera inte karaktären om `visible` är false
   }
 
-  const image = clickedCharacter && type === "evil" ? "/assets/poff.svg" : characterImage;
+  const cartoonCloudImange = "/assets/poff.svg";
+
+  const image = clickedCharacter && type === "evil" ? cartoonCloudImange : characterImage;
 
   const characterStyle: React.CSSProperties = {
     ...size, // Bredd och höjd från `getCharacterData`
     transform: `rotate(${angle}deg)`, // Gör rotation och centrering
-    animationName: character.animation,
+    animationName: animation, // Använd animationen som tilldelats
+    animationDuration: "2s", // Se till att det tar tillräckligt lång tid
+    animationTimingFunction: "ease-in-out",
+    animationIterationCount: "1",
+    animationFillMode: "forwards", // Se till att de inte studsar tillbaka
   };
 
   return (
