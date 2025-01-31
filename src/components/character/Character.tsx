@@ -1,7 +1,5 @@
 import "./character.css";
 import { CharacterType } from "../../types/characterType";
-import cartoonCloudImange from "../../../public/assets/poff.svg";
-// import { getCharacterData } from "../../utils/getCharacterData";
 
 interface CharacterProps {
   characterImage: string;
@@ -20,7 +18,7 @@ export default function Character({ character, onClick, characterImage, size }: 
     return null; // Rendera inte karaktären om `visible` är false
   }
 
-  const image = clickedCharacter && type === "evil" ? cartoonCloudImange : characterImage;
+  const image = clickedCharacter && type === "evil" ? "/assets/poff.svg" : characterImage;
 
   const characterStyle: React.CSSProperties = {
     ...size, // Bredd och höjd från `getCharacterData`

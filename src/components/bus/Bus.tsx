@@ -1,8 +1,6 @@
 import "./bus.css";
 import CharacterBox from "../characterBox/CharacterBox";
 import { CharacterType } from "../../types/characterType";
-import busInside from "../../../public/assets/bus/busInside.png";
-import busOutside from "../../../public/assets/bus/busOutside.webp";
 
 interface BusProps {
   animation: boolean;
@@ -58,8 +56,16 @@ const Bus: React.FC<BusProps> = ({ characters, onCharacterClick, animation }) =>
   return (
     <section className="bus-wrapper">
       <div className={`bus-container ${animation ? "bus-animation" : ""}`}>
-        <img className="bus-inside" src={busInside} alt="Inside of a yellow school bus" />
-        <img className="bus outside" src={busOutside} alt="Outside of a yellow school bus" />
+        <img
+          className="bus-inside"
+          src="/assets/bus/busInside.png"
+          alt="Inside of a yellow school bus"
+        />
+        <img
+          className="bus outside"
+          src="/assets/bus/busOutside.webp"
+          alt="Outside of a yellow school bus"
+        />
 
         {boxes.map((box) => {
           const matchingCharacter = characters.find((char) => char.id === box.id);

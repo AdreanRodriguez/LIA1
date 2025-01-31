@@ -1,0 +1,12 @@
+.button {
+  border: none;
+  margin: 1rem;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  padding: 1rem 2rem;
+  padding-bottom: 1.2rem;
+  color: var(--highlight-orange);
+  /* font-family: var(--shortStack); */
+  font-family: krita2;
+  background-color: var(--button-green);
+}

@@ -1,5 +1,4 @@
 import "./cloud.css";
-import cloud from "../../../public/assets/cloud1.svg";
 
 interface cloudProps {
   top?: string;
@@ -24,5 +23,5 @@ export default function Cloud({
     animationDuration,
   };
   // Gör den återanvändbar så att man kan ha ett mindre moln i bakgrunden
-  return <img className="cloud" src={cloud} alt="cartoon cloud" style={styledCloud} />;
+  return <img className="cloud" src="/assets/cloud1.svg" alt="cartoon cloud" style={styledCloud} />;
 }

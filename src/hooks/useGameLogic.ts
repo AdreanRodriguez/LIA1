@@ -51,9 +51,10 @@ export function useGameLogic(
 
     if (!isGameStarted) return;
     // Startar spelet och spawnar karaktärer
-    // console.log("Manuellt anropar gameLoaded()...");
+    // console.log("Anropar gameLoaded()...");
     // window.ClubHouseGame?.gameLoaded({ hideInGame: true });
     if (window.ClubHouseGame?.gameRunning) {
+      // gameRunning är false ClubHouseGame.gameRunning(): false
       console.log("ClubHouseGame.gameRunning():", window.ClubHouseGame?.gameRunning());
       window.ClubHouseGame?.gameRunning();
     }

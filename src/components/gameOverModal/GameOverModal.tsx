@@ -1,8 +1,9 @@
 import "./gameOverModal.css";
-import RestartButton from "../restartButton/RestartButton";
+import Button from "../button/Button";
 
 interface GameOverModalProps {
   score: number;
+  onClick?: () => void;
   restartGame: () => void;
 }
 
@@ -14,7 +15,7 @@ export default function GameOverModal({ score, restartGame }: GameOverModalProps
         <p className="gameOverModal__score__text">
           Poäng: <span className="gameOverModal__score__number">{score}</span>
         </p>
-        <RestartButton restartGame={restartGame} />
+        <Button className={"gameOverModal__button"} onClick={restartGame} name="Restart" />
       </div>
     </section>
   );

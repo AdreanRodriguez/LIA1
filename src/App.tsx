@@ -39,7 +39,8 @@ function App() {
       {!isGameStarted && <GameStartModal setIsGameStarted={setIsGameStarted} />}
       <main className={`game-container ${isGameOver || !isGameStarted ? "blur-background" : null}`}>
         <h2 className="score__text">
-          Score: <span className="score__number">{score}</span>
+          Poäng:
+          <span className="score__number">{score}</span>
         </h2>
 
         <Bus

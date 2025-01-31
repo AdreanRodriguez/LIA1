@@ -3,12 +3,12 @@
   left: 50%;
   z-index: 2;
   width: 40vw;
-  height: 50vh;
+  height: 55vh;
   position: absolute;
   border-radius: 5px;
   border: 10px ridge var(--highlight-orange);
 
-  /* display: flex; Sätter display flex i media screen längst ner */
+  /* Sätter display flex i media screen längst ner */
   align-items: center;
   justify-content: center;
 
@@ -17,13 +17,15 @@
 }
 
 .gameOverModal__content {
-  width: 100%;
-  text-align: center;
+  gap: 0.5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .gameOverModal__text {
   color: white;
-  /* font-family: var(--shortStack); */
   font-family: krita2;
 }
 
@@ -35,7 +37,6 @@
   align-items: center;
   justify-content: center;
 
-  /* font-family: var(--shortStack); */
   font-family: krita2;
 }
 
@@ -43,7 +44,6 @@
   font-size: 1.5rem;
   margin-left: 0.5rem;
   color: var(--highlight-orange);
-  /* font-family: var(--shortStack); */
   font-family: krita2;
 }
 

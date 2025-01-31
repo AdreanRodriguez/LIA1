@@ -1,5 +1,4 @@
 import "./bush.css";
-import bush from "../../../public/assets/bush.svg";
 import CharacterBox from "../characterBox/CharacterBox";
 import { CharacterType } from "../../types/characterType";
 
@@ -36,7 +35,7 @@ const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick }) =
     <div className={`bush-wrapper bush-wrapper-${position}`}>
       <div className={`bush-container bush-${position}`}>
         {/* Här renderar vi buskbilden */}
-        <img className="bush" src={bush} alt={`${position} bush`} />
+        <img className="bush" src="/assets/bush.svg" alt={`${position} bush`} />
       </div>
       {/* Rendera karaktärer */}
       {validCharacters.map((character) => {
