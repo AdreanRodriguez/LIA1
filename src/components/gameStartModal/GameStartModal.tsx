@@ -27,11 +27,11 @@ export default function GameStartModal({ setIsGameStarted }: GameOverModalProps)
                 alt="Den gode"
               />
             </figure>
-            <p className="gameStartModal__text">Game Over</p>
+            <p className="gameStartModal__text">- 3 sekunder</p>
           </figcaption>
 
           <figcaption className="gameStartModal__rule__evil">
-            <p className="gameStartModal__text">10 Poäng</p>
+            <p className="gameStartModal__text">10 Poäng + 2 sekunder</p>
             <figure className="gameStartModal__image__container">
               <img
                 className="gameStartModal__image"

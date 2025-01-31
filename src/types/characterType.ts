@@ -20,5 +20,6 @@ export interface CharacterType extends PositionType {
   visible: boolean;
   animation: string;
   type: "good" | "evil";
+  animationDuration: number;
   clickedCharacter?: boolean;
 }

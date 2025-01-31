@@ -13,6 +13,7 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
     timeLeft: 15, // Startar med 15 sekunder
     isGameOver: false,
     spawnInterval: 700,
+    animationDuration: 4,
     goodCharacterProbability: 0.2,
   });
 
@@ -70,7 +71,11 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
 
     // Tilldela rätt animation baserat på position
     let animation = "";
-    if (randomPosition.id.startsWith("window")) {
+    if (
+      randomPosition.id.startsWith("window") ||
+      randomPosition.id === "bush-right" ||
+      randomPosition.id === "bush-left"
+    ) {
       animation = "slide-up";
     } else if (randomPosition.id === "under-bus") {
       animation = "slide-under-bus";
@@ -88,6 +93,7 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
       clickedCharacter: false,
       angle: randomPosition.angle,
       score: randomType === "evil" ? 10 : 0,
+      animationDuration: gameState.animationDuration,
     };
 
     setCharacters((prev) => [...prev, newCharacter]);
@@ -114,9 +120,10 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
     setGameState({
       timeLeft: 15,
       score: 0,
-      spawnInterval: 500,
-      goodCharacterProbability: 0.3,
       isGameOver: false,
+      spawnInterval: 500,
+      animationDuration: 2,
+      goodCharacterProbability: 0.3,
     });
     setCharacters([]);
   }

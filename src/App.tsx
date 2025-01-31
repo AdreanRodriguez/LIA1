@@ -51,7 +51,7 @@ function App() {
         <Bus
           characters={characters}
           onCharacterClick={handleCharacterClick}
-          animation={isGameStarted}
+          isGameStarted={isGameStarted}
         />
 
         <Bush

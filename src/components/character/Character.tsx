@@ -11,7 +11,8 @@ interface CharacterProps {
 }
 
 export default function Character({ character, onClick, characterImage, size }: CharacterProps) {
-  const { id, type, angle, score, animation, clickedCharacter, visible } = character;
+  const { id, type, angle, score, animation, clickedCharacter, visible, animationDuration } =
+    character;
 
   // Kontrollera om karaktären är synlig
   if (!visible) {
@@ -27,9 +28,9 @@ export default function Character({ character, onClick, characterImage, size }: 
     ...size, // Bredd och höjd från `getCharacterData`
     transform: `rotate(${angle}deg)`, // Gör rotation och centrering
     animationName: animation, // Använd animationen som tilldelats
-    animationDuration: "2s", // Se till att det tar tillräckligt lång tid
+    animationDuration: `${animationDuration}s`, // Detta sätter vi i gameLogic.ts
     animationTimingFunction: "ease-in-out",
-    animationIterationCount: "1",
+    animationIterationCount: "1", // Animationen körs bara 1 gång
     animationFillMode: "forwards", // Se till att de inte studsar tillbaka
   };
 
@@ -37,7 +38,18 @@ export default function Character({ character, onClick, characterImage, size }: 
     <div
       className={`${type}-character ${clickedCharacter ? "clickedCharacter" : ""}`}
       style={characterStyle}
-      onClick={() => onClick({ id, type, angle, clickedCharacter, animation, score, visible })}
+      onClick={() =>
+        onClick({
+          id,
+          type,
+          score,
+          angle,
+          visible,
+          animation,
+          clickedCharacter,
+          animationDuration,
+        })
+      }
     >
       <img
         src={image}
