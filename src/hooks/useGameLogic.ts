@@ -1,5 +1,5 @@
-import { useState, useEffect, useRef } from "react";
 import { positions } from "../utils/positions";
+import { useState, useEffect, useRef } from "react";
 import { CharacterType } from "../types/characterType";
 import { preloadImages } from "../utils/preloadImages";
 import { updateGameState, GameState } from "../utils/gameLogic";
@@ -12,19 +12,21 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
     score: 0,
     timeLeft: 15, // Startar med 15 sekunder
     isGameOver: false,
-    spawnInterval: 700,
-    animationDuration: 4,
-    goodCharacterProbability: 0.2,
+    spawnInterval: 1000, // sekund mellan varje spawn
+    animationDuration: 3.5, // Börja med 3.5 sekunder
+    goodCharacterProbability: 0.2, // Börja med 20% sannolikhet för goda karaktärer
   });
 
+  // const [characters, setCharacters] = useState<CharacterType[]>([]);
   const [isGameReady, setIsGameReady] = useState<boolean>(false);
-  const [characters, setCharacters] = useState<CharacterType[]>([]);
+  const [activeCharacters, setActiveCharacters] = useState<CharacterType[]>([]);
 
   useEffect(() => {
     const loadImages = async () => {
       try {
         await preloadImages();
         setIsGameReady(true);
+        console.log("GAMELOAD", window.ClubHouseGame.gameLoaded);
       } catch (err) {
         console.error("Fel vid laddning av bilder:", err);
       }
@@ -35,41 +37,57 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
 
   useEffect(() => {
     if (!isGameStarted || gameState.isGameOver) {
-      setCharacters([]);
+      setActiveCharacters([]);
       return;
     }
 
+    // Spawnar en karaktär varje spawnInterval
     const spawnInterval = setInterval(spawnRandomCharacter, gameState.spawnInterval);
+
+    // Timer som räknar ner varje sekund
     const timerInterval = setInterval(() => {
       setGameState((prev) => {
         const newTime = prev.timeLeft - 1;
-        if (newTime <= 0) return { ...prev, timeLeft: 0, isGameOver: true };
+        if (newTime <= 0) {
+          return { ...prev, timeLeft: 0, isGameOver: true };
+        }
         return { ...prev, timeLeft: newTime };
       });
     }, 1000);
 
+    // Rensa timers när spelet avslutas eller startas om
     return () => {
       clearInterval(spawnInterval);
       clearInterval(timerInterval);
+
+      // Rensa alla sparade timeouts för att undvika buggar
       activeTimeouts.current.forEach(clearTimeout);
       activeTimeouts.current = [];
     };
-  }, [isGameStarted, gameState.isGameOver, gameState.spawnInterval]);
+  }, [isGameStarted, gameState.isGameOver, gameState.spawnInterval, gameState.animationDuration]);
 
   function spawnRandomCharacter() {
-    if (characters.length >= maxCharacters || gameState.isGameOver) return;
+    if (activeCharacters.length >= maxCharacters || gameState.isGameOver) {
+      return;
+    }
 
-    const availablePositions = positions.filter(
-      (pos) => !characters.some((char) => char.id && char.id === pos.id)
-    );
+    // Skapa en lista över lediga platser
+    const occupiedPositions = new Set(activeCharacters.map((char) => char.id));
+    const availablePositions = positions.filter((pos) => !occupiedPositions.has(pos.id));
 
-    if (availablePositions.length === 0) return;
+    // Finns inga lediga platser, avsluta.
+    if (availablePositions.length === 0) {
+      return;
+    }
 
-    const randomPosition =
-      availablePositions[Math.floor(Math.random() * availablePositions.length)];
+    // Välj en slumpmässig ledig position
+    const randomPositionIndex = Math.floor(Math.random() * availablePositions.length);
+    const randomPosition = availablePositions[randomPositionIndex];
+
+    // Dynamiskt bestämma om karaktären är god eller ond
     const randomType = Math.random() < gameState.goodCharacterProbability ? "good" : "evil";
 
-    // Tilldela rätt animation baserat på position
+    // Välj rätt animation
     let animation = "";
     if (
       randomPosition.id.startsWith("window") ||
@@ -96,37 +114,50 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
       animationDuration: gameState.animationDuration,
     };
 
-    setCharacters((prev) => [...prev, newCharacter]);
+    setActiveCharacters((prev) => [...prev, newCharacter]);
 
-    const timeoutId = setTimeout(() => {
-      setCharacters((prev) => prev.filter((char) => char.id !== newCharacter.id));
-    }, 1500);
-    activeTimeouts.current.push(timeoutId);
+    // Ta bort karaktären efter animationens längd
+    setTimeout(() => {
+      setActiveCharacters((prev) => prev.filter((char) => char.id !== newCharacter.id));
+    }, newCharacter.animationDuration * 1000);
   }
 
   function handleCharacterClick(character: CharacterType) {
-    // För att ej kunna klicka flera gånger på samma karaktär.
-    // if (character.clickedCharacter) return;
+    if (!character.visible) return;
+    // förhindra dubbelklick
+    if (character.clickedCharacter) return;
 
-    setCharacters((prev) =>
-      prev.map((char) => (char.id === character.id ? { ...char, clickedCharacter: true } : char))
-    );
+    setTimeout(() => {
+      setActiveCharacters((prev) =>
+        prev.map((char) => (char.id === character.id ? { ...char, clickedCharacter: true } : char))
+      );
+    });
 
-    const updatedState = updateGameState(gameState, character.type);
-    setGameState(updatedState);
+    // Uppdatera spelets svårighetsgrad direkt vid klick
+    // setGameState((prev) => updateGameState(prev, character.type));
+    setGameState((prev) => {
+      const newState = updateGameState(prev, character.type);
+      console.log("Nytt gameState:", newState);
+      return newState;
+    });
+
+    // Ta bort karaktären efter en kort tid så att "poff" syns
+    setTimeout(() => {
+      setActiveCharacters((prev) => prev.filter((char) => char.id !== character.id));
+    }, character.animationDuration * 1000);
   }
 
   function restartGame() {
     setGameState({
-      timeLeft: 15,
       score: 0,
+      timeLeft: 15,
       isGameOver: false,
       spawnInterval: 500,
-      animationDuration: 2,
+      animationDuration: 3.5,
       goodCharacterProbability: 0.3,
     });
-    setCharacters([]);
+    setActiveCharacters([]);
   }
 
-  return { characters, gameState, handleCharacterClick, restartGame, isGameReady };
+  return { activeCharacters, gameState, handleCharacterClick, restartGame, isGameReady };
 }

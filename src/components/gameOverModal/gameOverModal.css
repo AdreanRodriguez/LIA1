@@ -26,7 +26,7 @@
 
 .gameOverModal__text {
   color: white;
-  font-family: krita2;
+  font-family: krita;
 }
 
 .gameOverModal__score__text {
@@ -37,14 +37,14 @@
   align-items: center;
   justify-content: center;
 
-  font-family: krita2;
+  font-family: krita;
 }
 
 .gameOverModal__score__number {
   font-size: 1.5rem;
   margin-left: 0.5rem;
   color: var(--highlight-orange);
-  font-family: krita2;
+  font-family: krita;
 }
 
 @media screen and (orientation: portrait) {

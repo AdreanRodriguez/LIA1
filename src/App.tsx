@@ -10,10 +10,8 @@ import PortraitBlocker from "./components/portraitBlocker/PortraitBlocker";
 
 function App() {
   const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
-  const { characters, gameState, handleCharacterClick, restartGame, isGameReady } = useGameLogic(
-    15,
-    isGameStarted
-  );
+  const { activeCharacters, gameState, handleCharacterClick, restartGame, isGameReady } =
+    useGameLogic(60, isGameStarted);
 
   if (!isGameReady) {
     return (
@@ -27,7 +25,9 @@ function App() {
     );
   }
 
-  const uniqueCharacters = Array.from(new Map(characters.map((char) => [char.id, char])).values());
+  const uniqueCharacters = Array.from(
+    new Map(activeCharacters.map((char) => [char.id, char])).values()
+  );
 
   return (
     <>
@@ -49,7 +49,7 @@ function App() {
         </h2>
 
         <Bus
-          characters={characters}
+          characters={activeCharacters}
           onCharacterClick={handleCharacterClick}
           isGameStarted={isGameStarted}
         />
@@ -66,9 +66,9 @@ function App() {
         />
 
         <Cloud top="-10vh" left="30vw" width="20vw" height="25vh" animationDuration="82s" />
-        <Cloud top="0" left="20vw" width="5vw" height="14vh" animationDuration="10s" />
+        <Cloud top="0" left="20vw" width="10vw" height="14vh" animationDuration="10s" />
         <Cloud top="0" left="90vw" width="10vw" height="14vh" animationDuration="60s" />
-        <Cloud top="0" left="60vw" width="15vw" height="14vh" animationDuration="53s" />
+        <Cloud top="0" left="60vw" width="10vw" height="14vh" animationDuration="53s" />
       </main>
     </>
   );

@@ -8,7 +8,7 @@
   background-size: cover;
   /* background-size: contain; */
   background-position: center;
-  background-image: url("./assets/background.webp");
+  background-image: url("./assets/background.png");
 }
 
 .blur-background {
@@ -34,7 +34,7 @@
   font-weight: bold;
   position: absolute;
   border-radius: 5px;
-  font-family: krita2;
+  font-family: krita;
   padding: 0.5rem 0.5rem 0.8rem 0.5rem;
   background-color: rgba(0, 0, 0, 0.7);
 }

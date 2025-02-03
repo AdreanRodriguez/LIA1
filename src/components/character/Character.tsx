@@ -1,6 +1,6 @@
 import "./character.css";
-import { CharacterType } from "../../types/characterType";
 // import cartoonCloudImange from "/assets/poff.svg";
+import { CharacterType } from "../../types/characterType";
 
 interface CharacterProps {
   characterImage: string;
@@ -11,8 +11,7 @@ interface CharacterProps {
 }
 
 export default function Character({ character, onClick, characterImage, size }: CharacterProps) {
-  const { id, type, angle, score, animation, clickedCharacter, visible, animationDuration } =
-    character;
+  const { id, type, angle, animation, clickedCharacter, visible, animationDuration } = character;
 
   // Kontrollera om karaktären är synlig
   if (!visible) {
@@ -20,7 +19,7 @@ export default function Character({ character, onClick, characterImage, size }: 
     return null; // Rendera inte karaktären om `visible` är false
   }
 
-  const cartoonCloudImange = "/assets/poff.svg";
+  const cartoonCloudImange = "/assets/poff.png";
 
   const image = clickedCharacter && type === "evil" ? cartoonCloudImange : characterImage;
 
@@ -38,18 +37,7 @@ export default function Character({ character, onClick, characterImage, size }: 
     <div
       className={`${type}-character ${clickedCharacter ? "clickedCharacter" : ""}`}
       style={characterStyle}
-      onClick={() =>
-        onClick({
-          id,
-          type,
-          score,
-          angle,
-          visible,
-          animation,
-          clickedCharacter,
-          animationDuration,
-        })
-      }
+      onClick={() => onClick(character)}
     >
       <img
         src={image}

@@ -2,11 +2,6 @@
 
 @font-face {
   font-family: krita;
-  src: url("/assets/fonts/Pencilant Script.otf");
-}
-
-@font-face {
-  font-family: krita2;
   src: url("/assets/fonts/chawp.otf");
 }
 

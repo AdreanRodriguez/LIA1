@@ -56,7 +56,7 @@ const Bus: React.FC<BusProps> = ({ characters, onCharacterClick, isGameStarted }
         />
         <img
           className="bus outside"
-          src="/assets/bus/busOutside.webp"
+          src="/assets/bus/busOutside.png"
           alt="Outside of a yellow school bus"
         />
 

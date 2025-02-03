@@ -23,5 +23,5 @@ export default function Cloud({
     animationDuration,
   };
   // Gör den återanvändbar så att man kan ha ett mindre moln i bakgrunden
-  return <img className="cloud" src="/assets/cloud1.svg" alt="cartoon cloud" style={styledCloud} />;
+  return <img className="cloud" src="/assets/cloud.png" alt="cartoon cloud" style={styledCloud} />;
 }
