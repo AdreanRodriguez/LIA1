@@ -133,8 +133,6 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
       );
     });
 
-    // Uppdatera spelets svårighetsgrad direkt vid klick
-    // setGameState((prev) => updateGameState(prev, character.type));
     setGameState((prev) => {
       const newState = updateGameState(prev, character.type);
       console.log("Nytt gameState:", newState);
@@ -152,9 +150,9 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
       score: 0,
       timeLeft: 15,
       isGameOver: false,
-      spawnInterval: 500,
+      spawnInterval: 1000,
       animationDuration: 3.5,
-      goodCharacterProbability: 0.3,
+      goodCharacterProbability: 0.2,
     });
     setActiveCharacters([]);
   }
