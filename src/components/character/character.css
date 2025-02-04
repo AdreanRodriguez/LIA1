@@ -21,7 +21,7 @@
 /* Från höger till vänster (under bussen) */
 @keyframes slide-under-bus {
   0% {
-    opacity: 0.5;
+    opacity: 1;
     transform: translateX(100%);
   }
   50% {
@@ -57,7 +57,7 @@
 /* Nedifrån och upp (window-positionerna*) */
 @keyframes slide-up {
   0% {
-    opacity: 0.5;
+    opacity: 1;
     transform: translateY(100%);
   }
   50% {
@@ -93,7 +93,7 @@
 /* Från höger till vänster (bus-left) */
 @keyframes slide-right-to-left {
   0% {
-    opacity: 0.5;
+    opacity: 1;
     transform: translateX(100%) rotate(-60deg);
   }
   50% {
@@ -129,7 +129,7 @@
 /* Från vänster till höger (bus-right) */
 @keyframes slide-left-to-right {
   0% {
-    opacity: 0.5;
+    opacity: 1;
     transform: translateX(-100%) rotate(45deg);
   }
   50% {

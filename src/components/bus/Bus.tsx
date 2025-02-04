@@ -20,7 +20,11 @@ const Bus: React.FC<BusProps> = ({ characters, onCharacterClick, isGameStarted }
   }, [isGameStarted]);
 
   const boxes = [
-    { id: "window-1", position: { top: "34%", left: "11%" }, size: { width: "6%", height: "20%" } },
+    {
+      id: "window-1",
+      position: { top: "34%", left: "11.5%" },
+      size: { width: "6%", height: "20%" },
+    },
     { id: "window-2", position: { top: "34%", left: "32%" }, size: { width: "6%", height: "20%" } },
     { id: "window-3", position: { top: "34%", left: "43%" }, size: { width: "6%", height: "20%" } },
     { id: "window-4", position: { top: "34%", left: "55%" }, size: { width: "6%", height: "20%" } },

@@ -2,7 +2,7 @@
 export const CharacterData = {
   "bus-left": {
     good: {
-      characterImage: "/assets/goodCharacters/good.png",
+      characterImage: "/assets/goodCharacters/goodLookToRight.png",
       size: { width: "100%", height: "100%" },
     },
     evil: {
@@ -12,7 +12,7 @@ export const CharacterData = {
   },
   "bus-right": {
     good: {
-      characterImage: "/assets/goodCharacters/good.png",
+      characterImage: "/assets/goodCharacters/goodLookToLeft.png",
       size: { width: "100%", height: "100%" },
     },
     evil: {
