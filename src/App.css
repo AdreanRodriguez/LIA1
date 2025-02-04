@@ -1,3 +1,69 @@
+/* SDK */
+
+/* body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  background-color: #000000;
+} */
+
+#game {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#ui {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  z-index: 10;
+  width: 100px;
+  margin-top: 20px;
+  animation: loading 1s linear infinite;
+}
+
+.loader-logo {
+  z-index: 10;
+  width: 50%;
+}
+
+.loader-text {
+  font-family: DosisRegular;
+  color: #ffffff;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* SPELET */
+
 .game-container {
   /* width: 100vw; */
   /* margin: 0 auto; */
@@ -16,14 +82,18 @@
 }
 
 .score__text {
+  z-index: 2;
   top: 1rem;
   right: 1rem;
-  z-index: 2;
-  font-size: 2rem;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
   position: absolute;
-  margin-left: 0.5rem;
-  font-family: "Short Stack";
-  color: var(--highlight-darkBlue);
+  border-radius: 5px;
+  font-family: krita;
+  padding: 0.7rem 0.5rem 0.5rem 0.5rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  margin-right: 0.5rem;
 }
 
 .timer__text {
@@ -35,7 +105,7 @@
   position: absolute;
   border-radius: 5px;
   font-family: krita;
-  padding: 0.5rem 0.5rem 0.8rem 0.5rem;
+  padding: 0.7rem 0.5rem 0.5rem 0.5rem;
   background-color: rgba(0, 0, 0, 0.7);
 }
 
@@ -45,12 +115,13 @@
 }
 
 .score__number {
-  font-size: 2rem;
-  /* font-family: krita; */
-  font-family: "Short Stack";
+  font-size: 20px;
+  font-family: krita;
+  margin-left: 0.5rem;
+  color: var(--highlight-orange);
 }
 
-.spinner-container {
+/* .spinner-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -102,10 +173,22 @@
   40% {
     transform: scale(1);
   }
-}
+} */
 
 @media screen and (orientation: landscape) {
   .game-container {
     display: block;
   }
+
+  /* .spinner,
+  .loader-logo {
+    display: none;
+  } */
 }
+
+/* @media screen and (orientation: portrait) {
+  .spinner,
+  .loader-logo {
+    display: none;
+  }
+} */

@@ -21,7 +21,7 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
   isBusLeft,
 }) => {
   // Rendera inte något om karaktären inte finns eller inte är synlig
-  if (!character || !character.visible) {
+  if (!character) {
     return null;
   }
 

@@ -3,7 +3,9 @@ export const preloadImages = (): Promise<void> => {
     const imageList = [
       "/assets/poff.png",
       "/assets/bush.svg",
+      "/images/logo.png",
       "/assets/cloud.png",
+      "/images/spinner.svg",
       "/assets/background.png",
       "/assets/bus/busInside.png",
       "/assets/bus/busOutside.png",

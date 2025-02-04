@@ -1,5 +1,4 @@
 import "./character.css";
-// import cartoonCloudImange from "/assets/poff.svg";
 import { CharacterType } from "../../types/characterType";
 
 interface CharacterProps {
@@ -11,13 +10,7 @@ interface CharacterProps {
 }
 
 export default function Character({ character, onClick, characterImage, size }: CharacterProps) {
-  const { id, type, angle, animation, clickedCharacter, visible, animationDuration } = character;
-
-  // Kontrollera om karaktären är synlig
-  if (!visible) {
-    console.error(`Skipping render for character with ID: ${id}`);
-    return null; // Rendera inte karaktären om `visible` är false
-  }
+  const { id, type, angle, animation, clickedCharacter, animationDuration } = character;
 
   const cartoonCloudImange = "/assets/poff.png";
 

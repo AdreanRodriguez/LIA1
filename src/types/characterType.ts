@@ -16,8 +16,8 @@ export interface PositionType {
 }
 
 export interface CharacterType extends PositionType {
-  score: number;
-  visible: boolean;
+  // score: number;
+  // visible: boolean;
   animation: string;
   type: "good" | "evil";
   animationDuration: number;
