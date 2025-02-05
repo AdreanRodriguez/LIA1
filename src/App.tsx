@@ -15,7 +15,7 @@ function App() {
     gameState,
     handleCharacterClick,
     // restartGame,
-    // isGameReady
+    // isGameReady,
   } = useGameLogic(60, isGameStarted);
 
   // if (!isGameReady) {
@@ -33,7 +33,8 @@ function App() {
   const uniqueCharacters = Array.from(
     new Map(activeCharacters.map((char) => [char.id, char])).values()
   );
-
+  // Glöm inte bort att det finns en logo och en "starta spelet" knapp, ta bort display none.
+  // style={{ display: isGameStarted || gameState.isGameOver ? "block" : "none" }}
   return (
     <>
       <div id="ui" style={{ display: gameState.isGameOver ? "block" : "none" }}></div>
