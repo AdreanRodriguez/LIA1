@@ -9,10 +9,10 @@ export interface GameState {
 
 export const DEFAULT_GAME_STATE: GameState = {
   score: 0,
-  timeLeft: 150, // Startar med 15 sekunder
+  timeLeft: 15, // Startar med 15 sekunder
   isGameOver: false,
   spawnInterval: 1000, // sekund mellan varje spawn
-  animationDuration: 222.5, // Börja med 3 sekunder
+  animationDuration: 2.5, // Börja med 3 sekunder
   goodCharacterProbability: 0.2, // 20% sannolikhet för goda karaktärer
 };
 
