@@ -5,34 +5,34 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  /* overflow: hidden; Kanske behövs när den är deployad */
   background-color: #000000;
 }
 
 #game {
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  position: absolute;
 }
 
 #ui {
-  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: 10;
+  position: absolute;
 }
 
 .loader {
-  position: absolute;
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
+  position: absolute;
   align-items: center;
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -49,8 +49,8 @@ body {
 }
 
 .loader-text {
-  font-family: DosisRegular;
   color: #ffffff;
+  font-family: DosisRegular;
 }
 
 @keyframes loading {
@@ -88,12 +88,12 @@ body {
   color: white;
   font-size: 20px;
   font-weight: bold;
-  position: absolute;
-  border-radius: 5px;
   font-family: krita;
+  border-radius: 5px;
+  position: absolute;
+  margin-right: 0.5rem;
   padding: 0.7rem 0.5rem 0.5rem 0.5rem;
   background-color: rgba(0, 0, 0, 0.7);
-  margin-right: 0.5rem;
 }
 
 .timer__text {

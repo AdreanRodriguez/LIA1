@@ -3,7 +3,7 @@ import { restartGame } from "../utils/restartGame";
 import { useState, useEffect, useRef } from "react";
 import { CharacterType } from "../types/characterType";
 import { preloadImages } from "../utils/preloadImages";
-import { spawnRandomCharacter } from "../utils/spawnRandomCharacter";
+import { spawnRandomCharacters } from "../utils/spawnRandomCharacters";
 import { updateGameState, GameState, DEFAULT_GAME_STATE } from "../utils/gameLogic";
 
 export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
@@ -43,14 +43,20 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
 
     // Spawnar en karaktär varje spawnInterval
     const spawnInterval = setInterval(() => {
-      spawnRandomCharacter(gameState, maxCharacters, activeCharacters, setActiveCharacters);
+      spawnRandomCharacters(gameState, maxCharacters, activeCharacters, setActiveCharacters);
     }, gameState.spawnInterval);
 
     // Timer som räknar ner varje sekund
     const timerInterval = setInterval(() => {
       setGameState((prev) => {
+        if (prev.isGameOver) {
+          clearInterval(timerInterval);
+          return prev;
+        }
+
         const newTime = prev.timeLeft - 1;
         if (newTime <= 0) {
+          console.log("🛑 Tiden är slut! Game over!");
           return { ...prev, timeLeft: 0, isGameOver: true };
         }
         return { ...prev, timeLeft: newTime };
@@ -59,6 +65,7 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
 
     // Rensa timers när spelet avslutas eller startas om
     return () => {
+      console.log("❌ Avbryter spawn-loop!");
       clearInterval(spawnInterval);
       clearInterval(timerInterval);
 

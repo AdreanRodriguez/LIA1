@@ -9,7 +9,7 @@ export interface GameState {
 
 export const DEFAULT_GAME_STATE: GameState = {
   score: 0,
-  timeLeft: 5, // Startar med 15 sekunder
+  timeLeft: 15, // Startar med 15 sekunder
   isGameOver: false,
   spawnInterval: 1000, // sekund mellan varje spawn
   animationDuration: 2.5, // Börja med 3 sekunder
@@ -39,33 +39,42 @@ export function updateGameState(
   }
 
   if (score < 100) {
+    spawnInterval = 1000;
     animationDuration = 2.5;
     goodCharacterProbability = 0.2;
   } else if (score < 200) {
+    spawnInterval = 900;
     animationDuration = 2.1;
     goodCharacterProbability = 0.35;
   } else if (score < 300) {
+    spawnInterval = 900;
     animationDuration = 2;
     goodCharacterProbability = 0.4;
   } else if (score < 400) {
+    spawnInterval = 800;
     animationDuration = 1.8;
     goodCharacterProbability = 0.45;
   } else if (score < 500) {
+    spawnInterval = 800;
     animationDuration = 1.6;
     goodCharacterProbability = 0.5;
   } else if (score < 600) {
+    spawnInterval = 700;
     animationDuration = 1.4;
     goodCharacterProbability = 0.5;
   } else if (score < 700) {
+    spawnInterval = 600;
     animationDuration = 1.2;
     goodCharacterProbability = 0.5;
   } else if (score < 800) {
+    spawnInterval = 500;
     animationDuration = 1;
     goodCharacterProbability = 0.5;
   } else if (score < 900) {
     animationDuration = 1;
     goodCharacterProbability = 0.5;
   } else {
+    spawnInterval = 400;
     animationDuration = 1;
     goodCharacterProbability = 0.4;
   }
