@@ -4,11 +4,11 @@ export const gameOver = (score: number) => {
     console.error("ClubHouseGame is not available.");
     return;
   }
+  // Sätter gameDone = spelet är över
+  window.ClubHouseGame.gameDone();
 
-  // console.log(`Final score: ${score}`);
+  // Sätter poängen själv med setScore
   window.ClubHouseGame.setScore(score);
 
-  // Informera ClubHouseGame att spelet är över
-  window.ClubHouseGame.gameDone();
-  // console.log("ClubHouseGame.gameDone() called!");
+  console.log("gameOver()");
 };

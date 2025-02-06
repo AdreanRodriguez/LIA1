@@ -4,8 +4,6 @@ import Bus from "./components/bus/Bus";
 import Bush from "./components/bush/Bush";
 import Cloud from "./components/cloud/Cloud";
 import { useGameLogic } from "./hooks/useGameLogic";
-// import GameOverModal from "./components/gameOverModal/GameOverModal";
-import GameStartModal from "./components/gameStartModal/GameStartModal";
 import PortraitBlocker from "./components/portraitBlocker/PortraitBlocker";
 
 function App() {
@@ -16,36 +14,23 @@ function App() {
     handleCharacterClick,
     // restartGame,
     // isGameReady,
-  } = useGameLogic(60, isGameStarted);
-
-  // if (!isGameReady) {
-  //   return (
-  //     <div className="spinner-container">
-  //       <div className="spinner">
-  //         <div className="bounce1"></div>
-  //         <div className="bounce2"></div>
-  //         <div className="bounce3"></div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  } = useGameLogic(10, isGameStarted, setIsGameStarted);
 
   const uniqueCharacters = Array.from(
     new Map(activeCharacters.map((char) => [char.id, char])).values()
   );
-  // Glöm inte bort att det finns en logo och en "starta spelet" knapp, ta bort display none.
-  // style={{ display: isGameStarted || gameState.isGameOver ? "block" : "none" }}
   return (
     <>
-      <div id="ui" style={{ display: gameState.isGameOver ? "block" : "none" }}></div>
-      <div id="loader" className="loader">
+      <div id="ui"></div>
+      <div className="loader" id="loader">
         <p className="loader-text">Startar</p>
         <img className="loader-logo" src="/images/logo.png" />
         <img className="spinner" src="/images/spinner.svg" />
       </div>
+
       <PortraitBlocker />
       {/* {gameState.isGameOver && <GameOverModal score={gameState.score} restartGame={restartGame} />} */}
-      {!isGameStarted && <GameStartModal setIsGameStarted={setIsGameStarted} />}
+      {/* {!isGameStarted && <GameStartModal setIsGameStarted={setIsGameStarted} />} */}
       <main
         className={`game-container ${
           gameState.isGameOver || !isGameStarted ? "blur-background" : null

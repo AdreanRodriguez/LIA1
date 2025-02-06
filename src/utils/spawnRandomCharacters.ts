@@ -12,46 +12,38 @@ export function spawnRandomCharacters(
 
   // Skapa en lista över lediga platser
   const occupiedPositions = new Set(activeCharacters.map((char) => char.id));
-  const availablePositions = positions.filter((pos) => !occupiedPositions.has(pos.id));
+  let availablePositions = positions.filter((pos) => !occupiedPositions.has(pos.id));
 
-  console.log(`Lediga positioner: ${availablePositions.length}`);
-
-  if (!availablePositions.length) {
-    console.error("Inga lediga positioner för att spawna karaktärer!");
+  if (availablePositions.length === 0) {
+    console.warn("Inga lediga positioner för att spawna karaktär!");
     return;
   }
 
-  // Bestäm hur många karaktärer vi vill spawna (t.ex. 2–4)
-  const numberOfCharacters = Math.min(2 + Math.floor(Math.random() * 3), availablePositions.length);
+  // Shuffle för att få mer slumpmässighet
+  availablePositions = availablePositions.sort(() => Math.random() - 0.5);
 
-  const newCharacters: CharacterType[] = [];
+  // Antal vi försöker skapa, hur många som ska synas
+  const charactersToSpawn = Math.min(5, availablePositions.length);
 
-  for (let i = 0; i < numberOfCharacters; i++) {
-    const randomIndex = Math.floor(Math.random() * availablePositions.length);
-    const randomPosition = availablePositions.splice(randomIndex, 1)[0]; // Ta bort positionen från arrayen
-
-    const randomType = Math.random() < gameState.goodCharacterProbability ? "good" : "evil";
-
-    const newCharacter: CharacterType = {
-      animation: getAnimation(randomPosition.id),
-      type: randomType,
-      id: randomPosition.id,
+  // Skapa nya karaktärer på unika positioner
+  const newCharacters: CharacterType[] = availablePositions
+    .slice(0, charactersToSpawn)
+    .map((pos) => ({
+      animation: getAnimation(pos.id),
+      type: Math.random() < gameState.goodCharacterProbability ? "good" : "evil",
+      id: pos.id,
       clickedCharacter: false,
-      angle: randomPosition.angle,
+      angle: pos.angle,
       animationDuration: gameState.animationDuration,
-    };
+    }));
 
-    newCharacters.push(newCharacter);
-  }
-
-  // Lägg till de nya karaktärerna i spelet
   setActiveCharacters((prev) => [...prev, ...newCharacters]);
 
-  // Ta bort karaktärerna efter deras animationstid
-  newCharacters.forEach((char) => {
+  // Rensa karaktärerna efter animationens längd
+  newCharacters.forEach((character) => {
     setTimeout(() => {
-      setActiveCharacters((prev) => prev.filter((c) => c.id !== char.id));
-    }, char.animationDuration * 1000);
+      setActiveCharacters((prev) => prev.filter((char) => char.id !== character.id));
+    }, character.animationDuration * 1000);
   });
 }
 

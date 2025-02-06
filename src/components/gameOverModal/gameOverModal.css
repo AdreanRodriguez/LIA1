@@ -1,4 +1,4 @@
-.gameOverModal {
+/* .gameOverModal {
   top: 50%;
   left: 50%;
   z-index: 2;
@@ -8,7 +8,7 @@
   border-radius: 5px;
   border: 10px ridge var(--highlight-orange);
 
-  /* Sätter display flex i media screen längst ner */
+  Sätter display flex i media screen längst ner
   align-items: center;
   justify-content: center;
 
@@ -57,4 +57,4 @@
   .gameOverModal {
     display: flex;
   }
-}
+} */

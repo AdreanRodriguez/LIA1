@@ -9,7 +9,7 @@ export interface GameState {
 
 export const DEFAULT_GAME_STATE: GameState = {
   score: 0,
-  timeLeft: 15, // Startar med 15 sekunder
+  timeLeft: 5, // Startar med 15 sekunder
   isGameOver: false,
   spawnInterval: 1000, // sekund mellan varje spawn
   animationDuration: 2.5, // Börja med 3 sekunder
@@ -20,7 +20,7 @@ export function updateGameState(
   currentState: GameState,
   characterType: "good" | "evil"
 ): GameState {
-  let { score, timeLeft, animationDuration, isGameOver, goodCharacterProbability, spawnInterval } =
+  let { score, timeLeft, animationDuration, goodCharacterProbability, spawnInterval } =
     currentState;
 
   if (characterType === "evil") {
@@ -34,7 +34,7 @@ export function updateGameState(
   timeLeft = Math.max(0, timeLeft);
 
   // Om tiden är 0 = Game Over
-  if (timeLeft === 0 && isGameOver === true) {
+  if (timeLeft === 0) {
     return { ...currentState, timeLeft: 0, isGameOver: true };
   }
 

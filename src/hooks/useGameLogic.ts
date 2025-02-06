@@ -1,18 +1,23 @@
 import { gameOver } from "../utils/gameOver";
-import { restartGame } from "../utils/restartGame";
+import { positions } from "../utils/positions";
+import { startGame } from "./../utils/startGame";
 import { useState, useEffect, useRef } from "react";
 import { CharacterType } from "../types/characterType";
 import { preloadImages } from "../utils/preloadImages";
 import { spawnRandomCharacters } from "../utils/spawnRandomCharacters";
 import { updateGameState, GameState, DEFAULT_GAME_STATE } from "../utils/gameLogic";
 
-export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
+export function useGameLogic(
+  maxCharacters: number,
+  isGameStarted: boolean,
+  setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>
+) {
   const activeTimeouts = useRef<number[]>([]);
 
   // Spelets tillstånd
   const [isGameReady, setIsGameReady] = useState<boolean>(false);
-  const [gameState, setGameState] = useState<GameState>({ ...DEFAULT_GAME_STATE });
   const [activeCharacters, setActiveCharacters] = useState<CharacterType[]>([]);
+  const [gameState, setGameState] = useState<GameState>({ ...DEFAULT_GAME_STATE });
 
   function startLoaderCheck() {
     let checkLoader = setInterval(() => {
@@ -21,7 +26,7 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
         window.ClubHouseGame?.gameLoaded({ hideInGame: true });
         clearInterval(checkLoader);
       }
-    }, 100);
+    }, 1000);
 
     return () => clearInterval(checkLoader); // Cleanup
   }
@@ -29,21 +34,47 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
   useEffect(() => {
     preloadImages().then(() => setIsGameReady(true));
 
-    // Registrera omstart i ClubHouseGame
-    restartGame(resetGameState);
     return startLoaderCheck();
   }, []);
 
   useEffect(() => {
-    if (!isGameStarted || gameState.isGameOver) {
+    if (!isGameStarted) {
+      startGame(setIsGameStarted, resetGameState);
+      return;
+    }
+
+    if (gameState.isGameOver) {
       gameOver(gameState.score);
       setActiveCharacters([]);
       return;
     }
 
     // Spawnar en karaktär varje spawnInterval
+    // const spawnInterval = setInterval(() => {
+    //   setActiveCharacters((prevCharacters) => {
+    //     if (prevCharacters.length >= maxCharacters) return prevCharacters; // 👈 Kolla maxCharacters här!
+
+    //     spawnRandomCharacters(gameState, maxCharacters, prevCharacters, setActiveCharacters);
+    //     return prevCharacters;
+    //   });
+    // }, gameState.spawnInterval);
+
     const spawnInterval = setInterval(() => {
-      spawnRandomCharacters(gameState, maxCharacters, activeCharacters, setActiveCharacters);
+      setActiveCharacters((prevCharacters) => {
+        const availableSlots = positions.filter(
+          (pos) => !prevCharacters.some((char) => char.id === pos.id)
+        );
+
+        if (availableSlots.length === 0) return prevCharacters;
+
+        spawnRandomCharacters(
+          gameState,
+          availableSlots.length,
+          prevCharacters,
+          setActiveCharacters
+        );
+        return prevCharacters;
+      });
     }, gameState.spawnInterval);
 
     // Timer som räknar ner varje sekund
@@ -56,7 +87,6 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
 
         const newTime = prev.timeLeft - 1;
         if (newTime <= 0) {
-          console.log("🛑 Tiden är slut! Game over!");
           return { ...prev, timeLeft: 0, isGameOver: true };
         }
         return { ...prev, timeLeft: newTime };
@@ -65,7 +95,6 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
 
     // Rensa timers när spelet avslutas eller startas om
     return () => {
-      console.log("❌ Avbryter spawn-loop!");
       clearInterval(spawnInterval);
       clearInterval(timerInterval);
 
@@ -87,7 +116,7 @@ export function useGameLogic(maxCharacters: number, isGameStarted: boolean) {
 
     setGameState((prev) => {
       const newState = updateGameState(prev, character.type);
-      console.log("Nytt gameState:", newState);
+      // console.log("Nytt gameState:", newState);
       return newState;
     });
 
