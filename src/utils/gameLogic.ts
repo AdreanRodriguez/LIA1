@@ -57,42 +57,42 @@ export function updateGameState(
     animationDuration = 2.1;
     goodCharacterProbability = 0.3;
   } else if (score < 300) {
-    maxCharacters = 6;
-    spawnInterval = 800;
-    animationDuration = 2;
-    goodCharacterProbability = 0.4;
-  } else if (score < 400) {
-    maxCharacters = 6;
+    maxCharacters = 4;
     spawnInterval = 800;
     animationDuration = 1.8;
     goodCharacterProbability = 0.4;
-  } else if (score < 500) {
-    maxCharacters = 7;
+  } else if (score < 400) {
+    maxCharacters = 4;
     spawnInterval = 800;
-    animationDuration = 1.6;
-    goodCharacterProbability = 0.4;
-  } else if (score < 600) {
-    maxCharacters = 7;
-    spawnInterval = 700;
     animationDuration = 1.4;
     goodCharacterProbability = 0.4;
+  } else if (score < 500) {
+    maxCharacters = 4;
+    spawnInterval = 800;
+    animationDuration = 1.2;
+    goodCharacterProbability = 0.4;
+  } else if (score < 600) {
+    maxCharacters = 4;
+    spawnInterval = 700;
+    animationDuration = 1.2;
+    goodCharacterProbability = 0.4;
   } else if (score < 700) {
-    maxCharacters = 8;
+    maxCharacters = 4;
     spawnInterval = 600;
     animationDuration = 1.2;
     goodCharacterProbability = 0.4;
   } else if (score < 800) {
-    maxCharacters = 9;
+    maxCharacters = 4;
     spawnInterval = 500;
     animationDuration = 1;
     goodCharacterProbability = 0.4;
   } else if (score < 900) {
-    maxCharacters = 10;
+    maxCharacters = 4;
     spawnInterval = 500;
     animationDuration = 1;
     goodCharacterProbability = 0.4;
   } else {
-    maxCharacters = 10;
+    maxCharacters = 3;
     spawnInterval = 400;
     animationDuration = 1;
     goodCharacterProbability = 0.4;

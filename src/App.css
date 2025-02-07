@@ -72,7 +72,7 @@ body {
   background-size: cover;
   /* background-size: contain; */
   background-position: center;
-  background-image: url("./assets/background.png");
+  background-image: url("/assets/background.png");
 }
 
 .blur-background {
