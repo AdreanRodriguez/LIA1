@@ -2,49 +2,69 @@ import { GameState } from "./gameLogic";
 import { positions } from "./positions";
 import { CharacterType } from "../types/characterType";
 
+const recentRemovals = new Set<string>();
+
 export function spawnRandomCharacters(
   gameState: GameState,
-  maxCharacters: number,
+  // maxCharacters: number,
   activeCharacters: CharacterType[],
   setActiveCharacters: React.Dispatch<React.SetStateAction<CharacterType[]>>
 ) {
-  if (activeCharacters.length >= maxCharacters || gameState.isGameOver) return;
+  console.log("Spawn-funktion körs. Game Over status:", gameState.isGameOver);
+  if (activeCharacters.length >= gameState.maxCharacters || gameState.isGameOver) return;
 
   // Skapa en lista över lediga platser
   const occupiedPositions = new Set(activeCharacters.map((char) => char.id));
-  let availablePositions = positions.filter((pos) => !occupiedPositions.has(pos.id));
+  let availablePositions = positions.filter(
+    (pos) => !occupiedPositions.has(pos.id) && !recentRemovals.has(pos.id) // Blockera nyligen borttagna
+  );
 
   if (availablePositions.length === 0) {
     console.warn("Inga lediga positioner för att spawna karaktär!");
     return;
   }
 
-  // Shuffle för att få mer slumpmässighet
-  availablePositions = availablePositions.sort(() => Math.random() - 0.5);
+  // Blanda positionerna för slumpmässighet
+  availablePositions = shuffleArray(availablePositions);
 
-  // Antal vi försöker skapa, hur många som ska synas
-  const charactersToSpawn = Math.min(5, availablePositions.length);
+  // maxCharacter är antalet som ska synas, det ställs i gameLogic
+  const charactersToSpawn = Math.min(gameState.maxCharacters, availablePositions.length);
 
-  // Skapa nya karaktärer på unika positioner
-  const newCharacters: CharacterType[] = availablePositions
-    .slice(0, charactersToSpawn)
-    .map((pos) => ({
-      animation: getAnimation(pos.id),
-      type: Math.random() < gameState.goodCharacterProbability ? "good" : "evil",
-      id: pos.id,
-      clickedCharacter: false,
-      angle: pos.angle,
-      animationDuration: gameState.animationDuration,
-    }));
-
-  setActiveCharacters((prev) => [...prev, ...newCharacters]);
-
-  // Rensa karaktärerna efter animationens längd
-  newCharacters.forEach((character) => {
+  availablePositions.slice(0, charactersToSpawn).forEach((pos, index) => {
     setTimeout(() => {
-      setActiveCharacters((prev) => prev.filter((char) => char.id !== character.id));
-    }, character.animationDuration * 1000);
+      // Spawnar karaktären med en viss fördröjning baserat på index
+      const newCharacter: CharacterType = {
+        id: pos.id,
+        angle: pos.angle,
+        clickedCharacter: false,
+        animation: getAnimation(pos.id),
+        animationDuration: gameState.animationDuration,
+        type: Math.random() < gameState.goodCharacterProbability ? "good" : "evil",
+      };
+
+      console.log("Spawna karaktär:", newCharacter.id);
+      setActiveCharacters((prev) => [...prev, newCharacter]);
+
+      setTimeout(() => {
+        setActiveCharacters((prev) => prev.filter((char) => char.id !== newCharacter.id));
+        recentRemovals.add(newCharacter.id);
+
+        setTimeout(() => {
+          // console.log("Tillåter spawn igen:", newCharacter.id);
+          recentRemovals.delete(newCharacter.id);
+        }, gameState.animationDuration * 500);
+      }, gameState.animationDuration * 1000);
+    }, index * gameState.spawnInterval); // 🔥 Spawnar med små mellanrum baserat på index
   });
+}
+
+// Fisher-Yates-algoritm för att blanda
+function shuffleArray<T>(array: T[]): T[] {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
 
 function getAnimation(id: string): string {

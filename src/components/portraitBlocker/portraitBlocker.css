@@ -26,25 +26,6 @@
   filter: drop-shadow(2px 4px 6px black);
 }
 
-/* Om man ska ha det upp och ner vänt */
-/* background: linear-gradient(0deg, rgba(193, 3, 3, 1) 0%, rgba(37, 137, 166, 1) 100%); */
-
-/* .portrait-image__good {
-  top: -7px;
-  left: 50%;
-  position: absolute;
-  filter: drop-shadow(2px 4px 6px black);
-  transform: translateX(-50%) rotateX(180deg);
-}
-
-.portrait-image__evil {
-  left: 50%;
-  bottom: -7px;
-  position: absolute;
-  transform: translateX(-50%);
-  filter: drop-shadow(2px 4px 6px black);
-} */
-
 .portrait-blocker {
   top: 50%;
   left: 50%;
@@ -52,8 +33,34 @@
   height: 15rem;
   display: block;
   position: absolute;
-  transform: translate(50%, 50%);
   animation: rotate 1.8s infinite cubic-bezier(0.44, -0.48, 0.19, 1.61);
+
+  /* border: 5px solid;
+  border-image: linear-gradient(90deg, rgba(193, 3, 3, 1) 0%, rgba(37, 137, 166, 1) 100%);
+  border-image-slice: 1; */
+}
+
+.collaboration {
+  top: 50%;
+  left: 50%;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  font-family: "Short Stack";
+  color: rgba(193, 3, 3, 1);
+
+  display: flex;
+  flex-direction: column;
+
+  animation: rotate-collaboration 1.8s infinite cubic-bezier(0.44, -0.48, 0.19, 1.61);
+}
+
+.collaboration a {
+  font-size: 12px;
+  font-family: krita;
+  text-decoration: underline;
+  color: rgba(37, 137, 166, 1);
 }
 
 @keyframes rotate {
@@ -65,6 +72,18 @@
   }
   100% {
     transform: translate(-50%, -50%) rotateZ(-90deg) scale(1);
+  }
+}
+
+@keyframes rotate-collaboration {
+  0% {
+    transform: translate(-50%, -50%) rotateZ(-50deg) scale(0.1);
+  }
+  70% {
+    transform: translate(-50%, -50%) rotateZ(-5deg) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotateZ(0deg) scale(1);
   }
 }
 

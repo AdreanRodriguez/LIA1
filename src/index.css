@@ -64,6 +64,16 @@
   box-sizing: border-box;
 }
 
+img,
+body,
+button {
+  user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+}
+
 :root {
   --shortStack: "Short Stack";
   --button-green: #008364;

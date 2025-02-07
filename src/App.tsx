@@ -8,13 +8,10 @@ import PortraitBlocker from "./components/portraitBlocker/PortraitBlocker";
 
 function App() {
   const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
-  const {
-    activeCharacters,
-    gameState,
-    handleCharacterClick,
-    // restartGame,
-    // isGameReady,
-  } = useGameLogic(10, isGameStarted, setIsGameStarted);
+  const { activeCharacters, gameState, handleCharacterClick } = useGameLogic(
+    isGameStarted,
+    setIsGameStarted
+  );
 
   const uniqueCharacters = Array.from(
     new Map(activeCharacters.map((char) => [char.id, char])).values()
@@ -23,14 +20,12 @@ function App() {
     <>
       <div id="ui"></div>
       <div className="loader" id="loader">
-        <p className="loader-text">Startar</p>
+        {/* <p className="loader-text">Startar</p> */}
         <img className="loader-logo" src="/images/logo.png" />
         <img className="spinner" src="/images/spinner.svg" />
       </div>
 
       <PortraitBlocker />
-      {/* {gameState.isGameOver && <GameOverModal score={gameState.score} restartGame={restartGame} />} */}
-      {/* {!isGameStarted && <GameStartModal setIsGameStarted={setIsGameStarted} />} */}
       <main
         className={`game-container ${
           gameState.isGameOver || !isGameStarted ? "blur-background" : null

@@ -1,5 +1,4 @@
 import { gameOver } from "../utils/gameOver";
-import { positions } from "../utils/positions";
 import { startGame } from "./../utils/startGame";
 import { useState, useEffect, useRef } from "react";
 import { CharacterType } from "../types/characterType";
@@ -8,7 +7,7 @@ import { spawnRandomCharacters } from "../utils/spawnRandomCharacters";
 import { updateGameState, GameState, DEFAULT_GAME_STATE } from "../utils/gameLogic";
 
 export function useGameLogic(
-  maxCharacters: number,
+  // maxCharacters: number,
   isGameStarted: boolean,
   setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>
 ) {
@@ -21,14 +20,14 @@ export function useGameLogic(
 
   function startLoaderCheck() {
     let checkLoader = setInterval(() => {
-      if (document.getElementById("loader")) {
-        console.log("Hittade #loader.");
+      if (document.querySelector("#loader")) {
+        // console.log("Hittade #loader.");
         window.ClubHouseGame?.gameLoaded({ hideInGame: true });
         clearInterval(checkLoader);
       }
     }, 1000);
 
-    return () => clearInterval(checkLoader); // Cleanup
+    return () => clearInterval(checkLoader);
   }
 
   useEffect(() => {
@@ -45,34 +44,15 @@ export function useGameLogic(
 
     if (gameState.isGameOver) {
       gameOver(gameState.score);
-      setActiveCharacters([]);
       return;
     }
 
     // Spawnar en karaktär varje spawnInterval
-    // const spawnInterval = setInterval(() => {
-    //   setActiveCharacters((prevCharacters) => {
-    //     if (prevCharacters.length >= maxCharacters) return prevCharacters; // 👈 Kolla maxCharacters här!
-
-    //     spawnRandomCharacters(gameState, maxCharacters, prevCharacters, setActiveCharacters);
-    //     return prevCharacters;
-    //   });
-    // }, gameState.spawnInterval);
-
     const spawnInterval = setInterval(() => {
       setActiveCharacters((prevCharacters) => {
-        const availableSlots = positions.filter(
-          (pos) => !prevCharacters.some((char) => char.id === pos.id)
-        );
+        if (prevCharacters.length >= gameState.maxCharacters) return prevCharacters; // Kolla maxCharacters här!
 
-        if (availableSlots.length === 0) return prevCharacters;
-
-        spawnRandomCharacters(
-          gameState,
-          availableSlots.length,
-          prevCharacters,
-          setActiveCharacters
-        );
+        spawnRandomCharacters(gameState, prevCharacters, setActiveCharacters);
         return prevCharacters;
       });
     }, gameState.spawnInterval);
@@ -108,19 +88,16 @@ export function useGameLogic(
     // förhindra dubbelklick
     if (character.clickedCharacter) return;
 
-    setTimeout(() => {
-      setActiveCharacters((prev) =>
-        prev.map((char) => (char.id === character.id ? { ...char, clickedCharacter: true } : char))
-      );
-    });
+    setActiveCharacters((prev) =>
+      prev.map((char) => (char.id === character.id ? { ...char, clickedCharacter: true } : char))
+    );
 
     setGameState((prev) => {
-      const newState = updateGameState(prev, character.type);
-      // console.log("Nytt gameState:", newState);
-      return newState;
+      const updatedGameState = updateGameState(prev, character.type);
+      // console.log("UPDATEDGAMESTATE", updatedGameState);
+      return updatedGameState;
     });
 
-    // Ta bort karaktären efter en kort tid så att "poff" syns
     setTimeout(() => {
       setActiveCharacters((prev) => prev.filter((char) => char.id !== character.id));
     }, character.animationDuration * 1000);
