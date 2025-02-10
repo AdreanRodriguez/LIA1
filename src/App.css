@@ -81,8 +81,8 @@ body {
 
 .score__text {
   z-index: 2;
-  top: 1rem;
-  right: 1rem;
+  top: 0.5rem;
+  right: 0.5rem;
   color: white;
   font-size: 20px;
   font-weight: bold;
@@ -95,8 +95,8 @@ body {
 }
 
 .timer__text {
-  top: 1rem;
-  left: 1rem;
+  top: 0.5rem;
+  left: 0.5rem;
   color: white;
   font-size: 20px;
   font-weight: bold;
