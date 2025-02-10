@@ -12,11 +12,11 @@ const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick }) =
   const boxes = {
     left: {
       position: { top: "-10%", left: "40%" },
-      size: { width: "40%", height: "100%" },
+      size: { width: "42%", height: "100%" },
     },
     right: {
       position: { top: "-10%", left: "40%" },
-      size: { width: "40%", height: "100%" },
+      size: { width: "42%", height: "100%" },
     },
   };
 

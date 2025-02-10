@@ -53,7 +53,7 @@ export function spawnRandomCharacters(
           recentRemovals.delete(newCharacter.id);
         }, gameState.animationDuration * 500);
       }, gameState.animationDuration * 1000);
-    }, index * gameState.spawnInterval + 1000); // 🔥 Spawnar med små mellanrum baserat på index
+    }, index * gameState.spawnInterval); // 🔥 Spawnar med små mellanrum baserat på index
   });
 }
 

@@ -22,27 +22,31 @@ const Bus: React.FC<BusProps> = ({ characters, onCharacterClick, isGameStarted }
   const boxes = [
     {
       id: "window-1",
-      position: { top: "34%", left: "11.5%" },
-      size: { width: "6%", height: "20%" },
+      position: { top: "34%", left: "11%" },
+      size: { width: "8%", height: "20%" },
     },
-    { id: "window-2", position: { top: "34%", left: "32%" }, size: { width: "6%", height: "20%" } },
-    { id: "window-3", position: { top: "34%", left: "43%" }, size: { width: "6%", height: "20%" } },
-    { id: "window-4", position: { top: "34%", left: "55%" }, size: { width: "6%", height: "20%" } },
-    { id: "window-5", position: { top: "34%", left: "70%" }, size: { width: "6%", height: "20%" } },
+    {
+      id: "window-2",
+      position: { top: "34%", left: "29%" },
+      size: { width: "9%", height: "20%" },
+    },
+    { id: "window-3", position: { top: "34%", left: "42%" }, size: { width: "9%", height: "20%" } },
+    { id: "window-4", position: { top: "34%", left: "54%" }, size: { width: "9%", height: "20%" } },
+    { id: "window-5", position: { top: "34%", left: "69%" }, size: { width: "9%", height: "20%" } },
     {
       id: "bus-left",
-      position: { top: "47%", left: "-6%" },
+      position: { top: "44%", left: "-6%" },
       size: { width: "12%", height: "25%" },
     },
     {
       id: "bus-right",
-      position: { top: "45%", left: "96%" },
-      size: { width: "8%", height: "20%" },
+      position: { top: "44%", left: "96%" },
+      size: { width: "12%", height: "25%" },
     },
     {
       id: "under-bus",
-      position: { top: "78%", left: "57%" },
-      size: { width: "10%", height: "25%" },
+      position: { top: "78%", left: "54%" },
+      size: { width: "13%", height: "25%" },
     },
   ];
 

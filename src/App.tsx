@@ -57,10 +57,9 @@ function App() {
           onCharacterClick={handleCharacterClick}
         />
 
-        <Cloud top="-10vh" left="30vw" width="20vw" height="25vh" animationDuration="82s" />
-        <Cloud top="0" left="20vw" width="10vw" height="14vh" animationDuration="10s" />
-        <Cloud top="0" left="90vw" width="10vw" height="14vh" animationDuration="60s" />
-        <Cloud top="0" left="60vw" width="10vw" height="14vh" animationDuration="53s" />
+        <Cloud top="0" left="20vw" width="10vw" height="14svh" animationDuration="10s" />
+        <Cloud top="0" left="90vw" width="10vw" height="14svh" animationDuration="60s" />
+        <Cloud top="0" left="60vw" width="10vw" height="14svh" animationDuration="53s" />
       </main>
     </>
   );

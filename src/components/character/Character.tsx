@@ -18,12 +18,13 @@ export default function Character({ character, onClick, characterImage, size }: 
 
   const characterStyle: React.CSSProperties = {
     ...size, // Bredd och höjd från `getCharacterData`
-    transform: `rotate(${angle}deg)`, // Gör rotation och centrering
     animationName: animation, // Använd animationen som tilldelats
-    animationDuration: `${animationDuration}s`, // Detta sätter vi i gameLogic.ts
-    animationTimingFunction: "ease-in-out",
     animationIterationCount: "1", // Animationen körs bara 1 gång
     animationFillMode: "forwards", // Se till att de inte studsar tillbaka
+    transform: `rotate(${angle}deg)`, // Gör rotation och centrering
+    animationTimingFunction: "ease-in",
+    // animationTimingFunction: "ease-in-out",
+    animationDuration: `${animationDuration}s`, // Detta sätter vi i gameLogic.ts
   };
 
   return (
