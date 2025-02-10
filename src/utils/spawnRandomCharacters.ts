@@ -10,7 +10,6 @@ export function spawnRandomCharacters(
   activeCharacters: CharacterType[],
   setActiveCharacters: React.Dispatch<React.SetStateAction<CharacterType[]>>
 ) {
-  console.log("Spawn-funktion körs. Game Over status:", gameState.isGameOver);
   if (activeCharacters.length >= gameState.maxCharacters || gameState.isGameOver) return;
 
   // Skapa en lista över lediga platser
@@ -54,7 +53,7 @@ export function spawnRandomCharacters(
           recentRemovals.delete(newCharacter.id);
         }, gameState.animationDuration * 500);
       }, gameState.animationDuration * 1000);
-    }, index * gameState.spawnInterval); // 🔥 Spawnar med små mellanrum baserat på index
+    }, index * gameState.spawnInterval + 1000); // 🔥 Spawnar med små mellanrum baserat på index
   });
 }
 

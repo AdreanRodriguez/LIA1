@@ -17,5 +17,3 @@ export const positions: PositionType[] = [
   { id: "bush-right", angle: 0 },
   { id: "under-bus", angle: 0 },
 ];
-
-// Glöm inte att lägga till karaktär under bussen.

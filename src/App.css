@@ -65,7 +65,7 @@ body {
 .game-container {
   /* width: 100vw; */
   /* margin: 0 auto; */
-  height: 100vh;
+  height: 100svh;
   display: none;
   overflow: hidden;
   position: relative;
