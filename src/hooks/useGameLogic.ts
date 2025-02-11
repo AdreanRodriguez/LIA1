@@ -84,23 +84,18 @@ export function useGameLogic(
     };
   }, [isGameStarted, gameState.isGameOver, gameState.spawnInterval, gameState.animationDuration]);
 
+  function handleCharacterRemoval(uuid: string) {
+    setActiveCharacters((prev) => prev.filter((char) => char.uuid !== uuid));
+  }
+
   function handleCharacterClick(character: CharacterType) {
-    // förhindra dubbelklick
     if (character.clickedCharacter) return;
 
     setActiveCharacters((prev) =>
       prev.map((char) => (char.id === character.id ? { ...char, clickedCharacter: true } : char))
     );
 
-    setGameState((prev) => {
-      const updatedGameState = updateGameState(prev, character.type);
-      // console.log("UPDATEDGAMESTATE", updatedGameState);
-      return updatedGameState;
-    });
-
-    setTimeout(() => {
-      setActiveCharacters((prev) => prev.filter((char) => char.id !== character.id));
-    }, character.animationDuration * 1000);
+    setGameState((prev) => updateGameState(prev, character.type));
   }
 
   // Funktion för att återställa spelet
@@ -116,5 +111,6 @@ export function useGameLogic(
     resetGameState,
     activeCharacters,
     handleCharacterClick,
+    handleCharacterRemoval,
   };
 }

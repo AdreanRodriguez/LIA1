@@ -10,6 +10,7 @@ interface CharacterBoxProps {
   position: { top: string; left: string }; // Position i förhållande till bussen
   size: { width: string; height: string }; // Storlek på lådan
   onCharacterClick: (character: CharacterType) => void;
+  onAnimationEnd: (uuid: string) => void;
 }
 
 const CharacterBox: React.FC<CharacterBoxProps> = ({
@@ -18,7 +19,8 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
   size,
   onCharacterClick,
   style,
-  isBusLeft,
+  // isBusLeft,
+  onAnimationEnd,
 }) => {
   // Rendera inte något om karaktären inte finns eller inte är synlig
   if (!character) {
@@ -36,16 +38,15 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
   } // God är null i getCharacterData under bussen
 
   // Karaktären god flippas vid id "bus-left" om den är god
-  const isBusRight = !isBusLeft;
-  const shouldFlipLeft = isBusLeft && character.type === "good";
-  const shouldFlipRight = isBusRight && character.type === "good";
-  const randomFlipGood = !isBusLeft && character.type === "good" && Math.random() < 0.5;
+  // const isBusRight = !isBusLeft;
+  // const shouldFlipLeft = isBusLeft && character.type === "good";
+  // const shouldFlipRight = isBusRight && character.type === "good";
+  // const randomFlipGood = !isBusLeft && character.type === "good" && Math.random() < 0.5;
+  const shouldFlip = character.type === "good";
 
   return (
     <div
-      className={`character-box ${
-        shouldFlipLeft || shouldFlipRight || randomFlipGood ? "flipped" : ""
-      }`}
+      className={`character-box ${shouldFlip ? "flipped" : ""}`}
       style={{
         ...style,
         width: size.width,
@@ -61,6 +62,7 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
           onClick={onCharacterClick}
           characterImage={characterData.characterImage}
           size={characterData.size}
+          onAnimationEnd={onAnimationEnd}
         />
       )}
     </div>

@@ -11,13 +11,6 @@
   transition: all 0.3s ease;
 }
 
-/* .good-character.clickedCharacter img {
-  opacity: 0.3;
-  transition: all 0.3s ease;
-
-  Om man vill göra något med den gode, exempel att den ska fada upp
-} */
-
 /* Från höger till vänster (under bussen) */
 @keyframes slide-under-bus {
   0% {
@@ -49,7 +42,7 @@
     transform: translateX(90%);
   }
   100% {
-    opacity: 0;
+    opacity: 1;
     transform: translateX(100%);
   }
 }
@@ -85,7 +78,7 @@
     transform: translateY(90%);
   }
   100% {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(100%);
   }
 }
@@ -121,7 +114,7 @@
     transform: translateX(90%) rotate(-60deg);
   }
   100% {
-    opacity: 0;
+    opacity: 1;
     transform: translateX(100%) rotate(-60deg);
   }
 }
@@ -157,7 +150,7 @@
     transform: translateX(-90%) rotate(45deg);
   }
   100% {
-    opacity: 0;
+    opacity: 1;
     transform: translateX(-100%) rotate(45deg);
   }
 }

@@ -47,8 +47,8 @@ body {
 
 .loader-text {
   z-index: 5;
-  font-family: DosisRegular;
   color: #ffffff;
+  font-family: DosisRegular;
 }
 
 @keyframes loading {
@@ -76,7 +76,7 @@ body {
 }
 
 .blur-background {
-  filter: blur(3px) grayscale(0.7);
+  filter: blur(5px) grayscale(0.7);
 }
 
 .score__text {

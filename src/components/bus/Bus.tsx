@@ -7,9 +7,15 @@ interface BusProps {
   isGameStarted: boolean;
   characters: CharacterType[];
   onCharacterClick: (character: CharacterType) => void;
+  onAnimationEnd: (uuid: string) => void;
 }
 
-const Bus: React.FC<BusProps> = ({ characters, onCharacterClick, isGameStarted }) => {
+const Bus: React.FC<BusProps> = ({
+  characters,
+  onCharacterClick,
+  isGameStarted,
+  onAnimationEnd,
+}) => {
   const hasBusArrived = useRef(false);
 
   useEffect(() => {
@@ -27,20 +33,32 @@ const Bus: React.FC<BusProps> = ({ characters, onCharacterClick, isGameStarted }
     },
     {
       id: "window-2",
-      position: { top: "34%", left: "29%" },
-      size: { width: "9%", height: "20%" },
+      position: { top: "34%", left: "28%" },
+      size: { width: "11%", height: "20%" },
     },
-    { id: "window-3", position: { top: "34%", left: "42%" }, size: { width: "9%", height: "20%" } },
-    { id: "window-4", position: { top: "34%", left: "54%" }, size: { width: "9%", height: "20%" } },
-    { id: "window-5", position: { top: "34%", left: "69%" }, size: { width: "9%", height: "20%" } },
+    {
+      id: "window-3",
+      position: { top: "34%", left: "41%" },
+      size: { width: "11%", height: "20%" },
+    },
+    {
+      id: "window-4",
+      position: { top: "34%", left: "53%" },
+      size: { width: "11%", height: "20%" },
+    },
+    {
+      id: "window-5",
+      position: { top: "34%", left: "68%" },
+      size: { width: "11%", height: "20%" },
+    },
     {
       id: "bus-left",
-      position: { top: "44%", left: "-6%" },
+      position: { top: "44%", left: "-7%" },
       size: { width: "12%", height: "25%" },
     },
     {
       id: "bus-right",
-      position: { top: "44%", left: "96%" },
+      position: { top: "50%", left: "95%" },
       size: { width: "12%", height: "25%" },
     },
     {
@@ -69,15 +87,16 @@ const Bus: React.FC<BusProps> = ({ characters, onCharacterClick, isGameStarted }
         />
 
         {boxes.map((box) => {
-          const matchingCharacter = characters.find((char) => char.id === box.id);
+          const matchingCharacter = characters.find((char) => char.id === box.id && char.uuid);
           return (
             <CharacterBox
-              key={box.id}
+              key={matchingCharacter ? matchingCharacter.uuid : box.id}
               size={box.size}
               position={box.position}
               character={matchingCharacter}
               isBusLeft={box.id === "bus-left"}
               onCharacterClick={onCharacterClick}
+              onAnimationEnd={onAnimationEnd}
             />
           );
         })}

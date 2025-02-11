@@ -10,5 +10,18 @@
 }
 
 .character-box.flipped img {
-  transform: scaleX(-1); /* Flippa horisontellt */
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+  /* animation: look-around 3s forwards ease-in-out; Flippa horisontellt */
+}
+
+@keyframes look-around {
+  0% {
+  }
+  50% {
+    transform: scaleX(1); /* Titta åt andra hållet */
+  }
+  100% {
+    transform: scaleX(-1);
+  }
 }

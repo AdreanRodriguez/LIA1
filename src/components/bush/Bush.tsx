@@ -6,17 +6,18 @@ interface BushProps {
   position: "left" | "right"; // Definiera om det är vänster eller höger buske
   characters: CharacterType[]; // Karaktärer för denna buske
   onCharacterClick: (character: CharacterType) => void;
+  onAnimationEnd: (uuid: string) => void;
 }
 
-const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick }) => {
+const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick, onAnimationEnd }) => {
   const boxes = {
     left: {
-      position: { top: "-10%", left: "40%" },
-      size: { width: "42%", height: "100%" },
+      position: { top: "-25%", left: "33%" },
+      size: { width: "50%", height: "100%" },
     },
     right: {
-      position: { top: "-10%", left: "40%" },
-      size: { width: "42%", height: "100%" },
+      position: { top: "-25%", left: "33%" },
+      size: { width: "50%", height: "100%" },
     },
   };
 
@@ -35,18 +36,19 @@ const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick }) =
     <div className={`bush-wrapper bush-wrapper-${position}`}>
       <div className={`bush-container bush-${position}`}>
         {/* Här renderar vi buskbilden */}
-        <img className="bush" src="/assets/bush.svg" alt={`${position} bush`} />
+        <img className="bush" src="/assets/bush/bush.svg" alt={`${position} bush`} />
       </div>
       {/* Rendera karaktärer */}
       {validCharacters.map((character) => {
         // console.log(`${character.id}-${character.x}-${character.y}`);
         return (
           <CharacterBox
+            key={character.uuid}
             character={character}
-            key={`${character.id}`}
             size={selectedBox.size}
             position={selectedBox.position}
             onCharacterClick={onCharacterClick}
+            onAnimationEnd={onAnimationEnd}
           />
         );
       })}

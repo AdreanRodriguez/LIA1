@@ -10,7 +10,7 @@ export interface GameState {
 
 export const DEFAULT_GAME_STATE: GameState = {
   score: 0,
-  timeLeft: 150, // Startar med 15 sekunder
+  timeLeft: 15, // Startar med 15 sekunder
   maxCharacters: 4, // Max antal karaktärer som kan vara aktiva samtidigt
   isGameOver: false,
   spawnInterval: 900, // sekund mellan varje spawn
@@ -53,19 +53,19 @@ export function updateGameState(
     goodCharacterProbability = 0.2; // Sannolikhet (0-1) att en spawnad karaktär är "god" (ex. 0.2 = 20%)
   } else if (score < 200) {
     maxCharacters = 4;
-    spawnInterval = 800;
-    animationDuration = 2.1;
-    goodCharacterProbability = 0.3;
+    spawnInterval = 850;
+    animationDuration = 2.5;
+    goodCharacterProbability = 0.2;
   } else if (score < 300) {
     maxCharacters = 4;
     spawnInterval = 800;
     animationDuration = 1.8;
-    goodCharacterProbability = 0.4;
+    goodCharacterProbability = 0.3;
   } else if (score < 400) {
     maxCharacters = 4;
     spawnInterval = 800;
     animationDuration = 1.4;
-    goodCharacterProbability = 0.4;
+    goodCharacterProbability = 0.3;
   } else if (score < 500) {
     maxCharacters = 4;
     spawnInterval = 800;

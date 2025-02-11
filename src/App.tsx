@@ -8,10 +8,8 @@ import PortraitBlocker from "./components/portraitBlocker/PortraitBlocker";
 
 function App() {
   const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
-  const { activeCharacters, gameState, handleCharacterClick } = useGameLogic(
-    isGameStarted,
-    setIsGameStarted
-  );
+  const { activeCharacters, gameState, handleCharacterClick, handleCharacterRemoval } =
+    useGameLogic(isGameStarted, setIsGameStarted);
 
   const uniqueCharacters = Array.from(
     new Map(activeCharacters.map((char) => [char.id, char])).values()
@@ -44,17 +42,20 @@ function App() {
           characters={activeCharacters}
           onCharacterClick={handleCharacterClick}
           isGameStarted={isGameStarted}
+          onAnimationEnd={handleCharacterRemoval}
         />
 
         <Bush
           position="left"
           characters={uniqueCharacters.filter((char) => char.id === "bush-left")}
           onCharacterClick={handleCharacterClick}
+          onAnimationEnd={handleCharacterRemoval}
         />
         <Bush
           position="right"
           characters={uniqueCharacters.filter((char) => char.id === "bush-right")}
           onCharacterClick={handleCharacterClick}
+          onAnimationEnd={handleCharacterRemoval}
         />
 
         <Cloud top="0" left="20vw" width="10vw" height="14svh" animationDuration="10s" />

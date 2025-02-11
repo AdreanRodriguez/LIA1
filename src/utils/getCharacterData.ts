@@ -2,21 +2,21 @@
 export const CharacterData = {
   "bus-left": {
     good: {
-      characterImage: "/assets/goodCharacters/goodLookToRight.png",
+      characterImage: "/assets/goodCharacters/goodPeace.png",
       size: { width: "100%", height: "100%" },
     },
     evil: {
-      characterImage: "/assets/evilCharacters/evil.png",
+      characterImage: "/assets/evilCharacters/evilPeace.png",
       size: { width: "100%", height: "100%" },
     },
   },
   "bus-right": {
     good: {
-      characterImage: "/assets/goodCharacters/goodLookToLeft.png",
+      characterImage: "/assets/goodCharacters/goodPeace.png",
       size: { width: "100%", height: "100%" },
     },
     evil: {
-      characterImage: "/assets/evilCharacters/evil.png",
+      characterImage: "/assets/evilCharacters/evilPeace.png",
       size: { width: "100%", height: "100%" },
     },
   },
@@ -72,21 +72,21 @@ export const CharacterData = {
   },
   "bush-left": {
     good: {
-      characterImage: "/assets/goodCharacters/good.png",
+      characterImage: "/assets/bush/goodFlower.png",
       size: { width: "100%", height: "100%" },
     },
     evil: {
-      characterImage: "/assets/evilCharacters/evil.png",
+      characterImage: "/assets/bush/evilFlower.png",
       size: { width: "100%", height: "100%" },
     },
   },
   "bush-right": {
     good: {
-      characterImage: "/assets/goodCharacters/good.png",
+      characterImage: "/assets/bush/goodFlower.png",
       size: { width: "100%", height: "100%" },
     },
     evil: {
-      characterImage: "/assets/evilCharacters/evil.png",
+      characterImage: "/assets/bush/evilFlower.png",
       size: { width: "100%", height: "100%" },
     },
   },
