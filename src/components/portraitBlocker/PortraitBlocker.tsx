@@ -8,6 +8,7 @@ export default function PortraitBlocker() {
         alt="Characters image"
         className="portrait-image__evil"
       />
+
       <img src="/assets/rotateDevice.svg" alt="Rotate device image" className="portrait-blocker" />
       <p className="collaboration">
         Illustratör:
@@ -15,6 +16,7 @@ export default function PortraitBlocker() {
           JimmieSlice
         </a>
       </p>
+
       <img
         src="/assets/goodCharacters/good.png"
         alt="Characters image"

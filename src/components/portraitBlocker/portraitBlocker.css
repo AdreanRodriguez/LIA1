@@ -44,7 +44,7 @@
   text-align: center;
   position: absolute;
   font-family: "Short Stack";
-  /* color: rgba(193, 3, 3, 1); */
+  color: var(--highlight-orange);
 
   display: flex;
   flex-direction: column;

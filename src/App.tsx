@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Bus from "./components/bus/Bus";
 import Bush from "./components/bush/Bush";
 import Cloud from "./components/cloud/Cloud";
@@ -8,17 +8,33 @@ import PortraitBlocker from "./components/portraitBlocker/PortraitBlocker";
 
 function App() {
   const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
+  const [isPortrait, setIsPortrait] = useState<boolean>(
+    window.matchMedia("(orientation: portrait)").matches
+  );
+
   const { activeCharacters, gameState, handleCharacterClick, handleCharacterRemoval } =
     useGameLogic(isGameStarted, setIsGameStarted);
+
+  useEffect(() => {
+    const handleOrientationChange = (e: MediaQueryListEvent) => {
+      setIsPortrait(e.matches);
+    };
+
+    const mediaQuery = window.matchMedia("(orientation: portrait)");
+    mediaQuery.addEventListener("change", handleOrientationChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleOrientationChange);
+    };
+  }, []);
 
   const uniqueCharacters = Array.from(
     new Map(activeCharacters.map((char) => [char.id, char])).values()
   );
   return (
     <>
-      <div id="ui"></div>
+      <div id="ui" style={{ display: isPortrait ? "none" : "block" }}></div>
       <div className="loader" id="loader">
-        {/* <p className="loader-text">Startar</p> */}
         <img className="loader-logo" src="/images/logo.png" />
         <img className="spinner" src="/images/spinner.svg" />
       </div>

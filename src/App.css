@@ -131,9 +131,8 @@ body {
 }
 
 @media screen and (orientation: portrait) {
-  #ui,
-  .spinner,
+  /* .spinner,
   .loader-logo {
     display: none;
-  }
+  } */
 }
