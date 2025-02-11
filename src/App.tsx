@@ -28,9 +28,6 @@ function App() {
     };
   }, []);
 
-  const uniqueCharacters = Array.from(
-    new Map(activeCharacters.map((char) => [char.id, char])).values()
-  );
   return (
     <>
       <div id="ui" style={{ display: isPortrait ? "none" : "block" }}></div>
@@ -63,13 +60,13 @@ function App() {
 
         <Bush
           position="left"
-          characters={uniqueCharacters.filter((char) => char.id === "bush-left")}
+          characters={activeCharacters.filter((char) => char.id === "bush-left")}
           onCharacterClick={handleCharacterClick}
           onAnimationEnd={handleCharacterRemoval}
         />
         <Bush
           position="right"
-          characters={uniqueCharacters.filter((char) => char.id === "bush-right")}
+          characters={activeCharacters.filter((char) => char.id === "bush-right")}
           onCharacterClick={handleCharacterClick}
           onAnimationEnd={handleCharacterRemoval}
         />

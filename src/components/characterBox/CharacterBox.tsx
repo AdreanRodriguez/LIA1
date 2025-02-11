@@ -37,16 +37,9 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
     return null; // Rendera inte något om karaktären är null
   } // God är null i getCharacterData under bussen
 
-  // Karaktären god flippas vid id "bus-left" om den är god
-  // const isBusRight = !isBusLeft;
-  // const shouldFlipLeft = isBusLeft && character.type === "good";
-  // const shouldFlipRight = isBusRight && character.type === "good";
-  // const randomFlipGood = !isBusLeft && character.type === "good" && Math.random() < 0.5;
-  const shouldFlip = character.type === "good";
-
   return (
     <div
-      className={`character-box ${shouldFlip ? "flipped" : ""}`}
+      className="character-box"
       style={{
         ...style,
         width: size.width,

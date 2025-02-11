@@ -17,6 +17,10 @@ export const preloadImages = (): Promise<void> => {
 
       "/assets/goodCharacters/good.png",
       "/assets/evilCharacters/evil.png",
+
+      "/assets/goodCharacters/goodPeace.png",
+      "/assets/evilCharacters/evilPeace.png",
+
       "/assets/goodCharacters/goodLookToLeft.png",
       "/assets/goodCharacters/goodLookToRight.png",
     ];
