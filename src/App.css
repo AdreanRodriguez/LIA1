@@ -123,16 +123,11 @@ body {
   .game-container {
     display: block;
   }
-
-  /* .spinner,
-  .loader-logo {
-    display: none;
-  } */
 }
 
 @media screen and (orientation: portrait) {
-  /* .spinner,
+  .spinner,
   .loader-logo {
     display: none;
-  } */
+  }
 }

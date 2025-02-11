@@ -3,9 +3,6 @@ import { GameState } from "./gameLogic";
 import { positions } from "./positions";
 import { CharacterType } from "../types/characterType";
 
-const recentRemovals = new Set<string>();
-let cleanupFrameId: number | null = null;
-
 export function spawnRandomCharacters(
   gameState: GameState,
   activeCharacters: CharacterType[],
@@ -14,9 +11,7 @@ export function spawnRandomCharacters(
   if (activeCharacters.length >= gameState.maxCharacters || gameState.isGameOver) return;
 
   const occupiedPositions = new Set(activeCharacters.map((char) => char.id));
-  let availablePositions = positions.filter(
-    (pos) => !occupiedPositions.has(pos.id) && !recentRemovals.has(pos.id)
-  );
+  let availablePositions = positions.filter((pos) => !occupiedPositions.has(pos.id));
 
   if (availablePositions.length === 0) return;
 
@@ -39,34 +34,19 @@ export function spawnRandomCharacters(
         clickedCharacter: false,
         animation: getAnimation(pos.id),
         animationDuration: gameState.animationDuration,
-        type: Math.random() < gameState.goodCharacterProbability ? "good" : "evil",
+        type: getRandomCharacterType(gameState.goodCharacterProbability),
         spawnTime: Date.now(), // Lägg till spawnTime
       };
     });
 
   setActiveCharacters((prev) => [...prev, ...newCharacters]);
-
-  if (!cleanupFrameId) {
-    cleanupFrameId = requestAnimationFrame(() => cleanupCharacters(gameState, setActiveCharacters));
-  }
 }
 
-function cleanupCharacters(
-  gameState: GameState,
-  setActiveCharacters: React.Dispatch<React.SetStateAction<CharacterType[]>>
-) {
-  setActiveCharacters((prev) =>
-    prev.filter((char) => Date.now() - char.spawnTime < gameState.animationDuration * 1000)
-  );
-
-  if (setActiveCharacters.length > 0) {
-    cleanupFrameId = requestAnimationFrame(() => cleanupCharacters(gameState, setActiveCharacters));
-  } else {
-    cleanupFrameId = null; // Avsluta loop när det inte finns fler karaktärer
-  }
+function getRandomCharacterType(probability: number): "good" | "evil" {
+  return Math.random() < probability ? "good" : "evil";
 }
 
-// Fisher-Yates-algoritm för att blanda
+// Fisher-Yates-algoritm för att blanda karaktärerna
 function shuffleArray<T>(array: T[]): T[] {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -75,6 +55,7 @@ function shuffleArray<T>(array: T[]): T[] {
   return array;
 }
 
+// Funktion för att sätta de olika animations id:n som finns i character.css
 function getAnimation(id: string): string {
   if (id.startsWith("window") || id === "bush-right" || id === "bush-left") return "slide-up";
   if (id === "under-bus") return "slide-under-bus";

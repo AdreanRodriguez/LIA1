@@ -39,7 +39,7 @@ export default function Character({
       style={characterStyle}
       onClick={() => onClick(character)}
       onAnimationEnd={() => {
-        console.log(`Animation ended for character with uuid: ${uuid}`);
+        // console.log(`Animation ended for character with uuid: ${uuid}`);
         if (onAnimationEnd) {
           onAnimationEnd(uuid);
         }

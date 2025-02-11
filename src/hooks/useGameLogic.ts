@@ -1,4 +1,5 @@
 import { gameOver } from "../utils/gameOver";
+import { useCleanup } from "../utils/useCleanup";
 import { startGame } from "./../utils/startGame";
 import { useState, useEffect, useRef } from "react";
 import { CharacterType } from "../types/characterType";
@@ -17,6 +18,8 @@ export function useGameLogic(
   const [isGameReady, setIsGameReady] = useState<boolean>(false);
   const [activeCharacters, setActiveCharacters] = useState<CharacterType[]>([]);
   const [gameState, setGameState] = useState<GameState>({ ...DEFAULT_GAME_STATE });
+
+  useCleanup(gameState);
 
   function startLoaderCheck() {
     let checkLoader = setInterval(() => {
@@ -50,7 +53,7 @@ export function useGameLogic(
     // Spawnar en karaktär varje spawnInterval
     const spawnInterval = setInterval(() => {
       setActiveCharacters((prevCharacters) => {
-        if (prevCharacters.length >= gameState.maxCharacters) return prevCharacters; // Kolla maxCharacters här!
+        if (prevCharacters.length >= gameState.maxCharacters) return prevCharacters;
 
         spawnRandomCharacters(gameState, prevCharacters, setActiveCharacters);
         return prevCharacters;
