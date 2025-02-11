@@ -35,7 +35,6 @@ export function spawnRandomCharacters(
         animation: getAnimation(pos.id),
         animationDuration: gameState.animationDuration,
         type: getRandomCharacterType(gameState.goodCharacterProbability),
-        spawnTime: Date.now(), // Lägg till spawnTime
       };
     });
 

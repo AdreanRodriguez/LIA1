@@ -13,15 +13,11 @@ export type CharacterId =
 export interface PositionType {
   angle: number;
   id: CharacterId;
-  // uuid: string;
 }
 
 export interface CharacterType extends PositionType {
-  // score: number;
-  // visible: boolean;
   uuid: string;
   animation: string;
-  spawnTime: number;
   type: "good" | "evil";
   animationDuration: number;
   clickedCharacter?: boolean;

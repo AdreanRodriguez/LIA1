@@ -1,21 +1,16 @@
 import { useEffect } from "react";
 import { GameState } from "./gameLogic";
-// import { CharacterType } from "./../types/characterType";
 
 let cleanupIntervalId: number | null = null;
 
-export function useCleanup(
-  gameState: GameState
-  //   setActiveCharacters: React.Dispatch<React.SetStateAction<CharacterType[]>>
-) {
+export function useCleanup(gameState: GameState) {
   useEffect(() => {
     if (gameState.isGameOver) {
-      console.log("Game over, stopping cleanup interval.");
+      //   console.log("Game over, stopping cleanup interval.");
       if (cleanupIntervalId) {
         clearInterval(cleanupIntervalId);
         cleanupIntervalId = null;
       }
-      //   setActiveCharacters([]); // Rensa karaktärer om det behövs
     }
 
     return () => {
@@ -24,8 +19,5 @@ export function useCleanup(
         cleanupIntervalId = null;
       }
     };
-  }, [
-    gameState.isGameOver,
-    // setActiveCharacters
-  ]);
+  }, [gameState.isGameOver]);
 }

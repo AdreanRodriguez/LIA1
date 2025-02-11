@@ -8,7 +8,6 @@ import { spawnRandomCharacters } from "../utils/spawnRandomCharacters";
 import { updateGameState, GameState, DEFAULT_GAME_STATE } from "../utils/gameLogic";
 
 export function useGameLogic(
-  // maxCharacters: number,
   isGameStarted: boolean,
   setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>
 ) {
