@@ -1,5 +1,5 @@
-import { gameOver } from "../utils/gameOver";
 import { useCleanup } from "./useCleanup";
+import { gameOver } from "../utils/gameOver";
 import { startGame } from "./../utils/startGame";
 import { useState, useEffect, useRef } from "react";
 import { CharacterType } from "../types/characterType";

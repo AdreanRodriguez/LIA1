@@ -1,9 +1,7 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import Bus from "./components/bus/Bus";
-import Bush from "./components/bush/Bush";
-import Cloud from "./components/cloud/Cloud";
 import { useGameLogic } from "./hooks/useGameLogic";
+import { Gameboard } from "./components/gameboard/Gameboard";
 import PortraitBlocker from "./components/portraitBlocker/PortraitBlocker";
 
 function App() {
@@ -12,7 +10,7 @@ function App() {
     window.matchMedia("(orientation: portrait)").matches
   );
 
-  const { activeCharacters, gameState, handleCharacterClick, handleCharacterRemoval } =
+  const { activeCharacters, gameState, handleCharacterClick, handleCharacterRemoval, isGameReady } =
     useGameLogic(isGameStarted, setIsGameStarted);
 
   useEffect(() => {
@@ -37,44 +35,16 @@ function App() {
       </div>
 
       <PortraitBlocker />
-      <main
-        className={`game-container ${
-          gameState.isGameOver || !isGameStarted ? "blur-background" : null
-        }`}
-      >
-        <h2 className="timer__text">
-          Tid:
-          <span className="timer__number">{gameState.timeLeft}</span>
-        </h2>
-        <h2 className="score__text">
-          Poäng:
-          <span className="score__number">{gameState.score}</span>
-        </h2>
 
-        <Bus
-          characters={activeCharacters}
-          onCharacterClick={handleCharacterClick}
+      {isGameReady && (
+        <Gameboard
+          gameState={gameState}
           isGameStarted={isGameStarted}
-          onAnimationEnd={handleCharacterRemoval}
+          activeCharacters={activeCharacters}
+          handleCharacterClick={handleCharacterClick}
+          handleCharacterRemoval={handleCharacterRemoval}
         />
-
-        <Bush
-          position="left"
-          characters={activeCharacters.filter((char) => char.id === "bush-left")}
-          onCharacterClick={handleCharacterClick}
-          onAnimationEnd={handleCharacterRemoval}
-        />
-        <Bush
-          position="right"
-          characters={activeCharacters.filter((char) => char.id === "bush-right")}
-          onCharacterClick={handleCharacterClick}
-          onAnimationEnd={handleCharacterRemoval}
-        />
-
-        <Cloud top="0" left="20vw" width="10vw" height="14svh" animationDuration="10s" />
-        <Cloud top="0" left="90vw" width="10vw" height="14svh" animationDuration="60s" />
-        <Cloud top="0" left="60vw" width="10vw" height="14svh" animationDuration="53s" />
-      </main>
+      )}
     </>
   );
 }

@@ -10,7 +10,7 @@ export interface GameState {
 
 export const DEFAULT_GAME_STATE: GameState = {
   score: 0,
-  timeLeft: 150, // Startar med 15 sekunder
+  timeLeft: 15, // Startar med 15 sekunder
   maxCharacters: 4, // Max antal karaktärer som kan vara aktiva samtidigt
   isGameOver: false,
   spawnInterval: 900, // sekund mellan varje spawn
