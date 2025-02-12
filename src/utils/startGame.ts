@@ -9,7 +9,6 @@ export const startGame = (
   }
 
   window.ClubHouseGame.registerRestart(() => {
-    console.log("startGame()");
     resetGameState();
     setIsGameStarted(true);
   });

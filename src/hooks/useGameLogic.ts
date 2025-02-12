@@ -1,9 +1,9 @@
 import { gameOver } from "../utils/gameOver";
-import { useCleanup } from "../utils/useCleanup";
+import { useCleanup } from "./useCleanup";
 import { startGame } from "./../utils/startGame";
 import { useState, useEffect, useRef } from "react";
 import { CharacterType } from "../types/characterType";
-import { preloadImages } from "../utils/preloadImages";
+import { preloadAssets } from "../preload/preloadAssets";
 import { spawnRandomCharacters } from "../utils/spawnRandomCharacters";
 import { updateGameState, GameState, DEFAULT_GAME_STATE } from "../utils/gameLogic";
 
@@ -27,15 +27,18 @@ export function useGameLogic(
         window.ClubHouseGame?.gameLoaded({ hideInGame: true });
         clearInterval(checkLoader);
       }
-    }, 1000);
+    }, 100);
 
     return () => clearInterval(checkLoader);
   }
 
   useEffect(() => {
-    preloadImages().then(() => setIsGameReady(true));
-
-    return startLoaderCheck();
+    const loadAssets = async () => {
+      await preloadAssets(); // Förladda bilder och fonter
+      setIsGameReady(true);
+      startLoaderCheck();
+    };
+    loadAssets();
   }, []);
 
   useEffect(() => {

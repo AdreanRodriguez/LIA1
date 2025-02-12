@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { GameState } from "./gameLogic";
+import { GameState } from "../utils/gameLogic";
 
 let cleanupIntervalId: number | null = null;
 

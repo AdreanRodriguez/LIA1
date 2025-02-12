@@ -36,7 +36,7 @@ const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick, onA
     <div className={`bush-wrapper bush-wrapper-${position}`}>
       <div className={`bush-container bush-${position}`}>
         {/* Här renderar vi buskbilden */}
-        <img className="bush" src="/assets/bush/bush.svg" alt={`${position} bush`} />
+        <img className="bush" src="/assets/bush/bush.png" alt={`${position} bush`} />
       </div>
       {/* Rendera karaktärer */}
       {validCharacters.map((character) => {
