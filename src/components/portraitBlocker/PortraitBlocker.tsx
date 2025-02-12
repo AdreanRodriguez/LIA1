@@ -11,8 +11,9 @@ export default function PortraitBlocker() {
 
       <img src="/assets/rotateDevice.svg" alt="Rotate device image" className="portrait-blocker" />
       <p className="collaboration">
-        Illustratör:
+        Illustratör
         <a href="https://www.instagram.com/jimmieslice/" target="_blank">
+          <img className="instagramLogo" src="assets/instagramLogo.svg" alt="Instagram logo" />
           JimmieSlice
         </a>
       </p>
