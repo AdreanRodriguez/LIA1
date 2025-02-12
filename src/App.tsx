@@ -1,5 +1,5 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useGameLogic } from "./hooks/useGameLogic";
 import { Gameboard } from "./components/gameboard/Gameboard";
 import PortraitBlocker from "./components/portraitBlocker/PortraitBlocker";

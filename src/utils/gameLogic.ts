@@ -4,7 +4,6 @@ export interface GameState {
   isGameOver: boolean;
   spawnInterval: number;
   maxCharacters: number;
-  isPaused: boolean;
   animationDuration: number;
   goodCharacterProbability: number;
 }
@@ -14,7 +13,6 @@ export const DEFAULT_GAME_STATE: GameState = {
   timeLeft: 15, // Startar med 15 sekunder
   maxCharacters: 4, // Max antal karaktärer som kan vara aktiva samtidigt
   isGameOver: false,
-  isPaused: false,
   spawnInterval: 900, // sekund mellan varje spawn
   animationDuration: 2.5, // Börja med 3 sekunder
   goodCharacterProbability: 0.2, // 20% sannolikhet för goda karaktärer
@@ -28,7 +26,6 @@ export function updateGameState(
     score,
     timeLeft,
     spawnInterval,
-    isPaused,
     maxCharacters,
     animationDuration,
     goodCharacterProbability,
@@ -107,7 +104,6 @@ export function updateGameState(
     timeLeft,
     spawnInterval,
     maxCharacters,
-    isPaused,
     isGameOver: false,
     animationDuration,
     goodCharacterProbability,
