@@ -17,6 +17,9 @@ export function useGameLogic(
   const [isGameReady, setIsGameReady] = useState<boolean>(false);
   const [activeCharacters, setActiveCharacters] = useState<CharacterType[]>([]);
   const [gameState, setGameState] = useState<GameState>({ ...DEFAULT_GAME_STATE });
+  const [isPortrait, setIsPortrait] = useState<boolean>(
+    window.matchMedia("(orientation: portrait)").matches
+  );
 
   useCleanup(gameState);
 
@@ -31,6 +34,17 @@ export function useGameLogic(
 
     return () => clearInterval(checkLoader);
   }
+
+  useEffect(() => {
+    const handleOrientationChange = (e: MediaQueryListEvent) => {
+      setIsPortrait(e.matches);
+    };
+
+    const mediaQuery = window.matchMedia("(orientation: portrait)");
+    mediaQuery.addEventListener("change", handleOrientationChange);
+
+    return () => mediaQuery.removeEventListener("change", handleOrientationChange);
+  }, []);
 
   useEffect(() => {
     const loadAssets = async () => {
@@ -62,32 +76,43 @@ export function useGameLogic(
       });
     }, gameState.spawnInterval);
 
-    // Timer som räknar ner varje sekund
-    const timerInterval = setInterval(() => {
-      setGameState((prev) => {
-        if (prev.isGameOver) {
-          clearInterval(timerInterval);
-          return prev;
-        }
+    // Stoppa tiden om man vrider telefonen i porträtt läge
+    if (!isPortrait) {
+      // Timer som räknar ner varje sekund
+      const timerInterval = setInterval(() => {
+        setGameState((prev) => {
+          if (prev.isGameOver) {
+            clearInterval(timerInterval);
+            return prev;
+          }
 
-        const newTime = prev.timeLeft - 1;
-        if (newTime <= 0) {
-          return { ...prev, timeLeft: 0, isGameOver: true };
-        }
-        return { ...prev, timeLeft: newTime };
-      });
-    }, 1000);
+          const newTime = prev.timeLeft - 1;
+          if (newTime <= 0) {
+            return { ...prev, timeLeft: 0, isGameOver: true };
+          }
+          return { ...prev, timeLeft: newTime };
+        });
+      }, 1000);
+
+      return () => clearInterval(timerInterval);
+    }
 
     // Rensa timers när spelet avslutas eller startas om
     return () => {
       clearInterval(spawnInterval);
-      clearInterval(timerInterval);
+      // clearInterval(timerInterval);
 
       // Rensa alla sparade timeouts för att undvika buggar
       activeTimeouts.current.forEach(clearTimeout);
       activeTimeouts.current = [];
     };
-  }, [isGameStarted, gameState.isGameOver, gameState.spawnInterval, gameState.animationDuration]);
+  }, [
+    isGameStarted,
+    gameState.isGameOver,
+    gameState.spawnInterval,
+    gameState.animationDuration,
+    isPortrait,
+  ]);
 
   function handleCharacterRemoval(uuid: string) {
     setActiveCharacters((prev) => prev.filter((char) => char.uuid !== uuid));

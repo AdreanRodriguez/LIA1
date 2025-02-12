@@ -27,32 +27,30 @@ export const Gameboard: React.FC<GameboardProps> = ({
       }`}
     >
       <h2 className="timer__text">
-        Tid:
-        <span className="timer__number">{gameState.timeLeft}</span>
+        Tid: <span className="timer__number">{gameState.timeLeft}</span>
       </h2>
       <h2 className="score__text">
-        Poäng:
-        <span className="score__number">{gameState.score}</span>
+        Poäng: <span className="score__number">{gameState.score}</span>
       </h2>
 
       <Bus
         characters={activeCharacters}
-        onCharacterClick={handleCharacterClick}
         isGameStarted={isGameStarted}
+        onCharacterClick={handleCharacterClick}
         onAnimationEnd={handleCharacterRemoval}
       />
 
       <Bush
         position="left"
-        characters={activeCharacters.filter((char) => char.id === "bush-left")}
         onCharacterClick={handleCharacterClick}
         onAnimationEnd={handleCharacterRemoval}
+        characters={activeCharacters.filter((char) => char.id === "bush-left")}
       />
       <Bush
         position="right"
-        characters={activeCharacters.filter((char) => char.id === "bush-right")}
         onCharacterClick={handleCharacterClick}
         onAnimationEnd={handleCharacterRemoval}
+        characters={activeCharacters.filter((char) => char.id === "bush-right")}
       />
 
       <Cloud top="0" left="20vw" width="10vw" height="14svh" animationDuration="10s" />
