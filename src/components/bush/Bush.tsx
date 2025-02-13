@@ -12,11 +12,11 @@ interface BushProps {
 const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick, onAnimationEnd }) => {
   const boxes = {
     left: {
-      position: { top: "-15%", left: "35%" },
+      position: { top: "-55%", left: "35%" },
       size: { width: "45%", height: "100%" },
     },
     right: {
-      position: { top: "-15%", left: "35%" },
+      position: { top: "-55%", left: "35%" },
       size: { width: "45%", height: "100%" },
     },
   };
@@ -34,10 +34,9 @@ const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick, onA
 
   return (
     <div className={`bush-wrapper bush-wrapper-${position}`}>
-      <div className={`bush-container bush-${position}`}>
-        {/* Här renderar vi buskbilden */}
-        <img className="bush" src="/assets/bush/bush.png" alt={`${position} bush`} />
-      </div>
+      {/* <div className={`bush-container bush-${position}`}> */}
+      <img className="bush" src="/assets/bush/bush.png" alt={`${position} bush`} />
+      {/* </div> */}
       {/* Rendera karaktärer */}
       {validCharacters.map((character) => {
         // console.log(`${character.id}-${character.x}-${character.y}`);

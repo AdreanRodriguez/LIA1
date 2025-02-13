@@ -1,8 +1,11 @@
 .bush-wrapper {
   bottom: 0;
   width: 26%;
-  height: 35%;
+  height: 26svh;
+  z-index: 30;
+  /* height: 25svh; */
   position: absolute;
+  /* pointer-events: none; */
 }
 
 .bush-wrapper-left {
@@ -14,16 +17,19 @@
   transform: rotateY(180deg);
 }
 
-.bush-container {
+.bush {
   bottom: 0;
   z-index: 1;
   width: 100%;
-  height: 60%;
+  height: 100%;
   position: absolute;
+  object-fit: contain;
   pointer-events: none;
 }
 
-.bush {
+/* .bush-container {
+  bottom: 0;
   width: 100%;
-  height: 100%;
-}
+  height: 60%;
+  position: absolute;
+} */
