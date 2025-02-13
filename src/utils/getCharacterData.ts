@@ -73,21 +73,21 @@ export const CharacterData = {
   "bush-left": {
     good: {
       characterImage: "/assets/bush/goodFlower.png",
-      size: { width: "100%", height: "100%" },
+      size: { width: "100%", height: "70%" },
     },
     evil: {
       characterImage: "/assets/bush/evilFlower.png",
-      size: { width: "100%", height: "100%" },
+      size: { width: "100%", height: "70%" },
     },
   },
   "bush-right": {
     good: {
       characterImage: "/assets/bush/goodFlower.png",
-      size: { width: "100%", height: "100%" },
+      size: { width: "100%", height: "70%" },
     },
     evil: {
       characterImage: "/assets/bush/evilFlower.png",
-      size: { width: "100%", height: "100%" },
+      size: { width: "100%", height: "70%" },
     },
   },
   "under-bus": {

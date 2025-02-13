@@ -63,8 +63,8 @@ const Bus: React.FC<BusProps> = ({
     },
     {
       id: "under-bus",
-      position: { top: "78%", left: "54%" },
-      size: { width: "13%", height: "25%" },
+      position: { top: "79%", left: "52%" },
+      size: { width: "17%", height: "20%" },
     },
   ];
 

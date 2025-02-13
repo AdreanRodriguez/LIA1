@@ -12,12 +12,12 @@ interface BushProps {
 const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick, onAnimationEnd }) => {
   const boxes = {
     left: {
-      position: { top: "-25%", left: "33%" },
-      size: { width: "35%", height: "100%" },
+      position: { top: "-15%", left: "35%" },
+      size: { width: "45%", height: "100%" },
     },
     right: {
-      position: { top: "-25%", left: "33%" },
-      size: { width: "35%", height: "100%" },
+      position: { top: "-15%", left: "35%" },
+      size: { width: "45%", height: "100%" },
     },
   };
 
