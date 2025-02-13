@@ -22,15 +22,17 @@ export const Gameboard: React.FC<GameboardProps> = ({
 }) => {
   return (
     <main
-      className={`game-container ${
+      className={`gameboard-container ${
         gameState.isGameOver || !isGameStarted ? "blur-background" : ""
       }`}
     >
-      <h2 className="timer__text">
-        Tid: <span className="timer__number">{gameState.timeLeft}</span>
+      <h2 className="gameboard__timer__text">
+        Tid:
+        <span className="gameboard__timer__number">{gameState.timeLeft}</span>
       </h2>
-      <h2 className="score__text">
-        Poäng: <span className="score__number">{gameState.score}</span>
+      <h2 className="gameboard__score__text">
+        Poäng:
+        <span className="gameboard__score__number">{gameState.score}</span>
       </h2>
 
       <Bus

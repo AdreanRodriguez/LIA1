@@ -5,8 +5,8 @@ import { CharacterType } from "../../types/characterType";
 interface BushProps {
   position: "left" | "right"; // Definiera om det är vänster eller höger buske
   characters: CharacterType[]; // Karaktärer för denna buske
-  onCharacterClick: (character: CharacterType) => void;
   onAnimationEnd: (uuid: string) => void;
+  onCharacterClick: (character: CharacterType) => void;
 }
 
 const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick, onAnimationEnd }) => {
@@ -34,10 +34,7 @@ const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick, onA
 
   return (
     <div className={`bush-wrapper bush-wrapper-${position}`}>
-      {/* <div className={`bush-container bush-${position}`}> */}
       <img className="bush" src="/assets/bush/bush.png" alt={`${position} bush`} />
-      {/* </div> */}
-      {/* Rendera karaktärer */}
       {validCharacters.map((character) => {
         // console.log(`${character.id}-${character.x}-${character.y}`);
         return (

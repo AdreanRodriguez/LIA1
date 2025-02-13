@@ -1,4 +1,4 @@
-.game-container {
+.gameboard-container {
   /* width: 100vw; */
   /* margin: 0 auto; */
   height: 100svh;
@@ -15,7 +15,7 @@
   filter: blur(5px) grayscale(0.7);
 }
 
-.score__text {
+.gameboard__score__text {
   z-index: 2;
   top: 0.5rem;
   right: 0.5rem;
@@ -30,7 +30,7 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.timer__text {
+.gameboard__timer__text {
   top: 0.5rem;
   left: 0.5rem;
   color: white;
@@ -43,12 +43,12 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.timer__number {
+.gameboard__timer__number {
   margin-left: 0.5rem;
   color: var(--highlight-orange);
 }
 
-.score__number {
+.gameboard__score__number {
   font-size: 20px;
   font-family: krita;
   margin-left: 0.5rem;
@@ -56,7 +56,7 @@
 }
 
 @media screen and (orientation: landscape) {
-  .game-container {
+  .gameboard-container {
     display: block;
   }
 }
