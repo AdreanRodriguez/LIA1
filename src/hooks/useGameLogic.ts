@@ -1,7 +1,7 @@
 import { useCleanup } from "./useCleanup";
+import { useState, useEffect } from "react";
 import { gameOver } from "../utils/gameOver";
 import { startGame } from "./../utils/startGame";
-import { useState, useEffect, useRef } from "react";
 import { CharacterType } from "../types/characterType";
 import { preloadAssets } from "../preload/preloadAssets";
 import { spawnRandomCharacters } from "../utils/spawnRandomCharacters";
@@ -11,8 +11,6 @@ export function useGameLogic(
   isGameStarted: boolean,
   setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>
 ) {
-  const activeTimeouts = useRef<number[]>([]);
-
   // Spelets tillstånd
   const [isGameReady, setIsGameReady] = useState<boolean>(false);
   const [activeCharacters, setActiveCharacters] = useState<CharacterType[]>([]);
@@ -37,7 +35,11 @@ export function useGameLogic(
 
   useEffect(() => {
     const handleOrientationChange = (e: MediaQueryListEvent) => {
-      setIsPortrait(e.matches);
+      const isPortraitMode = e.matches;
+      setIsPortrait(isPortraitMode);
+
+      // Stoppa tiden/pausa om man vrider telefonen i porträtt läge
+      setGameState((prev) => ({ ...prev, isPaused: isPortraitMode }));
     };
 
     const mediaQuery = window.matchMedia("(orientation: portrait)");
@@ -56,55 +58,47 @@ export function useGameLogic(
   }, []);
 
   useEffect(() => {
-    if (!isGameStarted) {
-      startGame(setIsGameStarted, resetGameState);
-      return;
-    }
+    // Spelet är pausat
+    if (gameState.isPaused) return;
 
-    if (gameState.isGameOver) {
-      gameOver(gameState.score);
-      return;
-    }
+    // Spelet är game over
+    if (gameState.isGameOver) return gameOver(gameState.score);
+
+    // Spelet har inte startat
+    if (!isGameStarted) return startGame(setIsGameStarted, resetGameState);
 
     // Spawnar en karaktär varje spawnInterval
     const spawnInterval = setInterval(() => {
       setActiveCharacters((prevCharacters) => {
-        if (prevCharacters.length >= gameState.maxCharacters) return prevCharacters;
-
+        if (prevCharacters.length >= gameState.maxCharacters) {
+          // console.log(`Max antal karaktärer nått: ${gameState.maxCharacters}`);
+          return prevCharacters;
+        }
         spawnRandomCharacters(gameState, prevCharacters, setActiveCharacters);
         return prevCharacters;
       });
     }, gameState.spawnInterval);
 
-    // Stoppa tiden om man vrider telefonen i porträtt läge
-    if (!isPortrait) {
-      // Timer som räknar ner varje sekund
-      const timerInterval = setInterval(() => {
-        setGameState((prev) => {
-          if (prev.isGameOver) {
-            clearInterval(timerInterval);
-            return prev;
-          }
+    // Timer som räknar ner varje sekund
+    const timerInterval = setInterval(() => {
+      setGameState((prev) => {
+        if (prev.isGameOver) {
+          clearInterval(timerInterval);
+          return prev;
+        }
 
-          const newTime = prev.timeLeft - 1;
-          if (newTime <= 0) {
-            return { ...prev, timeLeft: 0, isGameOver: true };
-          }
-          return { ...prev, timeLeft: newTime };
-        });
-      }, 1000);
-
-      return () => clearInterval(timerInterval);
-    }
+        const newTime = prev.timeLeft - 1;
+        if (newTime <= 0) {
+          return { ...prev, timeLeft: 0, isGameOver: true };
+        }
+        return { ...prev, timeLeft: newTime };
+      });
+    }, 1000);
 
     // Rensa timers när spelet avslutas eller startas om
     return () => {
       clearInterval(spawnInterval);
-      // clearInterval(timerInterval);
-
-      // Rensa alla sparade timeouts för att undvika buggar
-      activeTimeouts.current.forEach(clearTimeout);
-      activeTimeouts.current = [];
+      clearInterval(timerInterval);
     };
   }, [
     isGameStarted,
