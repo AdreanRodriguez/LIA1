@@ -13,7 +13,7 @@ export const DEFAULT_GAME_STATE: GameState = {
   score: 0,
   timeLeft: 15, // Startar med 15 sekunder
   isPaused: false,
-  maxCharacters: 4, // Max antal karaktärer som kan vara aktiva samtidigt
+  maxCharacters: 6, // Max antal karaktärer som kan vara aktiva samtidigt
   isGameOver: false,
   spawnInterval: 900, // sekund mellan varje spawn
   animationDuration: 2.5, // Börja med 3 sekunder
@@ -56,7 +56,7 @@ export function updateGameState(
   } else if (score < 200) {
     maxCharacters = 4;
     spawnInterval = 850;
-    animationDuration = 2.5;
+    animationDuration = 2.1;
     goodCharacterProbability = 0.2;
   } else if (score < 300) {
     maxCharacters = 4;
