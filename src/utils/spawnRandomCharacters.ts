@@ -10,8 +10,8 @@ export function spawnRandomCharacters(
 ) {
   if (activeCharacters.length >= gameState.maxCharacters || gameState.isGameOver) return;
 
-  const occupiedPositions = new Set(activeCharacters.map((char) => char.id));
-  let availablePositions = positions.filter((pos) => !occupiedPositions.has(pos.id));
+  const occupiedPositions = new Set(activeCharacters.map((char) => char.positionId));
+  let availablePositions = positions.filter((pos) => !occupiedPositions.has(pos.positionId));
 
   if (availablePositions.length === 0) return;
 
@@ -28,11 +28,11 @@ export function spawnRandomCharacters(
       const shortUuid = uuid().substring(0, 8);
 
       return {
-        id: pos.id,
         uuid: shortUuid,
         angle: pos.angle,
         clickedCharacter: false,
-        animation: getAnimation(pos.id),
+        positionId: pos.positionId,
+        animation: getAnimation(pos.positionId),
         animationDuration: gameState.animationDuration,
         type: getRandomCharacterType(gameState.goodCharacterProbability),
       };

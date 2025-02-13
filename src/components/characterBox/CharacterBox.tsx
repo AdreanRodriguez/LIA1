@@ -27,12 +27,12 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
     return null;
   }
 
-  if (!character?.id) {
+  if (!character?.positionId) {
     console.error("CharacterBox received a character with a missing ID:", character);
     return null;
   }
 
-  const characterData = getCharacterData(character.id, character.type);
+  const characterData = getCharacterData(character.positionId, character.type);
   if (!characterData) {
     return null; // Rendera inte något om karaktären är null
   } // God är null i getCharacterData under bussen

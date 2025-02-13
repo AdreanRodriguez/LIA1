@@ -12,7 +12,7 @@ export type CharacterId =
 
 export interface PositionType {
   angle: number;
-  id: CharacterId;
+  positionId: CharacterId;
 }
 
 export interface CharacterType extends PositionType {

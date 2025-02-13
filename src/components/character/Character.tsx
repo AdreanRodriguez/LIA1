@@ -11,15 +11,16 @@ interface CharacterProps {
 }
 
 export default function Character({
-  character,
-  onClick,
-  characterImage,
   size,
+  onClick,
+  character,
+  characterImage,
   onAnimationEnd,
 }: CharacterProps) {
   const cartoonPoofImange = "/assets/poof.png";
 
-  const { id, uuid, type, angle, animation, clickedCharacter, animationDuration } = character;
+  const { positionId, uuid, type, angle, animation, clickedCharacter, animationDuration } =
+    character;
 
   const image = clickedCharacter && type === "evil" ? cartoonPoofImange : characterImage;
 
@@ -47,7 +48,7 @@ export default function Character({
     >
       <img
         src={image}
-        alt={`${type} character ${clickedCharacter ? "with cartoon cloud" : ""} at ${id}`}
+        alt={`${type} character ${clickedCharacter ? "with cartoon cloud" : ""} at ${positionId}`}
       />
     </div>
   );

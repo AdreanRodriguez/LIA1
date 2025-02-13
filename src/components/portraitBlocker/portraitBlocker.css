@@ -40,6 +40,7 @@
 .collaboration {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 
   top: 50%;
   left: 50%;
@@ -65,6 +66,7 @@
   font-size: 0.9rem;
   color: var(--dark);
   font-family: krita;
+  /* padding-right: 0.4rem; */
   text-underline-offset: 0.2rem;
   text-decoration-thickness: 0.2rem;
   text-decoration-color: var(--highlight-orange);

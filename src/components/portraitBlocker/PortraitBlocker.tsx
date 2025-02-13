@@ -13,7 +13,7 @@ export default function PortraitBlocker() {
       <p className="collaboration">
         Illustratör
         <a href="https://www.instagram.com/jimmieslice/" target="_blank">
-          <img className="instagramLogo" src="assets/instagramLogo.svg" alt="Instagram logo" />
+          <img className="instagramLogo" src="assets/instagramLogo1.svg" alt="Instagram logo" />
           JimmieSlice
         </a>
       </p>

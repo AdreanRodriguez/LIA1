@@ -30,7 +30,7 @@ const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick, onA
   }
 
   // Filtrera ut ogiltiga karaktärer
-  const validCharacters = characters.filter((character) => character && character.id);
+  const validCharacters = characters.filter((character) => character && character.positionId);
 
   return (
     <div className={`bush-wrapper bush-wrapper-${position}`}>

@@ -1,4 +1,4 @@
-import { useCleanup } from "./useCleanup";
+// import { useCleanup } from "./useCleanup";
 import { useState, useEffect } from "react";
 import { gameOver } from "../utils/gameOver";
 import { startGame } from "./../utils/startGame";
@@ -7,19 +7,16 @@ import { preloadAssets } from "../preload/preloadAssets";
 import { spawnRandomCharacters } from "../utils/spawnRandomCharacters";
 import { updateGameState, GameState, DEFAULT_GAME_STATE } from "../utils/gameLogic";
 
-export function useGameLogic(
-  isGameStarted: boolean,
-  setIsGameStarted: React.Dispatch<React.SetStateAction<boolean>>
-) {
-  // Spelets tillstånd
+export function useGameLogic() {
   const [isGameReady, setIsGameReady] = useState<boolean>(false);
+  const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
   const [activeCharacters, setActiveCharacters] = useState<CharacterType[]>([]);
   const [gameState, setGameState] = useState<GameState>({ ...DEFAULT_GAME_STATE });
   const [isPortrait, setIsPortrait] = useState<boolean>(
     window.matchMedia("(orientation: portrait)").matches
   );
 
-  useCleanup(gameState);
+  // useCleanup(gameState);
 
   function startLoaderCheck() {
     let checkLoader = setInterval(() => {
@@ -71,7 +68,6 @@ export function useGameLogic(
     const spawnInterval = setInterval(() => {
       setActiveCharacters((prevCharacters) => {
         if (prevCharacters.length >= gameState.maxCharacters) {
-          // console.log(`Max antal karaktärer nått: ${gameState.maxCharacters}`);
           return prevCharacters;
         }
         spawnRandomCharacters(gameState, prevCharacters, setActiveCharacters);
@@ -116,7 +112,9 @@ export function useGameLogic(
     if (character.clickedCharacter) return;
 
     setActiveCharacters((prev) =>
-      prev.map((char) => (char.id === character.id ? { ...char, clickedCharacter: true } : char))
+      prev.map((char) =>
+        char.positionId === character.positionId ? { ...char, clickedCharacter: true } : char
+      )
     );
 
     setGameState((prev) => updateGameState(prev, character.type));
@@ -132,6 +130,7 @@ export function useGameLogic(
     gameState,
     isGameReady,
     setGameState,
+    isGameStarted,
     resetGameState,
     activeCharacters,
     handleCharacterClick,

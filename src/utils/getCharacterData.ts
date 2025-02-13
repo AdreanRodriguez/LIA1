@@ -73,21 +73,21 @@ export const CharacterData = {
   "bush-left": {
     good: {
       characterImage: "/assets/bush/goodFlower.png",
-      size: { width: "100%", height: "70%" },
+      size: { width: "100%", height: "100%" },
     },
     evil: {
       characterImage: "/assets/bush/evilFlower.png",
-      size: { width: "100%", height: "70%" },
+      size: { width: "100%", height: "100%" },
     },
   },
   "bush-right": {
     good: {
       characterImage: "/assets/bush/goodFlower.png",
-      size: { width: "100%", height: "70%" },
+      size: { width: "100%", height: "100%" },
     },
     evil: {
       characterImage: "/assets/bush/evilFlower.png",
-      size: { width: "100%", height: "70%" },
+      size: { width: "100%", height: "100%" },
     },
   },
   "under-bus": {
@@ -104,13 +104,13 @@ export const CharacterData = {
 
 // Funktion för att hämta data baserat på id och typ
 export function getCharacterData(
-  id: keyof typeof CharacterData,
+  positionId: keyof typeof CharacterData,
   type: "good" | "evil"
 ): { characterImage: string; size: { width: string; height: string } } | null {
-  const data = CharacterData[id];
+  const data = CharacterData[positionId];
 
   if (!data) {
-    console.error(`Invalid id in getCharacterData: ${id}`);
+    console.error(`Invalid id in getCharacterData: ${positionId}`);
     return null;
   }
 
@@ -121,7 +121,7 @@ export function getCharacterData(
 
   // Ta bort den gode under bussen
   // Har ingen liggande bild på den gode
-  if (id === "under-bus" && type === "good") {
+  if (positionId === "under-bus" && type === "good") {
     return null;
   }
 

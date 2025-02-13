@@ -44,13 +44,13 @@ export const Gameboard: React.FC<GameboardProps> = ({
         position="left"
         onCharacterClick={handleCharacterClick}
         onAnimationEnd={handleCharacterRemoval}
-        characters={activeCharacters.filter((char) => char.id === "bush-left")}
+        characters={activeCharacters.filter((char) => char.positionId === "bush-left")}
       />
       <Bush
         position="right"
         onCharacterClick={handleCharacterClick}
         onAnimationEnd={handleCharacterRemoval}
-        characters={activeCharacters.filter((char) => char.id === "bush-right")}
+        characters={activeCharacters.filter((char) => char.positionId === "bush-right")}
       />
 
       <Cloud top="0" left="20vw" width="10vw" height="14svh" animationDuration="10s" />

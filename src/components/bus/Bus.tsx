@@ -6,15 +6,21 @@ import { CharacterType } from "../../types/characterType";
 interface BusProps {
   isGameStarted: boolean;
   characters: CharacterType[];
-  onCharacterClick: (character: CharacterType) => void;
   onAnimationEnd: (uuid: string) => void;
+  onCharacterClick: (character: CharacterType) => void;
+}
+
+interface Box {
+  id: string;
+  position: { top: string; left: string };
+  size: { width: string; height: string };
 }
 
 const Bus: React.FC<BusProps> = ({
   characters,
-  onCharacterClick,
   isGameStarted,
   onAnimationEnd,
+  onCharacterClick,
 }) => {
   const hasBusArrived = useRef(false);
 
@@ -27,42 +33,42 @@ const Bus: React.FC<BusProps> = ({
 
   const boxes = [
     {
-      id: "window-1",
+      positionId: "window-1",
       position: { top: "34%", left: "11%" },
       size: { width: "8%", height: "20%" },
     },
     {
-      id: "window-2",
+      positionId: "window-2",
       position: { top: "34%", left: "28%" },
       size: { width: "11%", height: "20%" },
     },
     {
-      id: "window-3",
+      positionId: "window-3",
       position: { top: "34%", left: "41%" },
       size: { width: "11%", height: "20%" },
     },
     {
-      id: "window-4",
+      positionId: "window-4",
       position: { top: "34%", left: "53%" },
       size: { width: "11%", height: "20%" },
     },
     {
-      id: "window-5",
+      positionId: "window-5",
       position: { top: "34%", left: "68%" },
       size: { width: "11%", height: "20%" },
     },
     {
-      id: "bus-left",
+      positionId: "bus-left",
       position: { top: "44%", left: "-7%" },
       size: { width: "12%", height: "25%" },
     },
     {
-      id: "bus-right",
+      positionId: "bus-right",
       position: { top: "50%", left: "95%" },
       size: { width: "12%", height: "25%" },
     },
     {
-      id: "under-bus",
+      positionId: "under-bus",
       position: { top: "79%", left: "52%" },
       size: { width: "17%", height: "20%" },
     },
@@ -87,14 +93,16 @@ const Bus: React.FC<BusProps> = ({
         />
 
         {boxes.map((box) => {
-          const matchingCharacter = characters.find((char) => char.id === box.id && char.uuid);
+          const matchingCharacter = characters.find(
+            (char) => char.positionId === box.positionId && char.uuid
+          );
           return (
             <CharacterBox
-              key={matchingCharacter ? matchingCharacter.uuid : box.id}
+              key={matchingCharacter ? matchingCharacter.uuid : box.positionId}
               size={box.size}
               position={box.position}
               character={matchingCharacter}
-              isBusLeft={box.id === "bus-left"}
+              isBusLeft={box.positionId === "bus-left"}
               onCharacterClick={onCharacterClick}
               onAnimationEnd={onAnimationEnd}
             />
