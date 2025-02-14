@@ -12,12 +12,12 @@ interface BushProps {
 const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick, onAnimationEnd }) => {
   const boxes = {
     left: {
-      position: { top: "-55%", left: "35%" },
-      size: { width: "45%", height: "100%" },
+      position: { top: "-60%", left: "30%" },
+      size: { width: "50%", height: "100%" },
     },
     right: {
-      position: { top: "-55%", left: "35%" },
-      size: { width: "45%", height: "100%" },
+      position: { top: "-60%", left: "30%" },
+      size: { width: "50%", height: "100%" },
     },
   };
 
@@ -29,13 +29,10 @@ const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick, onA
     return null;
   }
 
-  // Filtrera ut ogiltiga karaktärer
-  const validCharacters = characters.filter((character) => character && character.positionId);
-
   return (
-    <div className={`bush-wrapper bush-wrapper-${position}`}>
+    <section className={`bush-wrapper bush-wrapper-${position}`}>
       <img className="bush" src="/assets/bush/bush.png" alt={`${position} bush`} />
-      {validCharacters.map((character) => {
+      {characters.map((character) => {
         return (
           <CharacterBox
             key={character.uuid}
@@ -47,7 +44,7 @@ const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick, onA
           />
         );
       })}
-    </div>
+    </section>
   );
 };
 
