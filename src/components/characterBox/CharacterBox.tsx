@@ -14,13 +14,12 @@ interface CharacterBoxProps {
 }
 
 const CharacterBox: React.FC<CharacterBoxProps> = ({
-  character,
-  position,
   size,
-  onCharacterClick,
   style,
-  // isBusLeft,
+  position,
+  character,
   onAnimationEnd,
+  onCharacterClick,
 }) => {
   // Rendera inte något om karaktären inte finns eller inte är synlig
   if (!character) {

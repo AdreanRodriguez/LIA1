@@ -36,7 +36,6 @@ const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick, onA
     <div className={`bush-wrapper bush-wrapper-${position}`}>
       <img className="bush" src="/assets/bush/bush.png" alt={`${position} bush`} />
       {validCharacters.map((character) => {
-        // console.log(`${character.id}-${character.x}-${character.y}`);
         return (
           <CharacterBox
             key={character.uuid}

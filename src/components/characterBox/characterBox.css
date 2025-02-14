@@ -1,8 +1,6 @@
 .character-box {
-  /* z-index: -1; */
-
   display: flex;
-  overflow: hidden; /* Gör så att karaktärerna åker bakom bussen */
+  overflow: hidden;
   align-items: center;
   justify-content: center;
 
