@@ -55,11 +55,12 @@ function shuffleArray<T>(array: T[]): T[] {
 }
 
 // Funktion för att sätta de olika animations id:n som finns i character.css
-function getAnimation(id: string): string {
-  if (id.startsWith("window") || id === "bush-right" || id === "bush-left") return "slide-up";
-  if (id === "under-bus") return "slide-under-bus";
-  if (id === "bus-left") return "slide-right-to-left";
-  if (id === "bus-right") return "slide-left-to-right";
+function getAnimation(positionId: string): string {
+  if (positionId.startsWith("window") || positionId === "bush-right" || positionId === "bush-left")
+    return "slide-up";
+  if (positionId === "under-bus") return "slide-under-bus";
+  if (positionId === "bus-left") return "slide-right-to-left";
+  if (positionId === "bus-right") return "slide-left-to-right";
 
   return "";
 }
