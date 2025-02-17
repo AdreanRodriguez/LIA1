@@ -97,11 +97,11 @@ export function useGameLogic() {
       clearInterval(timerInterval);
     };
   }, [
+    isPortrait,
     isGameStarted,
     gameState.isGameOver,
     gameState.spawnInterval,
     gameState.animationDuration,
-    isPortrait,
   ]);
 
   function handleCharacterRemoval(uuid: string) {
