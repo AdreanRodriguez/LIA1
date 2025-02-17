@@ -1,23 +1,23 @@
 import "./bush.css";
-import bush from "../../assets/bush.svg";
 import CharacterBox from "../characterBox/CharacterBox";
 import { CharacterType } from "../../types/characterType";
 
 interface BushProps {
   position: "left" | "right"; // Definiera om det är vänster eller höger buske
   characters: CharacterType[]; // Karaktärer för denna buske
+  onAnimationEnd: (uuid: string) => void;
   onCharacterClick: (character: CharacterType) => void;
 }
 
-const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick }) => {
+const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick, onAnimationEnd }) => {
   const boxes = {
     left: {
-      position: { top: "-9%", left: "20%" },
-      size: { width: "40%", height: "100%" },
+      position: { top: "-60%", left: "30%" },
+      size: { width: "50%", height: "100%" },
     },
     right: {
-      position: { top: "-9%", left: "15%" },
-      size: { width: "40%", height: "100%" },
+      position: { top: "-60%", left: "30%" },
+      size: { width: "50%", height: "100%" },
     },
   };
 
@@ -29,29 +29,22 @@ const Bush: React.FC<BushProps> = ({ position, characters, onCharacterClick }) =
     return null;
   }
 
-  // Filtrera ut ogiltiga karaktärer
-  const validCharacters = characters.filter((character) => character && character.id);
-
   return (
-    <div className={`bush-wrapper bush-wrapper-${position}`}>
-      <div className={`bush-container bush-${position}`}>
-        {/* Här renderar vi buskbilden */}
-        <img className="bush" src={bush} alt={`${position} bush`} />
-      </div>
-      {/* Rendera karaktärer */}
-      {validCharacters.map((character) => {
-        // console.log(`${character.id}-${character.x}-${character.y}`);
+    <section className={`bush-wrapper bush-wrapper-${position}`}>
+      <img className="bush" src="/assets/bush/bush.png" alt={`${position} bush`} />
+      {characters.map((character) => {
         return (
           <CharacterBox
+            key={character.uuid}
             character={character}
-            key={`${character.id}`}
             size={selectedBox.size}
             position={selectedBox.position}
             onCharacterClick={onCharacterClick}
+            onAnimationEnd={onAnimationEnd}
           />
         );
       })}
-    </div>
+    </section>
   );
 };
 

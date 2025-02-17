@@ -1,0 +1,113 @@
+.portraitBlocker__container {
+  z-index: 1;
+  height: 100svh;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(193, 3, 3, 1) 0%, rgba(37, 137, 166, 1) 100%);
+  position: relative;
+}
+
+.portrait-image__evil,
+.portrait-image__good {
+  max-width: 40vw;
+}
+
+.portrait-image__evil {
+  top: -7px;
+  left: 50%;
+  position: absolute;
+  filter: drop-shadow(2px 4px 6px black);
+  transform: translateX(-50%) rotateX(180deg);
+}
+
+.portrait-image__good {
+  left: 50%;
+  bottom: -7px;
+  position: absolute;
+  transform: translateX(-50%);
+  filter: drop-shadow(2px 4px 6px black);
+}
+
+.portrait-blocker {
+  top: 50%;
+  left: 50%;
+  width: 20rem;
+  height: 20rem;
+  display: block;
+  position: absolute;
+  animation: rotate 1.8s infinite cubic-bezier(0.44, -0.48, 0.19, 1.61);
+}
+
+.collaboration {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  top: 50%;
+  left: 50%;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  font-family: "Short Stack";
+  color: var(--dark);
+  animation: rotate-collaboration 1.8s infinite cubic-bezier(0.44, -0.48, 0.19, 1.61);
+}
+
+.instagramLogo {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.2rem;
+}
+
+.collaboration a {
+  display: flex;
+  align-items: center;
+
+  font-size: 0.9rem;
+  color: var(--dark);
+  font-family: krita;
+  /* padding-right: 0.4rem; */
+  text-underline-offset: 0.2rem;
+  text-decoration-thickness: 0.2rem;
+  text-decoration-color: var(--highlight-orange);
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, -50%) rotateZ(0deg) scale(0.7);
+  }
+  70% {
+    transform: translate(-50%, -50%) rotateZ(-90deg) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotateZ(-90deg) scale(1);
+  }
+}
+
+@keyframes rotate-collaboration {
+  0% {
+    transform: translate(-50%, -50%) rotateZ(-50deg) scale(0.1);
+  }
+  70% {
+    transform: translate(-50%, -50%) rotateZ(-5deg) scale(1.1);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotateZ(0deg) scale(1);
+  }
+}
+
+@media screen and (orientation: landscape) {
+  .portraitBlocker__container {
+    display: none;
+  }
+
+  .portrait-blocker {
+    display: none;
+  }
+
+  .portrait-image__evil,
+  .portrait-image__good {
+    display: none;
+    opacity: 0;
+  }
+}

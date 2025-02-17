@@ -1,12 +1,11 @@
 import "./cloud.css";
-import cloud from "../../assets/cloud1.svg";
 
 interface cloudProps {
-  top?: string;
-  left?: string;
-  width?: string;
-  height?: string;
-  animationDuration?: string;
+  top: string;
+  left: string;
+  width: string;
+  height: string;
+  animationDuration: string;
 }
 
 export default function Cloud({
@@ -22,7 +21,15 @@ export default function Cloud({
     width,
     height,
     animationDuration,
+    // position: "absolute"
   };
   // Gör den återanvändbar så att man kan ha ett mindre moln i bakgrunden
-  return <img className="cloud" src={cloud} alt="cartoon cloud" style={styledCloud} />;
+  return (
+    <img
+      className="cloud"
+      src="/assets/cloud.png"
+      alt="Fading cartoon cloud in the game background"
+      style={styledCloud}
+    />
+  );
 }

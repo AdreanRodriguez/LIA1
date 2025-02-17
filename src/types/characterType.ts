@@ -12,13 +12,13 @@ export type CharacterId =
 
 export interface PositionType {
   angle: number;
-  id: CharacterId;
+  positionId: CharacterId;
 }
 
 export interface CharacterType extends PositionType {
-  score: number;
-  visible: boolean;
+  uuid: string;
   animation: string;
   type: "good" | "evil";
+  animationDuration: number;
   clickedCharacter?: boolean;
 }

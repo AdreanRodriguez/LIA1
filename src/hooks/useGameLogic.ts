@@ -1,113 +1,139 @@
-// import { v4 as uuid } from "uuid";
+// import { useCleanup } from "./useCleanup";
 import { useState, useEffect } from "react";
 import { gameOver } from "../utils/gameOver";
-import { startGame } from "../utils/startGame";
-import { positions } from "../utils/positions";
+import { startGame } from "./../utils/startGame";
 import { CharacterType } from "../types/characterType";
+import { preloadAssets } from "../preload/preloadAssets";
+import { spawnRandomCharacters } from "../utils/spawnRandomCharacters";
+import { updateGameState, GameState, DEFAULT_GAME_STATE } from "../utils/gameLogic";
 
-export function useGameLogic(
-  maxCharacters: number,
-  spawnInterval: number,
-  isGameStarted: boolean,
-  goodCharacterProbability: number
-) {
-  const [score, setScore] = useState<number>(0);
-  const [isGameOver, setIsGameOver] = useState<boolean>(false);
-  const [characters, setCharacters] = useState<CharacterType[]>([]);
+export function useGameLogic() {
+  const [isGameReady, setIsGameReady] = useState<boolean>(false);
+  const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
+  const [activeCharacters, setActiveCharacters] = useState<CharacterType[]>([]);
+  const [gameState, setGameState] = useState<GameState>({ ...DEFAULT_GAME_STATE });
+  const [isPortrait, setIsPortrait] = useState<boolean>(
+    window.matchMedia("(orientation: portrait)").matches
+  );
+
+  // useCleanup(gameState);
+
+  function startLoaderCheck() {
+    let checkLoader = setInterval(() => {
+      if (document.querySelector("#loader")) {
+        // console.log("Hittade #loader.");
+        window.ClubHouseGame?.gameLoaded({ hideInGame: true });
+        clearInterval(checkLoader);
+      }
+    }, 100);
+
+    return () => clearInterval(checkLoader);
+  }
 
   useEffect(() => {
-    if (!isGameStarted || isGameOver) return;
+    const handleOrientationChange = (e: MediaQueryListEvent) => {
+      const isPortraitMode = e.matches;
+      setIsPortrait(isPortraitMode);
 
-    const interval = setInterval(() => {
-      spawnRandomCharacter();
-    }, spawnInterval);
-
-    return () => clearInterval(interval);
-  }, [isGameOver, isGameStarted]);
-
-  function spawnRandomCharacter() {
-    if (characters.length >= maxCharacters || isGameOver) return;
-
-    const availablePositions = positions.filter(
-      (pos) => !characters.some((char) => char.id && char.id === pos.id)
-    );
-
-    if (availablePositions.length === 0) {
-      console.warn("No available positions to spawn a character.");
-      return;
-    }
-
-    const randomPosition =
-      availablePositions[Math.floor(Math.random() * availablePositions.length)];
-    const randomType = Math.random() < goodCharacterProbability ? "good" : "evil";
-
-    // Tilldela rätt animation baserat på position
-    let animation = "";
-    if (randomPosition.id.startsWith("window")) {
-      animation = "slide-up";
-    } else if (randomPosition.id === "under-bus") {
-      animation = "slide-under-bus";
-    } else if (randomPosition.id === "bus-left") {
-      animation = "slide-right-to-left";
-    } else if (randomPosition.id === "bus-right") {
-      animation = "slide-left-to-right";
-    }
-
-    const newCharacter: CharacterType = {
-      animation,
-      visible: true,
-      type: randomType,
-      id: randomPosition.id,
-      clickedCharacter: false,
-      angle: randomPosition.angle,
-      score: randomType === "evil" ? 10 : 0,
+      // Stoppa tiden/pausa om man vrider telefonen i porträtt läge
+      setGameState((prev) => ({ ...prev, isPaused: isPortraitMode }));
     };
 
-    updateCharacters((prev) => [...prev, newCharacter]);
+    const mediaQuery = window.matchMedia("(orientation: portrait)");
+    mediaQuery.addEventListener("change", handleOrientationChange);
 
-    // Ta bort karaktären efter 2 sekunder
-    setTimeout(() => {
-      updateCharacters((prev) => prev.filter((char) => char.id !== newCharacter.id));
-    }, 2000);
+    return () => mediaQuery.removeEventListener("change", handleOrientationChange);
+  }, []);
+
+  useEffect(() => {
+    const loadAssets = async () => {
+      await preloadAssets(); // Förladda bilder och fonter
+      setIsGameReady(true);
+      startLoaderCheck();
+    };
+    loadAssets();
+  }, []);
+
+  useEffect(() => {
+    // Spelet är pausat
+    if (gameState.isPaused) return;
+
+    // Spelet är game over
+    if (gameState.isGameOver) return gameOver(gameState.score);
+
+    // Spelet har inte startat
+    if (!isGameStarted) return startGame(setIsGameStarted, resetGameState);
+
+    // Spawnar en karaktär varje spawnInterval
+    const spawnInterval = setInterval(() => {
+      setActiveCharacters((prevCharacters) => {
+        if (prevCharacters.length >= gameState.maxCharacters) {
+          return prevCharacters;
+        }
+        spawnRandomCharacters(gameState, prevCharacters, setActiveCharacters);
+        return prevCharacters;
+      });
+    }, gameState.spawnInterval);
+
+    // Timer som räknar ner varje sekund
+    const timerInterval = setInterval(() => {
+      setGameState((prev) => {
+        if (prev.isGameOver) {
+          clearInterval(timerInterval);
+          return prev;
+        }
+
+        const newTime = prev.timeLeft - 1;
+        if (newTime <= 0) {
+          return { ...prev, timeLeft: 0, isGameOver: true };
+        }
+        return { ...prev, timeLeft: newTime };
+      });
+    }, 1000);
+
+    // Rensa timers när spelet avslutas eller startas om
+    return () => {
+      clearInterval(spawnInterval);
+      clearInterval(timerInterval);
+    };
+  }, [
+    isGameStarted,
+    gameState.isGameOver,
+    gameState.spawnInterval,
+    gameState.animationDuration,
+    isPortrait,
+  ]);
+
+  function handleCharacterRemoval(uuid: string) {
+    setActiveCharacters((prev) => prev.filter((char) => char.uuid !== uuid));
   }
 
   function handleCharacterClick(character: CharacterType) {
-    // Så att man inte ska kunna klicka flera gånger på samma karaktär.
-    // Hindra dubbelklick på karaktärerna.
-    if (character.clickedCharacter) {
-      return;
-    }
+    if (character.clickedCharacter) return;
 
-    updateCharacters((prev) =>
-      prev.map((char) => (char.id === character.id ? { ...char, clickedCharacter: true } : char))
+    setActiveCharacters((prev) =>
+      prev.map((char) =>
+        char.positionId === character.positionId ? { ...char, clickedCharacter: true } : char
+      )
     );
 
-    if (character.type === "good") {
-      gameOver(score);
-      setIsGameOver(true);
-    } else if (character.type === "evil") {
-      setScore((prev) => prev + character.score);
-    }
+    setGameState((prev) => updateGameState(prev, character.type));
   }
 
-  function updateCharacters(characterUpdater: (prev: CharacterType[]) => CharacterType[]) {
-    setCharacters((prev) => {
-      const updated = characterUpdater(prev);
-      // Säkerställ att alla karaktärer har unika ID:n
-      const uniqueCharacters = updated.filter(
-        (character, index, self) => index === self.findIndex((char) => char.id === character.id)
-      );
-      return uniqueCharacters;
-    });
+  // Funktion för att återställa spelet
+  function resetGameState() {
+    setActiveCharacters([]);
+    setGameState({ ...DEFAULT_GAME_STATE });
   }
 
-  // Återställer spelplanen
-  function restartGame() {
-    startGame();
-    setScore(0);
-    setIsGameOver(false);
-    setCharacters([]); // Rensa alla karaktärer
-  }
-
-  return { characters, score, isGameOver, handleCharacterClick, restartGame };
+  return {
+    gameState,
+    isGameReady,
+    setGameState,
+    isGameStarted,
+    resetGameState,
+    activeCharacters,
+    handleCharacterClick,
+    handleCharacterRemoval,
+  };
 }

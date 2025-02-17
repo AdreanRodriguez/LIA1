@@ -1,43 +1,54 @@
 import "./character.css";
-import cartoonCloudImange from "../../assets/poff.svg";
 import { CharacterType } from "../../types/characterType";
-// import { getCharacterData } from "../../utils/getCharacterData";
 
 interface CharacterProps {
   characterImage: string;
   character: CharacterType;
   style?: React.CSSProperties;
+  onAnimationEnd?: (uuid: string) => void;
   size: { width: string; height: string };
   onClick: (character: CharacterType) => void;
 }
 
-export default function Character({ character, onClick, characterImage, size }: CharacterProps) {
-  const { id, type, angle, score, animation, clickedCharacter, visible } = character;
+export default function Character({
+  size,
+  onClick,
+  character,
+  characterImage,
+  onAnimationEnd,
+}: CharacterProps) {
+  const cartoonPoofImange = "/assets/poof.png";
 
-  // Kontrollera om karaktären är synlig
-  if (!visible) {
-    console.error(`Skipping render for character with ID: ${id}`);
-    return null; // Rendera inte karaktären om `visible` är false
-  }
+  const { positionId, uuid, type, angle, animation, clickedCharacter, animationDuration } =
+    character;
 
-  const image = clickedCharacter && type === "evil" ? cartoonCloudImange : characterImage;
+  const image = clickedCharacter && type === "evil" ? cartoonPoofImange : characterImage;
 
   const characterStyle: React.CSSProperties = {
     ...size, // Bredd och höjd från `getCharacterData`
+    animationName: animation, // Använd animationen som tilldelats
+    animationIterationCount: "1", // Animationen körs bara 1 gång
+    animationFillMode: "forwards", // Se till att de inte studsar tillbaka
     transform: `rotate(${angle}deg)`, // Gör rotation och centrering
-    animationName: character.animation,
-    // zIndex: 0,
+    animationTimingFunction: "ease-in-out",
+    animationDuration: `${animationDuration}s`, // Detta sätter vi i gameLogic.ts
   };
 
   return (
     <div
       className={`${type}-character ${clickedCharacter ? "clickedCharacter" : ""}`}
       style={characterStyle}
-      onClick={() => onClick({ id, type, angle, clickedCharacter, animation, score, visible })}
+      onClick={() => onClick(character)}
+      onAnimationEnd={() => {
+        // console.log(`Animation ended for character with uuid: ${uuid}`);
+        if (onAnimationEnd) {
+          onAnimationEnd(uuid);
+        }
+      }}
     >
       <img
         src={image}
-        alt={`${type} character ${clickedCharacter ? "with cartoon cloud" : ""} at ${id}`}
+        alt={`${type} character ${clickedCharacter ? "with cartoon cloud" : ""} at ${positionId}`}
       />
     </div>
   );

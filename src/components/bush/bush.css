@@ -1,8 +1,20 @@
 .bush-wrapper {
   bottom: 0;
   width: 26%;
-  height: 35%;
+  min-height: 20svh;
   position: absolute;
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.bush {
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
 }
 
 .bush-wrapper-left {
@@ -10,19 +22,6 @@
 }
 
 .bush-wrapper-right {
-  left: 70%;
-}
-
-.bush-container {
-  bottom: 0;
-  z-index: 1;
-  width: 100%;
-  height: 60%;
-  position: absolute;
-  pointer-events: none;
-}
-
-.bush {
-  width: 100%;
-  height: 100%;
+  right: 10%;
+  transform: rotateY(180deg);
 }

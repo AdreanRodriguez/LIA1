@@ -1,97 +1,61 @@
-.game-container {
-  /* width: 100vw; */
-  /* margin: 0 auto; */
-  overflow: hidden;
-  position: relative;
-  height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-image: url("./assets/gran.svg");
-}
+/* Bussklubbens SDK */
 
-.blur-background {
-  filter: blur(3px) grayscale(0.7);
+body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  /* overflow: hidden; */
+  background-color: #000000;
 }
-
-.portrait-blocker__container {
-  height: 100vh;
-  background-size: contain;
-  background-position: bottom;
-  background-repeat: no-repeat;
-  background-color: rgb(216, 216, 216);
-  background-image: url(./assets/goodAndEvil.svg);
-  background-position-y: 85%;
-  /* background-position-y: 50vh; */
-}
-
-.portrait-blocker {
-  top: 50%;
-  left: 50%;
-  width: 15rem;
-  height: 15rem;
-  display: none;
+#game {
   position: absolute;
-  transform: translate(50%, 50%);
-  animation: rotate 1.8s infinite cubic-bezier(0.44, -0.48, 0.19, 1.61);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
-
-.score__text {
-  top: 10px;
-  left: 10px;
-  z-index: 2;
-  font-size: 1rem;
+#ui {
+  z-index: 1;
   position: absolute;
-  margin-left: 0.5rem;
-  font-family: "Short Stack";
-  color: var(--highlight-darkBlue);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.score__number {
-  font-size: 1.5rem;
-  margin-left: 0.5rem;
-  font-family: "Short Stack";
-  color: var(--highlight-darkBlue);
+.loader {
+  z-index: 1;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-@keyframes rotate {
+.spinner {
+  width: 100px;
+  margin-top: 20px;
+  animation: loading 1s linear infinite;
+}
+
+.loader-logo {
+  width: 50%;
+}
+
+.loader-text {
+  z-index: 4;
+  color: #ffffff;
+  font-family: DosisRegular;
+}
+
+@keyframes loading {
   0% {
-    transform: translate(-50%, -50%) rotateZ(0deg) scale(0.7);
-  }
-  70% {
-    transform: translate(-50%, -50%) rotateZ(-90deg) scale(1.1);
+    transform: rotate(0);
   }
   100% {
-    transform: translate(-50%, -50%) rotateZ(-90deg) scale(1);
-  }
-}
-
-/* @media screen and (max-aspect-ratio: 1/1) {
-  body {
-    transform: rotate(-90deg);
-    width: 100vh;
-    height: 100vw;
-  }
-} */
-
-@media screen and (orientation: portrait) {
-  .game-container {
-    display: none;
-  }
-
-  .portrait-blocker {
-    display: block;
-  }
-}
-
-@media screen and (orientation: landscape) {
-  .portrait-blocker__container {
-    display: none;
-  }
-
-  .portrait-blocker {
-    display: none;
-  }
-  .game-container {
-    display: block;
+    transform: rotate(360deg);
   }
 }

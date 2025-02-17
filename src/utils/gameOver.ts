@@ -1,8 +1,14 @@
 export const gameOver = (score: number) => {
-  console.log("GAME OVER!!!");
-  console.log(`Final score: ${score}`);
-  // window.ClubHouseGame.gameDone();
-  // window.ClubHouseGame.setScore(score);
+  // Säkerhetskontroll för att undvika krasch om ClubHouseGame inte finns
+  if (!window.ClubHouseGame) {
+    console.error("ClubHouseGame is not available.");
+    return;
+  }
+  // Sätter gameDone = spelet är över
+  window.ClubHouseGame.gameDone();
 
-  return score;
+  // Sätter poängen själv med setScore
+  window.ClubHouseGame.setScore(score);
+
+  console.log("gameOver()");
 };

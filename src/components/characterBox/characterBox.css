@@ -1,14 +1,15 @@
 .character-box {
   display: flex;
-  overflow: hidden; /* Gör så att karaktärerna åker bakom bussen */
+  overflow: hidden;
   align-items: center;
   justify-content: center;
 
   position: relative;
   background: transparent;
-  /* border: 1px solid red; */
+  /* border: 2px solid red; */
 }
 
 .character-box.flipped img {
-  transform: scaleX(-1); /* Flippa horisontellt */
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 }

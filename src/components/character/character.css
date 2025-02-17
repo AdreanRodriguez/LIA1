@@ -5,42 +5,44 @@
   object-fit: contain;
 }
 
-.evil-character,
-.good-character {
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation: slide-up 2s ease-in-out;
-}
-
 .evil-character.clickedCharacter img {
   opacity: 0;
   transform: scale(1.5);
   transition: all 0.3s ease;
 }
 
-/* .good-character.clickedCharacter img {
-  opacity: 0.3;
-  transition: all 0.3s ease;
-
-  Om man vill göra något med den gode, exempel att den ska fada upp
-} */
-
 /* Från höger till vänster (under bussen) */
 @keyframes slide-under-bus {
   0% {
-    opacity: 0;
+    opacity: 1;
     transform: translateX(100%);
   }
   50% {
     opacity: 1;
     transform: translateX(0);
   }
-  75% {
+  52% {
     opacity: 1;
     transform: translateX(0);
   }
+  60% {
+    opacity: 1;
+    transform: translateX(70%);
+  }
+  65% {
+    opacity: 1;
+    transform: translateX(80%);
+  }
+  75% {
+    opacity: 1;
+    transform: translateX(85%);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(90%);
+  }
   100% {
-    opacity: 0;
+    opacity: 1;
     transform: translateX(100%);
   }
 }
@@ -48,19 +50,35 @@
 /* Nedifrån och upp (window-positionerna*) */
 @keyframes slide-up {
   0% {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(100%);
   }
   50% {
     opacity: 1;
     transform: translateY(0);
   }
-  75% {
+  52% {
     opacity: 1;
     transform: translateY(0);
   }
+  60% {
+    opacity: 1;
+    transform: translateY(70%);
+  }
+  65% {
+    opacity: 1;
+    transform: translateY(80%);
+  }
+  75% {
+    opacity: 1;
+    transform: translateY(85%);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(90%);
+  }
   100% {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(100%);
   }
 }
@@ -68,16 +86,32 @@
 /* Från höger till vänster (bus-left) */
 @keyframes slide-right-to-left {
   0% {
-    opacity: 0;
+    opacity: 1;
     transform: translateX(100%) rotate(-60deg);
   }
   50% {
     opacity: 1;
     transform: translateX(0) rotate(-60deg);
   }
-  75% {
+  52% {
     opacity: 1;
     transform: translateX(0) rotate(-60deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(70%) rotate(-60deg);
+  }
+  65% {
+    opacity: 1;
+    transform: translateX(80%) rotate(-60deg);
+  }
+  75% {
+    opacity: 1;
+    transform: translateX(85%) rotate(-60deg);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(90%) rotate(-60deg);
   }
   100% {
     opacity: 1;
@@ -88,16 +122,32 @@
 /* Från vänster till höger (bus-right) */
 @keyframes slide-left-to-right {
   0% {
-    opacity: 0;
+    opacity: 1;
     transform: translateX(-100%) rotate(45deg);
   }
   50% {
     opacity: 1;
     transform: translateX(0) rotate(45deg);
   }
-  75% {
+  52% {
     opacity: 1;
     transform: translateX(0) rotate(45deg);
+  }
+  60% {
+    opacity: 1;
+    transform: translateX(-70%) rotate(45deg);
+  }
+  65% {
+    opacity: 1;
+    transform: translateX(-80%) rotate(45deg);
+  }
+  75% {
+    opacity: 1;
+    transform: translateX(-85%) rotate(45deg);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(-90%) rotate(45deg);
   }
   100% {
     opacity: 1;
