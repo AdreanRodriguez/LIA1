@@ -20,7 +20,7 @@ export const preloadImages = async (): Promise<void> => {
 
     "/assets/evilCharacters/evil.png",
     "/assets/evilCharacters/evilPeace.png",
-    "/assets/evilCharacters/horizontalEvil.png",
+    "/assets/evilCharacters/horizontalEvil.svg",
 
     "/assets/goodCharacters/good.png",
     "/assets/goodCharacters/goodPeace.png",
