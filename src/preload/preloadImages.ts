@@ -1,22 +1,29 @@
 export const preloadImages = async (): Promise<void> => {
   const imageList = [
     "/assets/poof.png",
-    "/images/logo.png",
     "/assets/cloud.png",
-    "/images/spinner.svg",
     "/assets/background.png",
+    "/assets/rotateDevice.svg",
+
+    "/images/logo.png",
+    "/images/spinner.svg",
+
+    // Eventuellt ta bort i framtiden
+    "/assets/instagramLogo.svg",
+
+    "/assets/bus/busInside.png",
+    "/assets/bus/busOutside.png",
 
     "/assets/bush/bush.png",
     "/assets/bush/evilFlower.png",
     "/assets/bush/goodFlower.png",
 
-    "/assets/bus/busInside.png",
-    "/assets/bus/busOutside.png",
+    "/assets/evilCharacters/evil.png",
+    "/assets/evilCharacters/evilPeace.png",
+    "/assets/evilCharacters/horizontalEvil.png",
 
     "/assets/goodCharacters/good.png",
-    "/assets/evilCharacters/evil.png",
     "/assets/goodCharacters/goodPeace.png",
-    "/assets/evilCharacters/evilPeace.png",
     "/assets/goodCharacters/goodLookToLeft.png",
     "/assets/goodCharacters/goodLookToRight.png",
   ];
