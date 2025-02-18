@@ -2,7 +2,7 @@ import "./gameboard.css";
 import Bus from "../bus/Bus";
 import Bush from "../bush/Bush";
 import Cloud from "../cloud/Cloud";
-import { GameState } from "../../utils/gameLogic";
+import { GameState } from "../../gameLogic/gameLogic";
 import { CharacterType } from "../../types/characterType";
 
 interface GameboardProps {

@@ -1,7 +1,7 @@
 import "./characterBox.css";
 import Character from "../character/Character";
 import { CharacterType } from "../../types/characterType";
-import { getCharacterData } from "../../utils/getCharacterData";
+import { getCharacterData } from "../../gameLogic/getCharacterData";
 
 interface CharacterBoxProps {
   isBusLeft?: boolean;

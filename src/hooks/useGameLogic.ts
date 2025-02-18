@@ -1,11 +1,11 @@
 // import { useCleanup } from "./useCleanup";
 import { useState, useEffect } from "react";
-import { gameOver } from "../utils/gameOver";
-import { startGame } from "./../utils/startGame";
+import { gameOver } from "../gameLogic/gameOver";
+import { startGame } from "../gameLogic/startGame";
 import { CharacterType } from "../types/characterType";
 import { preloadAssets } from "../preload/preloadAssets";
-import { spawnRandomCharacters } from "../utils/spawnRandomCharacters";
-import { updateGameState, GameState, DEFAULT_GAME_STATE } from "../utils/gameLogic";
+import { spawnRandomCharacters } from "../gameLogic/spawnRandomCharacters";
+import { updateGameState, GameState, DEFAULT_GAME_STATE } from "../gameLogic/gameLogic";
 
 export function useGameLogic() {
   const [isGameReady, setIsGameReady] = useState<boolean>(false);
@@ -15,8 +15,6 @@ export function useGameLogic() {
   const [isPortrait, setIsPortrait] = useState<boolean>(
     window.matchMedia("(orientation: portrait)").matches
   );
-
-  // useCleanup(gameState);
 
   function startLoaderCheck() {
     let checkLoader = setInterval(() => {
