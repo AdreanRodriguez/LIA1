@@ -12,6 +12,7 @@ export function useGameLogic() {
   const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
   const [activeCharacters, setActiveCharacters] = useState<CharacterType[]>([]);
   const [gameState, setGameState] = useState<GameState>({ ...DEFAULT_GAME_STATE });
+
   const [isPortrait, setIsPortrait] = useState<boolean>(
     window.matchMedia("(orientation: portrait)").matches
   );
@@ -65,11 +66,10 @@ export function useGameLogic() {
     // Spawnar en karaktär varje spawnInterval
     const spawnInterval = setInterval(() => {
       setActiveCharacters((prevCharacters) => {
-        if (prevCharacters.length >= gameState.maxCharacters) {
-          return prevCharacters;
-        }
-        spawnRandomCharacters(gameState, prevCharacters, setActiveCharacters);
-        return prevCharacters;
+        if (prevCharacters.length >= gameState.maxCharacters) return prevCharacters;
+        const newCharacter = spawnRandomCharacters(gameState, prevCharacters).slice(0, 1); // Spawnar EN karaktär
+
+        return [...prevCharacters, ...newCharacter];
       });
     }, gameState.spawnInterval);
 
@@ -103,7 +103,16 @@ export function useGameLogic() {
   ]);
 
   function handleCharacterRemoval(uuid: string) {
-    setActiveCharacters((prev) => prev.filter((char) => char.uuid !== uuid));
+    setActiveCharacters((prev) => {
+      const updatedCharacters = prev.filter((char) => char.uuid !== uuid);
+
+      if (updatedCharacters.length < gameState.maxCharacters) {
+        const newCharacter = spawnRandomCharacters(gameState, updatedCharacters);
+        return [...updatedCharacters, ...newCharacter.slice(0, 1)];
+      }
+
+      return updatedCharacters;
+    });
   }
 
   function handleCharacterClick(character: CharacterType) {

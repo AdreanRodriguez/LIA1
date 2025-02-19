@@ -1,7 +1,7 @@
 interface ClubHouseGameInterface {
   gameDone: () => void;
-  getScore: () => number;
-  gameRunning: () => boolean;
+  // getScore: () => number;
+  // gameRunning: () => boolean;
   setScore: (score: number) => void;
   gameLoaded: (options: Options) => void;
   registerRestart: (startFunction: () => void) => void;

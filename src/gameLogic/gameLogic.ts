@@ -49,55 +49,55 @@ export function updateGameState(
   }
 
   if (score < 100) {
-    maxCharacters = 4; // Max antal karaktärer som kan vara aktiva samtidigt
+    maxCharacters = 5; // Max antal karaktärer som kan vara aktiva samtidigt
     spawnInterval = 900; // Tid (i millisekunder) mellan varje ny spawn
-    animationDuration = 2.5; // Hur länge en karaktärs animation varar (i sekunder)
+    animationDuration = 2; // Hur länge en karaktärs animation varar (i sekunder)
     goodCharacterProbability = 0.2; // Sannolikhet (0-1) att en spawnad karaktär är "god" (ex. 0.2 = 20%)
   } else if (score < 200) {
     maxCharacters = 4;
-    spawnInterval = 850;
-    animationDuration = 2.1;
+    spawnInterval = 800;
+    animationDuration = 1.9;
     goodCharacterProbability = 0.2;
   } else if (score < 300) {
     maxCharacters = 4;
-    spawnInterval = 800;
+    spawnInterval = 700;
     animationDuration = 1.8;
     goodCharacterProbability = 0.3;
   } else if (score < 400) {
     maxCharacters = 4;
-    spawnInterval = 800;
+    spawnInterval = 600;
     animationDuration = 1.4;
     goodCharacterProbability = 0.3;
   } else if (score < 500) {
     maxCharacters = 4;
-    spawnInterval = 800;
+    spawnInterval = 500;
     animationDuration = 1.2;
     goodCharacterProbability = 0.4;
   } else if (score < 600) {
-    maxCharacters = 4;
-    spawnInterval = 700;
+    maxCharacters = 3;
+    spawnInterval = 400;
     animationDuration = 1.2;
     goodCharacterProbability = 0.4;
   } else if (score < 700) {
-    maxCharacters = 4;
-    spawnInterval = 600;
+    maxCharacters = 3;
+    spawnInterval = 350;
     animationDuration = 1.2;
     goodCharacterProbability = 0.4;
   } else if (score < 800) {
-    maxCharacters = 4;
-    spawnInterval = 500;
+    maxCharacters = 3;
+    spawnInterval = 300;
     animationDuration = 1;
     goodCharacterProbability = 0.4;
   } else if (score < 900) {
-    maxCharacters = 4;
-    spawnInterval = 500;
+    maxCharacters = 2;
+    spawnInterval = 250;
     animationDuration = 1;
-    goodCharacterProbability = 0.4;
+    goodCharacterProbability = 0.2;
   } else {
-    maxCharacters = 3;
-    spawnInterval = 400;
+    maxCharacters = 2;
+    spawnInterval = 200;
     animationDuration = 1;
-    goodCharacterProbability = 0.4;
+    goodCharacterProbability = 0.2;
   }
 
   return {

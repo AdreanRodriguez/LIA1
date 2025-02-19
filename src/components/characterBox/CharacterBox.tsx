@@ -7,10 +7,10 @@ interface CharacterBoxProps {
   isBusLeft?: boolean;
   character?: CharacterType; // Karaktär som visas i denna slot
   style?: React.CSSProperties; // Valfri stil
+  onAnimationEnd: (uuid: string) => void;
   size: { width: string; height: string }; // Storlek på lådan
   position: { top: string; left: string };
   onCharacterClick: (character: CharacterType) => void;
-  onAnimationEnd: (uuid: string) => void;
 }
 
 const CharacterBox: React.FC<CharacterBoxProps> = ({

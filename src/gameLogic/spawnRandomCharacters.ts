@@ -5,15 +5,19 @@ import { CharacterType } from "../types/characterType";
 
 export function spawnRandomCharacters(
   gameState: GameState,
-  activeCharacters: CharacterType[],
-  setActiveCharacters: React.Dispatch<React.SetStateAction<CharacterType[]>>
-) {
-  if (activeCharacters.length >= gameState.maxCharacters || gameState.isGameOver) return;
+  activeCharacters: CharacterType[]
+): CharacterType[] {
+  if (activeCharacters.length >= gameState.maxCharacters || gameState.isGameOver) return [];
 
+  // Går igenom alla nuvarande aktiva karaktärer och skapar en array med endast deras positionId.
+  // Om ett positionId råkar dyka upp flera gånger i listan, lagras den bara en gång i Set.
   const occupiedPositions = new Set(activeCharacters.map((char) => char.positionId));
+
+  // Genom .filter() tar vi bara med de positioner som inte finns i occupiedPositions, alltså lediga positioner.
   let availablePositions = positions.filter((pos) => !occupiedPositions.has(pos.positionId));
 
-  if (availablePositions.length === 0) return;
+  // Om alla positioner är upptagna
+  if (availablePositions.length === 0) return [];
 
   availablePositions = shuffleArray(availablePositions);
 
@@ -22,23 +26,30 @@ export function spawnRandomCharacters(
     availablePositions.length
   );
 
-  const newCharacters: CharacterType[] = availablePositions
-    .slice(0, charactersToSpawn)
-    .map((pos) => {
-      const shortUuid = uuid().substring(0, 8);
+  // Hämta en lista med positioner där vi kan skapa karaktärer
+  const possibleSpawnPositions = availablePositions.slice(0, charactersToSpawn);
 
-      return {
-        uuid: shortUuid,
-        angle: pos.angle,
-        clickedCharacter: false,
-        positionId: pos.positionId,
-        animation: getAnimation(pos.positionId),
-        animationDuration: gameState.animationDuration,
-        type: getRandomCharacterType(gameState.goodCharacterProbability),
-      };
-    });
+  // Skapa en lista med karaktärer utifrån de lediga positionerna
+  const newCharacter = possibleSpawnPositions.map((pos) => {
+    // Korta ner uuid till 8 tecken
+    const characterId = uuid().substring(0, 8);
 
-  setActiveCharacters((prev) => [...prev, ...newCharacters]);
+    // Skapa en karaktär med alla dess egenskaper
+    const character = {
+      uuid: characterId,
+      angle: pos.angle,
+      clickedCharacter: false,
+      positionId: pos.positionId,
+      animation: getAnimation(pos.positionId),
+      animationDuration: gameState.animationDuration,
+      type: getRandomCharacterType(gameState.goodCharacterProbability),
+    };
+
+    return character;
+  });
+
+  // Returnera listan med nya karaktärer
+  return newCharacter;
 }
 
 function getRandomCharacterType(probability: number): "good" | "evil" {
