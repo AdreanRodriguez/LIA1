@@ -10,12 +10,6 @@ interface BusProps {
   onCharacterClick: (character: CharacterType) => void;
 }
 
-interface Box {
-  id: string;
-  position: { top: string; left: string };
-  size: { width: string; height: string };
-}
-
 const Bus: React.FC<BusProps> = ({
   characters,
   isGameStarted,
