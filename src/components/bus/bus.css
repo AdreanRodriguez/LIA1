@@ -9,13 +9,11 @@
   width: 90%;
   bottom: -4px;
   height: auto;
-  /* overflow: hidden; */
   position: absolute;
   transform: translateX(-50%);
 }
 
 .bus {
-  /* z-index: 0; */
   left: 0;
   bottom: 0;
   z-index: 1;
