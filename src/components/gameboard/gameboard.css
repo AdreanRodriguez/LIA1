@@ -59,10 +59,3 @@
     display: block;
   }
 }
-
-/* @media screen and (orientation: portrait) {
-  .spinner,
-  .loader-logo {
-    display: none;
-  }
-} */
