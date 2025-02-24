@@ -1,4 +1,3 @@
-// import { useCleanup } from "./useCleanup";
 import { useState, useEffect } from "react";
 import { gameOver } from "../gameLogic/gameOver";
 import { startGame } from "../gameLogic/startGame";

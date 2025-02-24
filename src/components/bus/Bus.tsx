@@ -19,9 +19,14 @@ const Bus: React.FC<BusProps> = ({
   const hasBusArrived = useRef(false);
 
   useEffect(() => {
-    // Kör animationen ENBART när spelet startas första gången
     if (isGameStarted && !hasBusArrived.current) {
-      hasBusArrived.current = true; // Markera att bussen har anlänt
+      const busTimeout = setTimeout(() => {
+        hasBusArrived.current = true;
+      }, 50);
+
+      return () => {
+        clearTimeout(busTimeout);
+      };
     }
   }, [isGameStarted]);
 
