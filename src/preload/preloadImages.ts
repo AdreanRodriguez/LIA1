@@ -17,9 +17,6 @@ export const preloadImages = async () => {
     "/images/logo.png",
     "/images/spinner.svg",
 
-    // Eventuellt ta bort i framtiden
-    "/assets/instagramLogo.svg",
-
     "/assets/bus/busInside.png",
     "/assets/bus/busOutside.png",
 

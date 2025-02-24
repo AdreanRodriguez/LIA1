@@ -4,7 +4,7 @@ import { gameOver } from "../gameLogic/gameOver";
 import { startGame } from "../gameLogic/startGame";
 import { CharacterType } from "../types/characterType";
 import { preloadAssets } from "../preload/preloadAssets";
-import { spawnRandomCharacters } from "../gameLogic/spawnRandomCharacters";
+import { spawnRandomCharacter } from "../gameLogic/spawnRandomCharacter";
 import { updateGameState, GameState, DEFAULT_GAME_STATE } from "../gameLogic/gameLogic";
 
 export function useGameLogic() {
@@ -63,15 +63,7 @@ export function useGameLogic() {
     // Spelet har inte startat
     if (!isGameStarted) return startGame(setIsGameStarted, resetGameState);
 
-    // Spawnar en karaktär varje spawnInterval
-    const spawnInterval = setInterval(() => {
-      setActiveCharacters((prevCharacters) => {
-        if (prevCharacters.length >= gameState.maxCharacters) return prevCharacters;
-        const newCharacter = spawnRandomCharacters(gameState, prevCharacters).slice(0, 1); // Spawnar EN karaktär
-
-        return [...prevCharacters, ...newCharacter];
-      });
-    }, gameState.spawnInterval);
+    const cleanup = spawnCharacter();
 
     // Timer som räknar ner varje sekund
     const timerInterval = setInterval(() => {
@@ -91,7 +83,7 @@ export function useGameLogic() {
 
     // Rensa timers när spelet avslutas eller startas om
     return () => {
-      clearInterval(spawnInterval);
+      cleanup();
       clearInterval(timerInterval);
     };
   }, [
@@ -102,15 +94,41 @@ export function useGameLogic() {
     gameState.animationDuration,
   ]);
 
+  function spawnCharacter() {
+    let isActive = true;
+
+    const spawn = () => {
+      setActiveCharacters((prevCharacters) => {
+        if (!isActive || prevCharacters.length >= gameState.maxCharacters) return prevCharacters;
+
+        const newCharacter = spawnRandomCharacter(gameState, prevCharacters);
+        if (!newCharacter) return prevCharacters;
+
+        return [...prevCharacters, newCharacter];
+      });
+
+      // Se till att vi alltid använder den senaste versionen av gameState
+      setGameState((prevGameState) => ({ ...prevGameState }));
+
+      if (isActive) {
+        setTimeout(spawn, gameState.spawnInterval); // Använder det senaste värdet av `gameState`
+      }
+    };
+
+    spawn();
+
+    return () => {
+      isActive = false;
+    };
+  }
+
   function handleCharacterRemoval(uuid: string) {
     setActiveCharacters((prev) => {
       const updatedCharacters = prev.filter((char) => char.uuid !== uuid);
-
       if (updatedCharacters.length < gameState.maxCharacters) {
-        const newCharacter = spawnRandomCharacters(gameState, updatedCharacters);
-        return [...updatedCharacters, ...newCharacter.slice(0, 1)];
+        const newCharacter = spawnRandomCharacter(gameState, updatedCharacters);
+        return newCharacter ? [...updatedCharacters, newCharacter] : updatedCharacters;
       }
-
       return updatedCharacters;
     });
   }

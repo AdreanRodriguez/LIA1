@@ -1,7 +1,7 @@
 import "./gameboard.css";
 import Bus from "../bus/Bus";
 import Bush from "../bush/Bush";
-import Cloud from "../cloud/Cloud";
+// import Cloud from "../cloud/Cloud";
 import { GameState } from "../../gameLogic/gameLogic";
 import { CharacterType } from "../../types/characterType";
 
@@ -54,10 +54,6 @@ export const Gameboard: React.FC<GameboardProps> = ({
         onAnimationEnd={handleCharacterRemoval}
         characters={activeCharacters.filter((char) => char.positionId === "bush-right")}
       />
-
-      <Cloud top="0" left="20vw" width="10vw" height="14svh" animationDuration="10s" />
-      <Cloud top="0" left="90vw" width="10vw" height="14svh" animationDuration="60s" />
-      <Cloud top="0" left="60vw" width="10vw" height="14svh" animationDuration="53s" />
     </main>
   );
 };
