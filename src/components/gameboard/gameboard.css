@@ -54,6 +54,17 @@
   color: var(--highlight-orange);
 }
 
+.feedback-red {
+  transform: scale(1.1);
+  background-color: rgba(255, 0, 0, 0.6);
+}
+
+.feedback-green {
+  transform: scale(1.1);
+  /* background-color: rgba(0, 94, 0, 0.6); */
+  background-color: rgba(0, 90, 0, 0.6);
+}
+
 @media screen and (orientation: landscape) {
   .gameboard-container {
     display: block;

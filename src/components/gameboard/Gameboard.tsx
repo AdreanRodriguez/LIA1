@@ -3,6 +3,7 @@ import Bus from "../bus/Bus";
 import Bush from "../bush/Bush";
 import { GameState } from "../../gameLogic/gameLogic";
 import { CharacterType } from "../../types/characterType";
+import { useState } from "react";
 
 interface GameboardProps {
   gameState: GameState;
@@ -19,17 +20,31 @@ export const Gameboard: React.FC<GameboardProps> = ({
   handleCharacterClick,
   handleCharacterRemoval,
 }) => {
+  const [feedbackEffect, setFeedbackEffect] = useState(""); // Feedback till användaren i färg
+
+  function handleClick(character: CharacterType) {
+    if (character.clickedCharacter) return;
+
+    setFeedbackEffect(character.type === "evil" ? "feedback-green" : "feedback-red");
+
+    setTimeout(() => {
+      setFeedbackEffect("");
+    }, 100); // Ta bort effekten efter 100ms
+
+    handleCharacterClick(character);
+  }
+
   return (
     <main
       className={`gameboard-container ${
         gameState.isGameOver || !isGameStarted ? "blur-background" : ""
       }`}
     >
-      <h2 className="gameboard__timer__text">
+      <h2 className={`gameboard__timer__text ${feedbackEffect}`}>
         Tid:
         <span className="gameboard__timer__number">{gameState.timeLeft}</span>
       </h2>
-      <h2 className="gameboard__score__text">
+      <h2 className={`gameboard__score__text ${feedbackEffect}`}>
         Poäng:
         <span className="gameboard__score__number">{gameState.score}</span>
       </h2>
@@ -37,19 +52,19 @@ export const Gameboard: React.FC<GameboardProps> = ({
       <Bus
         characters={activeCharacters}
         isGameStarted={isGameStarted}
-        onCharacterClick={handleCharacterClick}
+        onCharacterClick={handleClick}
         onAnimationEnd={handleCharacterRemoval}
       />
 
       <Bush
         position="left"
-        onCharacterClick={handleCharacterClick}
+        onCharacterClick={handleClick}
         onAnimationEnd={handleCharacterRemoval}
         characters={activeCharacters.filter((char) => char.positionId === "bush-left")}
       />
       <Bush
         position="right"
-        onCharacterClick={handleCharacterClick}
+        onCharacterClick={handleClick}
         onAnimationEnd={handleCharacterRemoval}
         characters={activeCharacters.filter((char) => char.positionId === "bush-right")}
       />

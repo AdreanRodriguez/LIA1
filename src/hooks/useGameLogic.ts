@@ -93,24 +93,28 @@ export function useGameLogic() {
     gameState.animationDuration,
   ]);
 
+  let spawnRunning = false; // Kontrollvariabel
+
   function spawnCharacter() {
+    if (spawnRunning) return () => {}; // Stoppa om en loop redan körs
+    spawnRunning = true; // Sätt att en loop är igång
+
     let isActive = true;
 
     const spawn = () => {
+      if (!isActive) return;
+
       setActiveCharacters((prevCharacters) => {
-        if (!isActive || prevCharacters.length >= gameState.maxCharacters) return prevCharacters;
+        if (prevCharacters.length >= gameState.maxCharacters) return prevCharacters;
 
         const newCharacter = spawnRandomCharacter(gameState, prevCharacters);
-        if (!newCharacter) return prevCharacters;
-
-        return [...prevCharacters, newCharacter];
+        return newCharacter ? [...prevCharacters, newCharacter] : prevCharacters;
       });
 
-      // Se till att vi alltid använder den senaste versionen av gameState
       setGameState((prevGameState) => ({ ...prevGameState }));
 
       if (isActive) {
-        setTimeout(spawn, gameState.spawnInterval); // Använder det senaste värdet av `gameState`
+        setTimeout(spawn, gameState.spawnInterval);
       }
     };
 
@@ -118,6 +122,7 @@ export function useGameLogic() {
 
     return () => {
       isActive = false;
+      spawnRunning = false; // Markera att loopen är stoppad
     };
   }
 

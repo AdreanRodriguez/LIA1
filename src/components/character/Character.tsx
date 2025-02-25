@@ -17,12 +17,12 @@ export default function Character({
   characterImage,
   onAnimationEnd,
 }: CharacterProps) {
-  const cartoonPoofImange = "/assets/poof.png";
+  const cartoonPoofImage = "/assets/poof.png";
 
   const { positionId, uuid, type, angle, animation, clickedCharacter, animationDuration } =
     character;
 
-  const image = clickedCharacter && type === "evil" ? cartoonPoofImange : characterImage;
+  const image = clickedCharacter && type === "evil" ? cartoonPoofImage : characterImage;
 
   const characterStyle: React.CSSProperties = {
     ...size, // Bredd och höjd från `getCharacterData`

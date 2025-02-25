@@ -50,10 +50,10 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
       {character && (
         <Character
           character={character}
-          onClick={onCharacterClick}
-          characterImage={characterData.characterImage}
           size={characterData.size}
+          onClick={onCharacterClick}
           onAnimationEnd={onAnimationEnd}
+          characterImage={characterData.characterImage}
         />
       )}
     </div>
