@@ -10,7 +10,6 @@ async function preloadImage(url: string) {
 export const preloadImages = async () => {
   const imageList = [
     "/assets/poof.png",
-    "/assets/cloud.png",
     "/assets/background.png",
     "/assets/rotateDevice.svg",
 
