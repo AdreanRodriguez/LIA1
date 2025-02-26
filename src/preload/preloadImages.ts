@@ -9,12 +9,12 @@ async function preloadImage(url: string) {
 
 export const preloadImages = async () => {
   const imageList = [
+    "/images/logo.png",
+    "/images/spinner.svg",
+
     "/assets/poof.png",
     "/assets/background.png",
     "/assets/rotateDevice.svg",
-
-    "/images/logo.png",
-    "/images/spinner.svg",
 
     "/assets/bus/busInside.png",
     "/assets/bus/busOutside.png",
