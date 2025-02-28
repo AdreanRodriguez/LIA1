@@ -6,15 +6,15 @@ interface CharacterProps {
   character: CharacterType;
   style?: React.CSSProperties;
   size: { width: string; height: string };
-  onClick: (character: CharacterType) => void;
+  handleCharacterClick: (character: CharacterType) => void;
   handleCharacterRemoval?: (uuid: string) => void;
 }
 
 export default function Character({
   size,
-  onClick,
   character,
   characterImage,
+  handleCharacterClick,
   handleCharacterRemoval,
 }: CharacterProps) {
   const cartoonPoofImage = "/assets/poof.png";
@@ -38,7 +38,7 @@ export default function Character({
     <div
       className={`${type}-character ${clickedCharacter ? "clickedCharacter" : ""}`}
       style={characterStyle}
-      onClick={() => onClick(character)}
+      onClick={() => handleCharacterClick(character)}
       onAnimationEnd={() => {
         if (handleCharacterRemoval) {
           handleCharacterRemoval(uuid);

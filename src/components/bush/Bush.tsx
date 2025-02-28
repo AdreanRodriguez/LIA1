@@ -6,13 +6,13 @@ interface BushProps {
   position: "left" | "right"; // Definiera om det är vänster eller höger buske
   characters: CharacterType[]; // Karaktärer för denna buske
   handleCharacterRemoval: (uuid: string) => void;
-  onCharacterClick: (character: CharacterType) => void;
+  handleCharacterClick: (character: CharacterType) => void;
 }
 
 const Bush: React.FC<BushProps> = ({
   position,
   characters,
-  onCharacterClick,
+  handleCharacterClick,
   handleCharacterRemoval,
 }) => {
   const boxes = {
@@ -45,7 +45,7 @@ const Bush: React.FC<BushProps> = ({
           character={character}
           size={selectedBox.size}
           position={selectedBox.position}
-          onCharacterClick={onCharacterClick}
+          handleCharacterClick={handleCharacterClick}
           handleCharacterRemoval={handleCharacterRemoval}
         />
       )}

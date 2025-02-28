@@ -3,6 +3,7 @@ import { gameOver } from "../gameLogic/gameOver";
 import { startGame } from "../gameLogic/startGame";
 import { CharacterType } from "../types/characterType";
 import { preloadAssets } from "../preload/preloadAssets";
+import { spawnCharacter } from "../gameLogic/spawnCharacter";
 import { spawnRandomCharacter } from "../gameLogic/spawnRandomCharacter";
 import { updateGameState, GameState, DEFAULT_GAME_STATE } from "../gameLogic/gameLogic";
 
@@ -62,7 +63,7 @@ export function useGameLogic() {
     // Spelet har inte startat
     if (!isGameStarted) return startGame(setIsGameStarted, resetGameState);
 
-    const cleanup = spawnCharacter();
+    const cleanup = spawnCharacter(gameState, setActiveCharacters);
 
     // Timer som räknar ner varje sekund
     const timerInterval = setInterval(() => {
@@ -92,39 +93,6 @@ export function useGameLogic() {
     gameState.spawnInterval,
     gameState.animationDuration,
   ]);
-
-  let spawnRunning = false; // Kontrollvariabel
-
-  function spawnCharacter() {
-    if (spawnRunning) return () => {}; // Stoppa om en loop redan körs
-    spawnRunning = true; // Sätt att en loop är igång
-
-    let isActive = true;
-
-    const spawn = () => {
-      if (!isActive) return;
-
-      setActiveCharacters((prevCharacters) => {
-        if (prevCharacters.length >= gameState.maxCharacters) return prevCharacters;
-
-        const newCharacter = spawnRandomCharacter(gameState, prevCharacters);
-        return newCharacter ? [...prevCharacters, newCharacter] : prevCharacters;
-      });
-
-      setGameState((prevGameState) => ({ ...prevGameState }));
-
-      if (isActive) {
-        setTimeout(spawn, gameState.spawnInterval);
-      }
-    };
-
-    spawn();
-
-    return () => {
-      isActive = false;
-      spawnRunning = false; // Markera att loopen är stoppad
-    };
-  }
 
   function handleCharacterRemoval(uuid: string) {
     setActiveCharacters((prev) => {
@@ -158,9 +126,7 @@ export function useGameLogic() {
   return {
     gameState,
     isGameReady,
-    setGameState,
     isGameStarted,
-    resetGameState,
     activeCharacters,
     handleCharacterClick,
     handleCharacterRemoval,

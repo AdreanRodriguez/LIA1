@@ -10,7 +10,7 @@ interface CharacterBoxProps {
   size: { width: string; height: string }; // Storlek på lådan
   position: { top: string; left: string };
   handleCharacterRemoval: (uuid: string) => void;
-  onCharacterClick: (character: CharacterType) => void;
+  handleCharacterClick: (character: CharacterType) => void;
 }
 
 const CharacterBox: React.FC<CharacterBoxProps> = ({
@@ -18,7 +18,7 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
   style,
   position,
   character,
-  onCharacterClick,
+  handleCharacterClick,
   handleCharacterRemoval,
 }) => {
   // Rendera inte något om karaktären inte finns eller inte är synlig
@@ -51,7 +51,7 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
         <Character
           character={character}
           size={characterData.size}
-          onClick={onCharacterClick}
+          handleCharacterClick={handleCharacterClick}
           characterImage={characterData.characterImage}
           handleCharacterRemoval={handleCharacterRemoval}
         />

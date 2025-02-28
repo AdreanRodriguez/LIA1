@@ -53,20 +53,20 @@ export const Gameboard: React.FC<GameboardProps> = ({
       <Bus
         characters={activeCharacters}
         isGameStarted={isGameStarted}
-        onCharacterClick={handleClick}
+        handleCharacterClick={handleClick}
         handleCharacterRemoval={handleCharacterRemoval}
       />
 
       <Bush
         position="left"
         characters={activeCharacters}
-        onCharacterClick={handleClick}
+        handleCharacterClick={handleClick}
         handleCharacterRemoval={handleCharacterRemoval}
       />
       <Bush
         position="right"
         characters={activeCharacters}
-        onCharacterClick={handleClick}
+        handleCharacterClick={handleClick}
         handleCharacterRemoval={handleCharacterRemoval}
       />
     </main>

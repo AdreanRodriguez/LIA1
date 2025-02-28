@@ -7,13 +7,13 @@ interface BusProps {
   isGameStarted: boolean;
   characters: CharacterType[];
   handleCharacterRemoval: (uuid: string) => void;
-  onCharacterClick: (character: CharacterType) => void;
+  handleCharacterClick: (character: CharacterType) => void;
 }
 
 const Bus: React.FC<BusProps> = ({
   characters,
   isGameStarted,
-  onCharacterClick,
+  handleCharacterClick,
   handleCharacterRemoval,
 }) => {
   const hasBusArrived = useRef(false);
@@ -106,7 +106,7 @@ const Bus: React.FC<BusProps> = ({
             size={size}
             position={position}
             character={character}
-            onCharacterClick={onCharacterClick}
+            handleCharacterClick={handleCharacterClick}
             key={character ? character.uuid : positionId}
             handleCharacterRemoval={handleCharacterRemoval}
           />
