@@ -7,9 +7,9 @@ interface CharacterBoxProps {
   isBusLeft?: boolean;
   character?: CharacterType; // Karaktär som visas i denna slot
   style?: React.CSSProperties; // Valfri stil
-  onAnimationEnd: (uuid: string) => void;
   size: { width: string; height: string }; // Storlek på lådan
   position: { top: string; left: string };
+  handleCharacterRemoval: (uuid: string) => void;
   onCharacterClick: (character: CharacterType) => void;
 }
 
@@ -18,8 +18,8 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
   style,
   position,
   character,
-  onAnimationEnd,
   onCharacterClick,
+  handleCharacterRemoval,
 }) => {
   // Rendera inte något om karaktären inte finns eller inte är synlig
   if (!character) {
@@ -52,8 +52,8 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
           character={character}
           size={characterData.size}
           onClick={onCharacterClick}
-          onAnimationEnd={onAnimationEnd}
           characterImage={characterData.characterImage}
+          handleCharacterRemoval={handleCharacterRemoval}
         />
       )}
     </div>

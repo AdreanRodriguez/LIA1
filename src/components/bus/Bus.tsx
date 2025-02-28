@@ -1,20 +1,20 @@
 import "./bus.css";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import CharacterBox from "../characterBox/CharacterBox";
 import { CharacterType } from "../../types/characterType";
 
 interface BusProps {
   isGameStarted: boolean;
   characters: CharacterType[];
-  onAnimationEnd: (uuid: string) => void;
+  handleCharacterRemoval: (uuid: string) => void;
   onCharacterClick: (character: CharacterType) => void;
 }
 
 const Bus: React.FC<BusProps> = ({
   characters,
   isGameStarted,
-  onAnimationEnd,
   onCharacterClick,
+  handleCharacterRemoval,
 }) => {
   const hasBusArrived = useRef(false);
 
@@ -30,48 +30,58 @@ const Bus: React.FC<BusProps> = ({
     }
   }, [isGameStarted]);
 
-  const boxes = [
-    {
-      positionId: "window-1",
-      position: { top: "34%", left: "11%" },
-      size: { width: "8%", height: "20%" },
-    },
-    {
-      positionId: "window-2",
-      position: { top: "34%", left: "28%" },
-      size: { width: "11%", height: "20%" },
-    },
-    {
-      positionId: "window-3",
-      position: { top: "34%", left: "41%" },
-      size: { width: "11%", height: "20%" },
-    },
-    {
-      positionId: "window-4",
-      position: { top: "34%", left: "53%" },
-      size: { width: "11%", height: "20%" },
-    },
-    {
-      positionId: "window-5",
-      position: { top: "34%", left: "68%" },
-      size: { width: "11%", height: "20%" },
-    },
-    {
-      positionId: "bus-left",
-      position: { top: "44%", left: "-7%" },
-      size: { width: "12%", height: "25%" },
-    },
-    {
-      positionId: "bus-right",
-      position: { top: "50%", left: "95%" },
-      size: { width: "12%", height: "25%" },
-    },
-    {
-      positionId: "under-bus",
-      position: { top: "79%", left: "52%" },
-      size: { width: "17%", height: "20%" },
-    },
-  ];
+  const boxes = useMemo(
+    () => [
+      {
+        positionId: "window-1",
+        position: { top: "34%", left: "11%" },
+        size: { width: "8%", height: "20%" },
+      },
+      {
+        positionId: "window-2",
+        position: { top: "34%", left: "28%" },
+        size: { width: "11%", height: "20%" },
+      },
+      {
+        positionId: "window-3",
+        position: { top: "34%", left: "41%" },
+        size: { width: "11%", height: "20%" },
+      },
+      {
+        positionId: "window-4",
+        position: { top: "34%", left: "53%" },
+        size: { width: "11%", height: "20%" },
+      },
+      {
+        positionId: "window-5",
+        position: { top: "34%", left: "68%" },
+        size: { width: "11%", height: "20%" },
+      },
+      {
+        positionId: "bus-left",
+        position: { top: "44%", left: "-7%" },
+        size: { width: "12%", height: "25%" },
+      },
+      {
+        positionId: "bus-right",
+        position: { top: "50%", left: "95%" },
+        size: { width: "12%", height: "25%" },
+      },
+      {
+        positionId: "under-bus",
+        position: { top: "79%", left: "52%" },
+        size: { width: "17%", height: "20%" },
+      },
+    ],
+    []
+  );
+
+  const matchingCharacters = useMemo(() => {
+    return boxes.map((box) => ({
+      ...box,
+      character: characters.find((char) => char.positionId === box.positionId),
+    }));
+  }, [characters, boxes]);
 
   return (
     <section className="bus-wrapper">
@@ -91,22 +101,16 @@ const Bus: React.FC<BusProps> = ({
           alt="Outside of a yellow school bus"
         />
 
-        {boxes.map((box) => {
-          const matchingCharacter = characters.find(
-            (char) => char.positionId === box.positionId && char.uuid
-          );
-          return (
-            <CharacterBox
-              key={matchingCharacter ? matchingCharacter.uuid : box.positionId}
-              size={box.size}
-              position={box.position}
-              character={matchingCharacter}
-              isBusLeft={box.positionId === "bus-left"}
-              onCharacterClick={onCharacterClick}
-              onAnimationEnd={onAnimationEnd}
-            />
-          );
-        })}
+        {matchingCharacters.map(({ positionId, position, size, character }) => (
+          <CharacterBox
+            size={size}
+            position={position}
+            character={character}
+            onCharacterClick={onCharacterClick}
+            key={character ? character.uuid : positionId}
+            handleCharacterRemoval={handleCharacterRemoval}
+          />
+        ))}
       </div>
     </section>
   );

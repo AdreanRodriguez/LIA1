@@ -44,6 +44,7 @@ export const Gameboard: React.FC<GameboardProps> = ({
         Tid:
         <span className="gameboard__timer__number">{gameState.timeLeft}</span>
       </h2>
+
       <h2 className={`gameboard__score__text ${feedbackEffect}`}>
         Poäng:
         <span className="gameboard__score__number">{gameState.score}</span>
@@ -53,20 +54,20 @@ export const Gameboard: React.FC<GameboardProps> = ({
         characters={activeCharacters}
         isGameStarted={isGameStarted}
         onCharacterClick={handleClick}
-        onAnimationEnd={handleCharacterRemoval}
+        handleCharacterRemoval={handleCharacterRemoval}
       />
 
       <Bush
         position="left"
+        characters={activeCharacters}
         onCharacterClick={handleClick}
-        onAnimationEnd={handleCharacterRemoval}
-        characters={activeCharacters.filter((char) => char.positionId === "bush-left")}
+        handleCharacterRemoval={handleCharacterRemoval}
       />
       <Bush
         position="right"
+        characters={activeCharacters}
         onCharacterClick={handleClick}
-        onAnimationEnd={handleCharacterRemoval}
-        characters={activeCharacters.filter((char) => char.positionId === "bush-right")}
+        handleCharacterRemoval={handleCharacterRemoval}
       />
     </main>
   );
