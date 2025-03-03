@@ -7,7 +7,7 @@ interface CharacterProps {
   style?: React.CSSProperties;
   size: { width: string; height: string };
   handleCharacterClick: (character: CharacterType) => void;
-  handleCharacterRemoval?: (uuid: string) => void;
+  handleCharacterRemoval: (uuid: string) => void;
 }
 
 export default function Character({
@@ -39,11 +39,8 @@ export default function Character({
       className={`${type}-character ${clickedCharacter ? "clickedCharacter" : ""}`}
       style={characterStyle}
       onClick={() => handleCharacterClick(character)}
-      onAnimationEnd={() => {
-        if (handleCharacterRemoval) {
-          handleCharacterRemoval(uuid);
-        }
-      }}
+      // När animationen är slut, kör handleCharacterRemoval
+      onAnimationEnd={() => handleCharacterRemoval(uuid)}
     >
       <img
         src={image}

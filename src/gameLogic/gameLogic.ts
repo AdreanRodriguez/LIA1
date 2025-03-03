@@ -10,13 +10,13 @@ export interface GameState {
 }
 
 export const DEFAULT_GAME_STATE: GameState = {
-  score: 0,
+  score: 0, // Startar på noll
   timeLeft: 15, // Startar med 15 sekunder
-  isPaused: false,
+  isPaused: false, // Spelet är inte pausat
   maxCharacters: 3, // Max antal karaktärer som kan vara aktiva samtidigt
-  isGameOver: false,
-  spawnInterval: 900, // sekund mellan varje spawn
-  animationDuration: 2.5, // Börja med antal sekunder
+  isGameOver: false, // Det är inte Game Over
+  spawnInterval: 900, // Sekund mellan varje spawn
+  animationDuration: 2.5, // Antal sekunder per animation
   goodCharacterProbability: 0.2, // 20% sannolikhet för goda karaktärer
 };
 
@@ -42,11 +42,6 @@ export function updateGameState(
 
   // Se till att tiden aldrig blir negativ eller överstiga 60 sekunder
   timeLeft = Math.max(0, Math.min(timeLeft, 60));
-
-  // Om tiden är 0 = Game Over
-  if (timeLeft === 0) {
-    return { ...currentState, timeLeft: 0, isGameOver: true };
-  }
 
   if (score < 100) {
     maxCharacters = 3; // Max antal karaktärer som kan vara aktiva samtidigt

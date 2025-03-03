@@ -1,9 +1,9 @@
 import "./gameboard.css";
 import Bus from "../bus/Bus";
 import Bush from "../bush/Bush";
+import { useEffect, useState } from "react";
 import { GameState } from "../../gameLogic/gameLogic";
 import { CharacterType } from "../../types/characterType";
-import { useState } from "react";
 
 interface GameboardProps {
   gameState: GameState;
@@ -20,6 +20,7 @@ export const Gameboard: React.FC<GameboardProps> = ({
   handleCharacterClick,
   handleCharacterRemoval,
 }) => {
+  const [timePulse, setTimePulse] = useState(false);
   const [feedbackEffect, setFeedbackEffect] = useState(""); // Feedback till användaren i färg
 
   function handleClick(character: CharacterType) {
@@ -34,13 +35,21 @@ export const Gameboard: React.FC<GameboardProps> = ({
     handleCharacterClick(character);
   }
 
+  useEffect(() => {
+    if (gameState.timeLeft <= 5 && !gameState.isGameOver) {
+      setTimePulse(true);
+    } else {
+      setTimePulse(false);
+    }
+  }, [gameState.timeLeft, gameState.isGameOver]);
+
   return (
     <main
       className={`gameboard-container ${
         gameState.isGameOver || !isGameStarted ? "blur-background" : ""
       }`}
     >
-      <h2 className={`gameboard__timer__text ${feedbackEffect}`}>
+      <h2 className={`gameboard__timer__text ${feedbackEffect} ${timePulse ? "time-pulse" : ""}`}>
         Tid:
         <span className="gameboard__timer__number">{gameState.timeLeft}</span>
       </h2>

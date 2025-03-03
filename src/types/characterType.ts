@@ -1,3 +1,4 @@
+// Uniontype, variabel av typen CharacterId kan bara innehålla dessa specifika strängvärden.
 export type CharacterId =
   | "window-1"
   | "window-2"

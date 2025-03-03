@@ -2,15 +2,10 @@ import { GameState } from "./gameLogic";
 import { CharacterType } from "../types/characterType";
 import { spawnRandomCharacter } from "./spawnRandomCharacter";
 
-let spawnRunning = false; // Kontrollvariabel
-
 export const spawnCharacter = (
   gameState: GameState,
   setActiveCharacters: React.Dispatch<React.SetStateAction<CharacterType[]>>
 ) => {
-  if (spawnRunning) return () => {}; // Stoppa om en loop redan körs
-  spawnRunning = true; // Sätt att en loop är igång
-
   let isActive = true;
 
   const spawn = () => {
@@ -35,7 +30,6 @@ export const spawnCharacter = (
   spawn();
 
   return () => {
-    isActive = false;
-    spawnRunning = false; // Markera att loopen är stoppad
+    isActive = false; // Stoppar loopen från att skapa fler karaktärer
   };
 };
