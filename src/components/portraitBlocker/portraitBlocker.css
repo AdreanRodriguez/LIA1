@@ -30,46 +30,11 @@
 .portrait-blocker {
   top: 50%;
   left: 50%;
-  width: 20rem;
-  height: 20rem;
+  width: 15rem;
+  height: 15rem;
   display: block;
   position: absolute;
   animation: rotate 1.8s infinite cubic-bezier(0.44, -0.48, 0.19, 1.61);
-}
-
-.collaboration {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  top: 50%;
-  left: 50%;
-  font-size: 1.1rem;
-  font-weight: bold;
-  text-align: center;
-  position: absolute;
-  font-family: "Short Stack";
-  color: var(--dark);
-  animation: rotate-collaboration 1.8s infinite cubic-bezier(0.44, -0.48, 0.19, 1.61);
-}
-
-.instagramLogo {
-  width: 1.2rem;
-  height: 1.2rem;
-  margin-right: 0.2rem;
-}
-
-.collaboration a {
-  display: flex;
-  align-items: center;
-
-  font-size: 0.9rem;
-  color: var(--dark);
-  font-family: krita;
-  /* padding-right: 0.4rem; */
-  text-underline-offset: 0.2rem;
-  text-decoration-thickness: 0.2rem;
-  text-decoration-color: var(--highlight-orange);
 }
 
 @keyframes rotate {

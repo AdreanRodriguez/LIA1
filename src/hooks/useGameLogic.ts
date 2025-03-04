@@ -1,22 +1,21 @@
-// import { useCleanup } from "./useCleanup";
 import { useState, useEffect } from "react";
-import { gameOver } from "../utils/gameOver";
-import { startGame } from "./../utils/startGame";
+import { gameOver } from "../gameLogic/gameOver";
+import { startGame } from "../gameLogic/startGame";
 import { CharacterType } from "../types/characterType";
 import { preloadAssets } from "../preload/preloadAssets";
-import { spawnRandomCharacters } from "../utils/spawnRandomCharacters";
-import { updateGameState, GameState, DEFAULT_GAME_STATE } from "../utils/gameLogic";
+import { spawnCharacter } from "../gameLogic/spawnCharacter";
+import { spawnRandomCharacter } from "../gameLogic/spawnRandomCharacter";
+import { updateGameState, GameState, DEFAULT_GAME_STATE } from "../gameLogic/gameLogic";
 
 export function useGameLogic() {
   const [isGameReady, setIsGameReady] = useState<boolean>(false);
   const [isGameStarted, setIsGameStarted] = useState<boolean>(false);
   const [activeCharacters, setActiveCharacters] = useState<CharacterType[]>([]);
   const [gameState, setGameState] = useState<GameState>({ ...DEFAULT_GAME_STATE });
+
   const [isPortrait, setIsPortrait] = useState<boolean>(
     window.matchMedia("(orientation: portrait)").matches
   );
-
-  // useCleanup(gameState);
 
   function startLoaderCheck() {
     let checkLoader = setInterval(() => {
@@ -43,7 +42,7 @@ export function useGameLogic() {
     mediaQuery.addEventListener("change", handleOrientationChange);
 
     return () => mediaQuery.removeEventListener("change", handleOrientationChange);
-  }, []);
+  }, [isPortrait]);
 
   useEffect(() => {
     const loadAssets = async () => {
@@ -56,68 +55,81 @@ export function useGameLogic() {
 
   useEffect(() => {
     // Spelet är pausat
-    if (gameState.isPaused) return;
+    if (gameState.isPaused) {
+      setActiveCharacters([]); // Tömmer aktiva karaktärer för att de ska spawnas en och en
+      return;
+    }
 
     // Spelet är game over
-    if (gameState.isGameOver) return gameOver(gameState.score);
+    if (gameState.isGameOver) {
+      gameOver(gameState.score);
+      return;
+    }
 
     // Spelet har inte startat
-    if (!isGameStarted) return startGame(setIsGameStarted, resetGameState);
-
-    // Spawnar en karaktär varje spawnInterval
-    const spawnInterval = setInterval(() => {
-      setActiveCharacters((prevCharacters) => {
-        if (prevCharacters.length >= gameState.maxCharacters) {
-          return prevCharacters;
-        }
-        spawnRandomCharacters(gameState, prevCharacters, setActiveCharacters);
-        return prevCharacters;
-      });
-    }, gameState.spawnInterval);
+    if (!isGameStarted) {
+      startGame(setIsGameStarted, resetGameState);
+      return;
+    }
 
     // Timer som räknar ner varje sekund
     const timerInterval = setInterval(() => {
-      setGameState((prev) => {
-        if (prev.isGameOver) {
-          clearInterval(timerInterval);
-          return prev;
-        }
-
-        const newTime = prev.timeLeft - 1;
-        if (newTime <= 0) {
-          return { ...prev, timeLeft: 0, isGameOver: true };
-        }
-        return { ...prev, timeLeft: newTime };
-      });
+      setGameState(updateTime);
     }, 1000);
+
+    const cleanup = spawnCharacter(gameState, setActiveCharacters);
 
     // Rensa timers när spelet avslutas eller startas om
     return () => {
-      clearInterval(spawnInterval);
+      cleanup();
       clearInterval(timerInterval);
     };
   }, [
+    isPortrait,
     isGameStarted,
     gameState.isGameOver,
     gameState.spawnInterval,
     gameState.animationDuration,
-    isPortrait,
   ]);
 
+  function updateTime(currentState: GameState): GameState {
+    if (currentState.isGameOver) return currentState;
+
+    const newTime = currentState.timeLeft - 1;
+    if (newTime <= 0) {
+      return { ...currentState, timeLeft: 0, isGameOver: true };
+    }
+    return { ...currentState, timeLeft: newTime };
+  }
+
   function handleCharacterRemoval(uuid: string) {
-    setActiveCharacters((prev) => prev.filter((char) => char.uuid !== uuid));
+    setActiveCharacters((prevActiveCharacters) => {
+      // Filtrera bort den karaktär som har samma uuid som den vi ska ta bort
+      const updatedCharacters = prevActiveCharacters.filter((char) => char.uuid !== uuid);
+
+      // Kontrollera om vi har plats för en ny karaktär
+      if (updatedCharacters.length < gameState.maxCharacters) {
+        // Skapa en ny karaktär om det finns plats
+        const newCharacter = spawnRandomCharacter(gameState, updatedCharacters);
+
+        // Om en ny karaktär skapas, lägg till den i listan och returnera
+        return newCharacter ? [...updatedCharacters, newCharacter] : updatedCharacters;
+      }
+      // Om ingen ny karaktär skapas, returnera den uppdaterade listan
+      return updatedCharacters;
+    });
   }
 
   function handleCharacterClick(character: CharacterType) {
     if (character.clickedCharacter) return;
 
-    setActiveCharacters((prev) =>
-      prev.map((char) =>
+    setActiveCharacters((prevActiveCharacters) =>
+      prevActiveCharacters.map((char) =>
         char.positionId === character.positionId ? { ...char, clickedCharacter: true } : char
       )
     );
 
-    setGameState((prev) => updateGameState(prev, character.type));
+    setGameState((prevGameState) => updateGameState(prevGameState, character.type));
   }
 
   // Funktion för att återställa spelet
@@ -129,9 +141,7 @@ export function useGameLogic() {
   return {
     gameState,
     isGameReady,
-    setGameState,
     isGameStarted,
-    resetGameState,
     activeCharacters,
     handleCharacterClick,
     handleCharacterRemoval,

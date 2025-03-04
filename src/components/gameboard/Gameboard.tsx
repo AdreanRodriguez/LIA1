@@ -1,8 +1,8 @@
 import "./gameboard.css";
 import Bus from "../bus/Bus";
 import Bush from "../bush/Bush";
-import Cloud from "../cloud/Cloud";
-import { GameState } from "../../utils/gameLogic";
+import { useEffect, useState } from "react";
+import { GameState } from "../../gameLogic/gameLogic";
 import { CharacterType } from "../../types/characterType";
 
 interface GameboardProps {
@@ -20,17 +20,41 @@ export const Gameboard: React.FC<GameboardProps> = ({
   handleCharacterClick,
   handleCharacterRemoval,
 }) => {
+  const [timePulse, setTimePulse] = useState(false);
+  const [feedbackEffect, setFeedbackEffect] = useState(""); // Feedback till användaren i färg
+
+  function handleClick(character: CharacterType) {
+    if (character.clickedCharacter) return;
+
+    setFeedbackEffect(character.type === "evil" ? "feedback-green" : "feedback-red");
+
+    setTimeout(() => {
+      setFeedbackEffect("");
+    }, 100); // Ta bort effekten efter 100ms
+
+    handleCharacterClick(character);
+  }
+
+  useEffect(() => {
+    if (gameState.timeLeft <= 5 && !gameState.isGameOver) {
+      setTimePulse(true);
+    } else {
+      setTimePulse(false);
+    }
+  }, [gameState.timeLeft, gameState.isGameOver]);
+
   return (
     <main
       className={`gameboard-container ${
         gameState.isGameOver || !isGameStarted ? "blur-background" : ""
       }`}
     >
-      <h2 className="gameboard__timer__text">
+      <h2 className={`gameboard__timer__text ${feedbackEffect} ${timePulse ? "time-pulse" : ""}`}>
         Tid:
         <span className="gameboard__timer__number">{gameState.timeLeft}</span>
       </h2>
-      <h2 className="gameboard__score__text">
+
+      <h2 className={`gameboard__score__text ${feedbackEffect}`}>
         Poäng:
         <span className="gameboard__score__number">{gameState.score}</span>
       </h2>
@@ -38,26 +62,22 @@ export const Gameboard: React.FC<GameboardProps> = ({
       <Bus
         characters={activeCharacters}
         isGameStarted={isGameStarted}
-        onCharacterClick={handleCharacterClick}
-        onAnimationEnd={handleCharacterRemoval}
+        handleCharacterClick={handleClick}
+        handleCharacterRemoval={handleCharacterRemoval}
       />
 
       <Bush
         position="left"
-        onCharacterClick={handleCharacterClick}
-        onAnimationEnd={handleCharacterRemoval}
-        characters={activeCharacters.filter((char) => char.positionId === "bush-left")}
+        characters={activeCharacters}
+        handleCharacterClick={handleClick}
+        handleCharacterRemoval={handleCharacterRemoval}
       />
       <Bush
         position="right"
-        onCharacterClick={handleCharacterClick}
-        onAnimationEnd={handleCharacterRemoval}
-        characters={activeCharacters.filter((char) => char.positionId === "bush-right")}
+        characters={activeCharacters}
+        handleCharacterClick={handleClick}
+        handleCharacterRemoval={handleCharacterRemoval}
       />
-
-      <Cloud top="0" left="20vw" width="10vw" height="14svh" animationDuration="10s" />
-      <Cloud top="0" left="90vw" width="10vw" height="14svh" animationDuration="60s" />
-      <Cloud top="0" left="60vw" width="10vw" height="14svh" animationDuration="53s" />
     </main>
   );
 };

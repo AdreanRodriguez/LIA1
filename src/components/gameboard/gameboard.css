@@ -1,12 +1,9 @@
 .gameboard-container {
-  /* width: 100vw; */
-  /* margin: 0 auto; */
   height: 100svh;
   display: none;
   overflow: hidden;
   position: relative;
   background-size: cover;
-  /* background-size: contain; */
   background-position: center;
   background-image: url("/assets/background.png");
 }
@@ -20,6 +17,7 @@
   top: 0.5rem;
   right: 0.5rem;
   color: white;
+  min-width: 10ch;
   font-size: 20px;
   font-weight: bold;
   font-family: krita;
@@ -34,6 +32,7 @@
   top: 0.5rem;
   left: 0.5rem;
   color: white;
+  min-width: 10ch;
   font-size: 20px;
   font-weight: bold;
   font-family: krita;
@@ -55,15 +54,37 @@
   color: var(--highlight-orange);
 }
 
+.feedback-red {
+  transform: scale(1.1);
+  background-color: rgba(255, 0, 0, 0.6);
+}
+
+.feedback-green {
+  transform: scale(1.1);
+  background-color: rgba(0, 90, 0, 0.6);
+}
+
+.time-pulse {
+  animation: timePulse 0.5s infinite;
+}
+
+@keyframes timePulse {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    color: red;
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 @media screen and (orientation: landscape) {
   .gameboard-container {
     display: block;
   }
 }
-
-/* @media screen and (orientation: portrait) {
-  .spinner,
-  .loader-logo {
-    display: none;
-  }
-} */

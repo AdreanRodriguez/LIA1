@@ -6,10 +6,11 @@
 
   position: relative;
   background: transparent;
+  /* Avkommentera raden nedan för att se placering av boxarna karaktärerna kommer fram i */
   /* border: 2px solid red; */
 }
 
 .character-box.flipped img {
-  -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
+  -webkit-transform: scaleX(-1);
 }

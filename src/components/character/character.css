@@ -11,6 +11,11 @@
   transition: all 0.3s ease;
 }
 
+.good-character.clickedCharacter img {
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+
 /* Från höger till vänster (under bussen) */
 @keyframes slide-under-bus {
   0% {

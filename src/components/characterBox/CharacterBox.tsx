@@ -1,7 +1,7 @@
 import "./characterBox.css";
 import Character from "../character/Character";
 import { CharacterType } from "../../types/characterType";
-import { getCharacterData } from "../../utils/getCharacterData";
+import { getCharacterData } from "../../gameLogic/getCharacterData";
 
 interface CharacterBoxProps {
   isBusLeft?: boolean;
@@ -9,8 +9,8 @@ interface CharacterBoxProps {
   style?: React.CSSProperties; // Valfri stil
   size: { width: string; height: string }; // Storlek på lådan
   position: { top: string; left: string };
-  onCharacterClick: (character: CharacterType) => void;
-  onAnimationEnd: (uuid: string) => void;
+  handleCharacterRemoval: (uuid: string) => void;
+  handleCharacterClick: (character: CharacterType) => void;
 }
 
 const CharacterBox: React.FC<CharacterBoxProps> = ({
@@ -18,8 +18,8 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
   style,
   position,
   character,
-  onAnimationEnd,
-  onCharacterClick,
+  handleCharacterClick,
+  handleCharacterRemoval,
 }) => {
   // Rendera inte något om karaktären inte finns eller inte är synlig
   if (!character) {
@@ -36,25 +36,24 @@ const CharacterBox: React.FC<CharacterBoxProps> = ({
     return null; // Rendera inte något om karaktären är null
   } // God är null i getCharacterData under bussen
 
+  const characterBoxStyle: React.CSSProperties = {
+    ...style,
+    width: size.width,
+    top: position.top,
+    height: size.height,
+    left: position.left,
+    position: "absolute",
+  };
+
   return (
-    <div
-      className="character-box"
-      style={{
-        ...style,
-        width: size.width,
-        top: position.top,
-        height: size.height,
-        left: position.left,
-        position: "absolute",
-      }}
-    >
+    <div className="character-box" style={characterBoxStyle}>
       {character && (
         <Character
           character={character}
-          onClick={onCharacterClick}
-          characterImage={characterData.characterImage}
           size={characterData.size}
-          onAnimationEnd={onAnimationEnd}
+          handleCharacterClick={handleCharacterClick}
+          characterImage={characterData.characterImage}
+          handleCharacterRemoval={handleCharacterRemoval}
         />
       )}
     </div>

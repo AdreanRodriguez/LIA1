@@ -5,24 +5,24 @@ interface CharacterProps {
   characterImage: string;
   character: CharacterType;
   style?: React.CSSProperties;
-  onAnimationEnd?: (uuid: string) => void;
   size: { width: string; height: string };
-  onClick: (character: CharacterType) => void;
+  handleCharacterClick: (character: CharacterType) => void;
+  handleCharacterRemoval: (uuid: string) => void;
 }
 
 export default function Character({
   size,
-  onClick,
   character,
   characterImage,
-  onAnimationEnd,
+  handleCharacterClick,
+  handleCharacterRemoval,
 }: CharacterProps) {
-  const cartoonPoofImange = "/assets/poof.png";
+  const cartoonPoofImage = "/assets/poof.png";
 
   const { positionId, uuid, type, angle, animation, clickedCharacter, animationDuration } =
     character;
 
-  const image = clickedCharacter && type === "evil" ? cartoonPoofImange : characterImage;
+  const image = clickedCharacter && type === "evil" ? cartoonPoofImage : characterImage;
 
   const characterStyle: React.CSSProperties = {
     ...size, // Bredd och höjd från `getCharacterData`
@@ -38,13 +38,9 @@ export default function Character({
     <div
       className={`${type}-character ${clickedCharacter ? "clickedCharacter" : ""}`}
       style={characterStyle}
-      onClick={() => onClick(character)}
-      onAnimationEnd={() => {
-        // console.log(`Animation ended for character with uuid: ${uuid}`);
-        if (onAnimationEnd) {
-          onAnimationEnd(uuid);
-        }
-      }}
+      onClick={() => handleCharacterClick(character)}
+      // När animationen är slut, kör handleCharacterRemoval
+      onAnimationEnd={() => handleCharacterRemoval(uuid)}
     >
       <img
         src={image}

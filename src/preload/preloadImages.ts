@@ -1,15 +1,20 @@
-export const preloadImages = async (): Promise<void> => {
-  const imageList = [
-    "/assets/poof.png",
-    "/assets/cloud.png",
-    "/assets/background.png",
-    "/assets/rotateDevice.svg",
+async function preloadImage(url: string) {
+  return new Promise<void>((resolve, reject) => {
+    const img = new Image();
+    img.src = url;
+    img.onload = () => resolve();
+    img.onerror = () => reject(new Error(`Failed to load ${url}`));
+  });
+}
 
+export const preloadImages = async () => {
+  const imageList = [
     "/images/logo.png",
     "/images/spinner.svg",
 
-    // Eventuellt ta bort i framtiden
-    "/assets/instagramLogo.svg",
+    "/assets/poof.png",
+    "/assets/background.png",
+    "/assets/rotateDevice.svg",
 
     "/assets/bus/busInside.png",
     "/assets/bus/busOutside.png",
@@ -28,20 +33,10 @@ export const preloadImages = async (): Promise<void> => {
     "/assets/goodCharacters/goodLookToRight.png",
   ];
 
-  await Promise.all(
-    imageList.map(
-      (url) =>
-        new Promise<void>((resolve, reject) => {
-          const img = new Image();
-          img.src = url;
-          img.onload = () => resolve();
-          img.onerror = (err) => {
-            console.error(`Failed to load image: ${url}`, err);
-            reject(err);
-          };
-        })
-    )
-  );
-
-  // console.log("All images loaded");
+  try {
+    await Promise.all(imageList.map(preloadImage));
+    // console.log("All images preloaded");
+  } catch (error) {
+    console.error("Error preloading images:", error);
+  }
 };
